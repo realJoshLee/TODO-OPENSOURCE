@@ -4,8 +4,7 @@ This is a open source document storage application under the MIT license. If you
 ## Installation
   - Go to the following link: https://joshlee.pw/webapps/docusign/latest/latest.zip
   - Download your copy.
-  - Make sure that you configure the following documents to work with your MySQL database.
-    - config.php (Root folder)
+  - Read the copy of the configuration-tutorial.txt to view next steps.
 
 ## Terms and Conditions
 Welcome to DocuStorage!
