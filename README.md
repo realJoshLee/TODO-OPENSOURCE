@@ -1,5 +1,5 @@
 # DocuStorage
-This is a open source document storage application under the MIT license. If you have any questions, please contact us at contact@joshlee.pw and we will try our best to get back to you.
+This is a open source document storage application under the MIT license. If you have any questions, please contact us at contact@joshlee.pw and we will try our best to get back to you. This document is just a link to the project location that gets updated more frequently.
 
 ## Installation
   - Go to the following link: https://joshlee.pw/webapps/docusign/latest/latest.zip
