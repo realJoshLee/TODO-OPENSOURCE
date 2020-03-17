@@ -6,7 +6,6 @@ This is a open source document storage application under the MIT license. If you
   - Download your copy.
   - Make sure that you configure the following documents to work with your MySQL database.
     - config.php (Root folder)
-    - app/config.php
 
 ## Terms and Conditions
 Welcome to DocuStorage!
