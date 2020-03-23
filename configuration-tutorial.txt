@@ -1,0 +1,6 @@
+Congrats, you've downloaded the source code. Now time to configure everything to work with the database.
+  1. Configure index.php to point to the database.
+  2. Configure app/init.php to point to the database.
+  3. Configure the database with the following:
+    - Run the following document to configure the database: 'Create Database.sql'
+  4. Once everything above has been done, everything should work.
