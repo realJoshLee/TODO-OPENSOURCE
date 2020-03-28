@@ -100,7 +100,7 @@
         <div class="wronguser" id="wronguser"></div>
         <br>  
         <form method="post">  
-          <input type="text" name="username" class="form-control" placeholder="Username"/>  
+          <input type="email" name="username" class="form-control" placeholder="Username"/>  
           <br><br>
           <input type="password" name="password" class="form-control" placeholder="Password"/>  
           <br><br>
@@ -117,7 +117,7 @@
         <h3>Register</h3>  
         <br>  
         <form method="post">  
-          <input type="text" name="username" class="form-control" placeholder="Username"/>  
+          <input type="email" name="username" class="form-control" placeholder="Username"/>  
           <br><br>
           <input type="password" name="password" class="form-control" placeholder="Password"/>  
           <br><br>

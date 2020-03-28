@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `tasks` (
   `done` tinyint(4) NOT NULL DEFAULT 0,
   `created` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4;
 
 -- Data exporting was unselected.
 
@@ -16,8 +16,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `password` varchar(256) DEFAULT NULL,
-  `donor` tinyint(4) DEFAULT NULL,
+  `donor` tinyint(1) NOT NULL DEFAULT 0,
+  `verified` tinyint(1) NOT NULL DEFAULT 0,
+  `admin` tinyint(1) NOT NULL DEFAULT 0,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`username`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COMMENT='Users for all web apps.\r\n';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COMMENT='Users for all web apps.\r\n';
