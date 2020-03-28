@@ -1,0 +1,58 @@
+
+      // Sending function for the index.
+    case 'indexsend':
+      if (!empty($name)) {
+        $doneQuery = $db->prepare("
+          UPDATE tasks SET folder = :folder
+          WHERE id = :item;
+          UPDATE tasks SET user = :user
+          ");
+
+        $doneQuery->execute([
+          'item' => $item,
+          'folder' => "sent",
+          'user' => $_POST['name']
+        ]);
+      }
+      header('Location: index.php');
+      break;
+
+      //Sending function for the work page
+    case 'worksend':
+      if (!empty($name)) {
+        $doneQuery = $db->prepare("
+          UPDATE tasks SET folder = :folder
+          WHERE id = :item;
+          UPDATE tasks SET user = :user
+          ");
+
+        $doneQuery->execute([
+          'item' => $item,
+          'folder' => "sent",
+          'user' => $_POST['name']
+        ]);
+      }
+      header('Location: work.php');
+      break;
+
+      // Sending function for the personal page.
+    case 'personalsend':
+      if (!empty($name)) {
+        $doneQuery = $db->prepare("
+            UPDATE tasks SET folder = :folder
+            WHERE id = :item;
+            UPDATE tasks SET user = :user
+            ");
+
+        $doneQuery->execute([
+          'item' => $item,
+          'folder' => "sent",
+          'user' => $_POST['name']
+        ]);
+      }
+      header('Location: personal.php');
+      break;
+
+
+
+<!--Send Task--><button id="myBtn"><img src="assets/images/send-active.svg" id="sendbutton" height="10px" width="10px"></button><div id="myModal" class="modal"><div class="modal-content"><span class="close">&times;</span><h2>Send Task:</h2><p>Please enter in the account username that you would like to send that task to.<form action="functions-send.php?as=indexsend&item=<?php echo $item['id'] ?>" method="post"><input type="text" class="task" name="name" placeholder="Account Username:"><br><br><input type="submit" class="submit" value="Send Task"></form></div></div>

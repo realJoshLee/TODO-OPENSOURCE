@@ -20,6 +20,29 @@
     ]);
   ?>
 
+
+<?php
+// Makes sure the user is a verified.
+require_once 'init.php';
+$username = $_SESSION['username'];
+$query = "SELECT * FROM users WHERE username = '$username' AND verified = 1";
+$result = mysqli_query($connect, $query);
+$verifyTrue = 1;
+$verifyFalse = 0;
+if (mysqli_num_rows($result) > 0) {
+  while ($row = mysqli_fetch_array($result)) {
+    if ($verifyQuery == $verifyFalse) {
+    } else {
+      header("Location: ../verification/");
+      exit();
+    }
+  }
+} else {
+  header("Location: ../verification/");
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -72,7 +95,20 @@
             <ul class="account-settings-container">
               <!--Current User-->
               <li class="account-setting">
+                <?php
+                  require_once 'init.php';
+
+                  $itemsQuery = $db->prepare("SELECT id, username, recovery FROM users WHERE username = :user");
+                
+                  $itemsQuery->execute([
+                    'user' => $_SESSION['user_id']
+                    ]);
+                
+                  $items = $itemsQuery->rowCount() ? $itemsQuery : [];
+                ?>
                 <p class="current-user">Current User:&nbsp;<i><?php echo $_SESSION["username"]; ?></i></p>
+                <p class="current-user">Recovery Code:&nbsp;<?php foreach($items as $item): ?><?php echo $item['recovery']; ?>&nbsp;-&nbsp;<a href="update-recovery-code.php?as=regen&item=<?php echo $item['id'] ?>" class="done-button">Regenerate Code</a><?php endforeach; ?></p>
+                <p class="red">Please make sure to write down your recovery<br>code. This is the only way to recover your password<br>if you forget it.</p>
               </li>
 
               <br><br>
@@ -80,7 +116,7 @@
               <!--Change Email-->
               <li class="account-setting">
                 <p class="change-email-title">Change email:</p>
-                <form action="#" method="post">
+                <form action="email-update.php" method="post">
                   <input id="form" type="text" placeholder="Type New Email Here" name="name" class="change-email-container">&nbsp;&nbsp;&nbsp;<input id="form-button" type="submit" value="Change Email" class="change-email-submit">
                 </form>
               </li>
@@ -90,8 +126,12 @@
               <!--Change Password-->
               <li class="account-setting">
                 <p class="change-password-title">Change password:</p>
-                <form action="#" method="post">
-                  <input id="form" type="text" placeholder="Type New Password Here" class="change-password-container">&nbsp;&nbsp;&nbsp;<input id="form-button" type="submit" value="Change Email" class="change-password-submit">
+                <form action="password-update.php" method="post">
+                  <input id="form" type="password" placeholder="Type OLD Password Here" name="passwordold" class="change-password-container">
+                  <br>
+                  <input id="form" type="password" placeholder="Type NEW Password Here" name="passwordnew" class="change-password-container">
+                  <br>
+                  <input id="form-button" type="submit" value="Change Password" class="change-password-submit">
                 </form>
               </li>
             </ul>
@@ -182,6 +222,10 @@
     transition-duration: 0.3s;
   }
 
+  p.red {
+    color: red;
+  }
+
 
 
 
@@ -239,6 +283,20 @@
     width: 250px;
 
     padding-left: 5px;
+  }
+
+  input.submit {
+    height: 31px;
+
+    border: 1px solid #a9a9a9;
+    background-color: transparent;
+  }
+
+  input.submit:hover {
+    opacity: 0.7;
+    cursor: pointer;
+
+    transition-duration: 0.3s;
   }
 
   input#form-button {

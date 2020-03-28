@@ -430,3 +430,26 @@ li {
     padding-right: 0px;
   }
 }
+
+@media screen and (max-width: 400px) {
+  #folder-icon {
+    height: 25px;
+    width: 25px;
+  }
+}
+
+
+@media screen and (max-width: 358px) {
+  #folder-icon {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+
+@media screen and (max-width: 318px) {
+  #folder-icon {
+    height: 15px;
+    width: 15px;
+  }
+}

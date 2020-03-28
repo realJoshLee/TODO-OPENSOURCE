@@ -9,6 +9,28 @@
     header("location:../index.php?action=login");  
   }
   ?>
+
+  <?php
+  // Makes sure the user is a verified.
+  require_once 'init.php';
+  $username = $_SESSION['username'];
+  $query = "SELECT * FROM users WHERE username = '$username' AND verified = 1";
+  $result = mysqli_query($connect, $query);
+  $verifyTrue = 1;
+  $verifyFalse = 0;
+  if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_array($result)) {
+      if ($verifyQuery == $verifyFalse) {
+      } else {
+        header("Location: ../verification/");
+        exit();
+      }
+    }
+  } else {
+    header("Location: ../verification/");
+    exit();
+  }
+  ?>
   
 <?php
   require_once 'init.php';
