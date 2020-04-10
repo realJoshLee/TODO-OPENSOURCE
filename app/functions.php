@@ -437,7 +437,7 @@ if (isset($_GET['as'], $_GET['item'])) {
       ]);
       header('Location: all.php');
       break;
-    
+
       // All listing delete
     case 'alldelete':
       $doneQuery = $db->prepare("

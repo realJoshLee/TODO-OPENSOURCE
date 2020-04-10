@@ -15,6 +15,28 @@
     echo $userdonor['user'];*/
   ?>
 
+  <?php
+  // Makes sure the user is a verified.
+  require_once 'init.php';
+  $username = $_SESSION['username'];
+  $query = "SELECT * FROM users WHERE username = '$username' AND verified = 1";
+  $result = mysqli_query($connect, $query);
+  $verifyTrue = 1;
+  $verifyFalse = 0;
+  if (mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_array($result)) {
+      if ($verifyQuery == $verifyFalse) {
+      } else {
+        header("Location: ../verification/");
+        exit();
+      }
+    }
+  } else {
+    header("Location: ../verification/");
+    exit();
+  }
+  ?>
+
 <?php
   require_once 'init.php';
 
@@ -41,6 +63,7 @@
     <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png" />
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/tasks.css">
+    <link rel="stylesheet" href="./css/item.css">
   </head>
 
   <body>
@@ -89,7 +112,7 @@
                     <!--Personal move--><a href="functions.php?as=favtopersonal&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/user-active.svg" id="bookmark" height="15px" width="15px"></a>
                     <!--Work move--><a href="functions.php?as=favtowork&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/work-active.svg" id="bookmark" height="15px" width="15px"></a>
                     <!--Delete task--><a href="functions.php?as=favdelete&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/trash-warn.svg" id="bookmark" height="15px" width="15px"></a></div>
-                </div>&nbsp;<span class="item<?php echo $item['done'] ? 'done' : '' ?>"><?php echo $item['name']; ?></span></li><?php endif; ?><?php endforeach; ?>
+                </div>&nbsp;<span class="item<?php echo $item['done'] ? 'done' : '' ?>"><form id="task-form" method="post" action="task-update.php"><input onchange="this.form.submit()" name="tasktext" type="text" class="task-box" value="<?php echo $item['name']; ?>"><input class="display-none" type="text" name="taskid" value="<?php echo $item['id']; ?>"></form></span></li><?php endif; ?><?php endforeach; ?>
             </ul>
           <?php else : ?>
             <!--What is shown when there aren't any items in the list-->
@@ -99,3 +122,27 @@
       </div>
   </body>
 </html>
+<style>
+  @media screen and (max-width: 400px) {
+    #folder-icon {
+      height: 25px;
+      width: 25px;
+    }
+  }
+  
+
+  @media screen and (max-width: 358px) {
+    #folder-icon {
+      height: 20px;
+      width: 20px;
+    }
+  }
+  
+
+  @media screen and (max-width: 318px) {
+    #folder-icon {
+      height: 15px;
+      width: 15px;
+    }
+  }
+</style>

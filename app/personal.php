@@ -39,7 +39,7 @@
 
   $itemsQuery->execute([
     'user' => $_SESSION['user_id'],
-    'folder' => "inbox"
+    'folder' => "personal"
     ]);
 
   $items = $itemsQuery->rowCount() ? $itemsQuery : [];
@@ -55,11 +55,10 @@
 				
 		<!--Links to stylesheets-->
 		<link rel="shortcut icon" type="image/png" href="assets/images/favicon.png"/>
-    <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon"/>
-    <link rel="stylesheet" href="./css/tasks.css">
+		<link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="css/tasks.css">
     <link rel="stylesheet" href="./css/item.css">
     <script src="js/tasks.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
 		<!--Body-->
@@ -71,8 +70,8 @@
           <!--Folder Selection-->
           <div class="folders">
             <a href="all.php" class="folder-link-button left"><img src="assets/images/globe-707070.svg" id="folder-icon" class="inbox-button"></a>
-            <a href="index.php" class="folder-link-button left"><img src="assets/images/inbox-active.svg" id="folder-icon" class="inbox-button"></a>
-            <a href="personal.php" class="folder-link-button" id="personal-link"><img src="assets/images/user-707070.svg" id="folder-icon" class="personal-button"></a>
+            <a href="index.php" class="folder-link-button left"><img src="assets/images/inbox-707070.svg" id="folder-icon" class="inbox-button"></a>
+            <a href="personal.php" class="folder-link-button" id="personal-link"><img src="assets/images/user-active.svg" id="folder-icon" class="personal-button"></a>
             <a href="work.php" class="folder-link-button"><img src="assets/images/work-707070.svg" id="folder-icon" class="work-button"></a>
             <a href="task-history.php" class="folder-link-button"><img src="assets/images/checkmark-707070.svg" id="folder-icon" class="done-button"></a>
             <a href="favorite.php" class="folder-link-button"><img src="assets/images/bookmark-707070.svg" id="folder-icon" class="bookmark-button"></a>
@@ -98,21 +97,22 @@
         <!--Tasks-->
         <div id="task-lists" class="column">
           <!--Header Title-->
-          <h2 class="header">Inbox:</h2>
+          <h2 class="header">Personal:</h2>
 
           <!--Where the tasks are listed-->
           <?php if(!empty($items)): ?>
-          <ul id="myul" class="items">
-            <?php foreach($items as $item): ?><?php if (!$item['done']):?><li><a href="functions.php?as=inboxdone&item=<?php echo $item['id'] ?>" class="done-button"><span class="dot"></span></a>&nbsp;<div class="task-dropdown"><!--Button to show more in the task dropdown--><button class="task-dropbtn"><!--More image--><img src="assets/images/more-707070.svg" class="more"></button><div class="task-dropdown-content"><!--Personal move--><a href="functions.php?as=inboxtopersonal&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/user-active.svg" id="bookmark" height="15px" width="15px"></a><!--Work move--><a href="functions.php?as=inboxtowork&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/work-active.svg" id="bookmark" height="15px" width="15px"></a><!--Bookmark--><a href="functions.php?as=inboxbookmark&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/bookmark-active.svg" id="bookmark" height="15px" width="15px"></a><!--Delete task--><a href="functions.php?as=inboxdelete&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/trash-warn.svg" id="bookmark" height="15px" width="15px"></a></div></div>&nbsp;<span class="item<?php echo $item['done'] ? 'done' : '' ?>"><form class="inline" id="task-form" method="post" action="task-update.php"><input onchange="this.form.submit()" name="tasktext" class="task-box" value="<?php echo $item['name']; ?>"><input class="display-none" type="text" name="taskid" value="<?php echo $item['id']; ?>"></form></span></li><?php endif; ?><?php endforeach; ?>
+          <ul class="items">
+            <?php foreach($items as $item): ?><?php if (!$item['done']):?><li><a href="functions.php?as=personaldone&item=<?php echo $item['id'] ?>" class="done-button"><span class="dot"></span></a>&nbsp;<div class="task-dropdown"><!--Button to show more in the task dropdown--><button class="task-dropbtn"><!--More image--><img src="assets/images/more-707070.svg" class="more"></button><div class="task-dropdown-content"><!--Inbox move--><a href="functions.php?as=personaltoinbox&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/inbox-active.svg" id="bookmark" height="15px" width="15px"></a><!--Work move--><a href="functions.php?as=personaltowork&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/work-active.svg" id="bookmark" height="15px" width="15px"></a><!--Bookmark--><a href="functions.php?as=personalbookmark&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/bookmark-active.svg" id="bookmark" height="15px" width="15px"></a><!--Delete task--><a href="functions.php?as=personaldelete&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/trash-warn.svg" id="bookmark" height="15px" width="15px"></a></div></div>&nbsp;<span class="item<?php echo $item['done'] ? 'done' : '' ?>"><form id="task-form" method="post" action="task-update.php"><input onchange="this.form.submit()" name="tasktext" type="text" class="task-box" value="<?php echo $item['name']; ?>"><input class="display-none" type="text" name="taskid" value="<?php echo $item['id']; ?>"></form></span></li><?php endif; ?><?php endforeach; ?>
           </ul>
           <?php else: ?>
             <!--What is shown when there aren't any items in the list-->
-            <p>There aren't any tasks in your inbox. Add some below to get started.</p>
+            <p>You haven't added any personal tasks. Add some below to get started.</p>
           <?php endif; ?>
+
           <!--The form where you add a task-->
-          <form class="item-add" method="post" action="index-add.php">
+          <form class="item-add" action="personal-add.php" method="post">
             <input type="text" name="name" placeholder="Type a new item here." class="task" autocomplete="off" required autofocus>
-            <input type="submit" name="taskadd" value="Add" class="submit">
+            <input type="submit" value="Add" class="submit">
           </form>
         </div>
       </div>

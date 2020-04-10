@@ -56,6 +56,7 @@
 		<link rel="shortcut icon" type="image/png" href="assets/images/favicon.png"/>
     <link rel="shortcut icon" href="assets/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="css/tasks.css">
+    <link rel="stylesheet" href="./css/item.css">
     <script src="js/tasks.js"></script>
 	</head>
 	<body>
@@ -102,7 +103,7 @@
           <!--Where the tasks are listed-->
           <?php if(!empty($items)): ?>
           <ul id="myul" class="items">
-            <?php foreach($items as $item): ?><?php if (!$item['done']):?><li><a href="functions.php?as=alldone&item=<?php echo $item['id'] ?>" class="done-button"><span class="dot"></span></a>&nbsp;<div class="task-dropdown"><!--Button to show more in the task dropdown--><button class="task-dropbtn"><!--More image--><img src="assets/images/more-707070.svg" class="more"></button><div class="task-dropdown-content"><!--Delete task--><a href="functions.php?as=alldelete&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/trash-warn.svg" id="bookmark" height="15px" width="15px"></a></div></div>&nbsp;<input type="submit" class="foldername" value="<?php echo $item['folder']?>">&nbsp;&nbsp;<span class="item<?php echo $item['done'] ? 'done' : '' ?>"><?php echo $item['name']; ?></span></li><?php endif; ?><?php endforeach; ?>
+            <?php foreach($items as $item): ?><?php if (!$item['done']):?><li><a href="functions.php?as=alldone&item=<?php echo $item['id'] ?>" class="done-button"><span class="dot"></span></a>&nbsp;<div class="task-dropdown"><!--Button to show more in the task dropdown--><button class="task-dropbtn"><!--More image--><img src="assets/images/more-707070.svg" class="more"></button><div class="task-dropdown-content"><!--Delete task--><a href="functions.php?as=alldelete&item=<?php echo $item['id'] ?>" class="done-button"><img src="assets/images/trash-warn.svg" id="bookmark" height="15px" width="15px"></a></div></div>&nbsp;<input type="submit" class="foldername" value="<?php echo $item['folder']?>">&nbsp;&nbsp;<span class="item<?php echo $item['done'] ? 'done' : '' ?>"><form id="task-form" method="post" action="task-update.php"><input onchange="this.form.submit()" name="tasktext" type="text" class="task-box" value="<?php echo $item['name']; ?>"><input class="display-none" type="text" name="taskid" value="<?php echo $item['id']; ?>"></form></span></li><?php endif; ?><?php endforeach; ?>
           </ul>
           <?php else: ?>
             <!--What is shown when there aren't any items in the list-->
