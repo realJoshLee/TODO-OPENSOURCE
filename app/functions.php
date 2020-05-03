@@ -1,6 +1,16 @@
 <?php
 require_once 'init.php';
 
+$tz = 'America/Detroit';
+$timestamp = time();
+$dt = new DateTime("now", new DateTimeZone($tz));
+$dt->setTimestamp($timestamp);
+$today = $dt->format('D');
+$day = $dt->format('M.d.Y');
+$date = $dt->format('D');
+
+$todaynav = $dt->format('DMdY');
+
 if (isset($_GET['action'], $_GET['item'])) {
   $action = $_GET['action'];
   $id = $_GET['item'];
@@ -27,12 +37,13 @@ if (isset($_GET['action'], $_GET['item'])) {
         UPDATE todotasks SET folder = 'none'
         WHERE user = :user
         AND id = :id;
-        UPDATE todotasks SET day = 'inbox'
+        UPDATE todotasks SET day = :day
         WHERE user = :user
         AND id = :id
       ");
 
       $doneQuery->execute([
+        'day' => $todaynav,
         'user' => $_SESSION['user_id'],
         'id' => $id
       ]);
@@ -98,7 +109,7 @@ if (isset($_GET['action'], $_GET['item'])) {
     // Moves task to sunday
     case 'sunday':
       $doneQuery = $db->prepare("
-        UPDATE todotasks SET day = 'sunday'
+        UPDATE todotasks SET day = 'sun'
         WHERE id = :id
         AND user = :user
       ");
@@ -113,7 +124,7 @@ if (isset($_GET['action'], $_GET['item'])) {
     // Moves task to monday
     case 'monday':
       $doneQuery = $db->prepare("
-        UPDATE todotasks SET day = 'monday'
+        UPDATE todotasks SET day = 'mon'
         WHERE id = :id
         AND user = :user
       ");
@@ -128,7 +139,7 @@ if (isset($_GET['action'], $_GET['item'])) {
     // Moves task to tuesday
     case 'tuesday':
       $doneQuery = $db->prepare("
-        UPDATE todotasks SET day = 'tuesday'
+        UPDATE todotasks SET day = 'tue'
         WHERE id = :id
         AND user = :user
       ");
@@ -143,7 +154,7 @@ if (isset($_GET['action'], $_GET['item'])) {
     // Moves task to wednesday
     case 'wednesday':
       $doneQuery = $db->prepare("
-        UPDATE todotasks SET day = 'wednesday'
+        UPDATE todotasks SET day = 'wed'
         WHERE id = :id
         AND user = :user
       ");
@@ -158,7 +169,7 @@ if (isset($_GET['action'], $_GET['item'])) {
     // Moves task to thursday
     case 'thursday':
       $doneQuery = $db->prepare("
-        UPDATE todotasks SET day = 'thursday'
+        UPDATE todotasks SET day = 'thu'
         WHERE id = :id
         AND user = :user
       ");
@@ -173,7 +184,7 @@ if (isset($_GET['action'], $_GET['item'])) {
     // Moves task to friday
     case 'friday':
       $doneQuery = $db->prepare("
-        UPDATE todotasks SET day = 'friday'
+        UPDATE todotasks SET day = 'fri'
         WHERE id = :id
         AND user = :user
       ");
@@ -188,22 +199,7 @@ if (isset($_GET['action'], $_GET['item'])) {
     // Moves task to saturday
     case 'saturday':
       $doneQuery = $db->prepare("
-        UPDATE todotasks SET day = 'saturday'
-        WHERE id = :id
-        AND user = :user
-      ");
-
-      $doneQuery->execute([
-        'id' => $id,
-        'user' => $_SESSION['user_id']
-      ]);
-      header('Location: ' . $_SERVER['HTTP_REFERER']);
-      break;
-
-    // Moves task to inbox
-    case 'inbox':
-      $doneQuery = $db->prepare("
-        UPDATE todotasks SET day = 'inbox'
+        UPDATE todotasks SET day = 'sat'
         WHERE id = :id
         AND user = :user
       ");

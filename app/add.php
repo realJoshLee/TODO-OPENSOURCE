@@ -7,9 +7,21 @@ $tz = 'America/Detroit';
 $timestamp = time();
 $dt = new DateTime("now", new DateTimeZone($tz));
 $dt->setTimestamp($timestamp);
-$datetime = $dt->format('M.d.Y g:i:s A');
-$date = $dt->format('M.d.Y');
-$day = $dt->format('D');
+$today = $dt->format('D');
+$day = $dt->format('M.d.Y');
+$date = $dt->format('D');
+
+$yesterdaytime = new DateTime('yesterday');
+$yesterday = $yesterdaytime->format('D.M.d.Y');
+
+$tomorrowtime = new DateTime('tomorrow');
+$tomorrow= $tomorrowtime->format('D.M.d.Y');
+
+$twodaystime = new DateTime('+2 day');
+$twodays = $twodaystime->format('D.M.d.Y');
+
+$threedaystime = new DateTime('+3 day');
+$threedays = $threedaystime->format('D.M.d.Y');
 
 if($day == 'Sun') {
   $today = "sunday";
@@ -45,7 +57,7 @@ if (isset($_GET['day'], $_POST['name'])) {
   $name = base64_encode(openssl_encrypt($namepre, $method, $key, OPENSSL_RAW_DATA, $iv));
 
   switch ($day) {
-    case 'sunday':
+    case 'Sun':
       $doneQuery = $db->prepare("
         INSERT INTO todotasks (name, user, day, done, created)
         VALUES (:name, :user, :day, 0, NOW())
@@ -54,12 +66,12 @@ if (isset($_GET['day'], $_POST['name'])) {
       $doneQuery->execute([
         'name' => $name,
         'user' => $_SESSION['user_id'],
-        'day' => "sunday"
+        'day' => "sun"
       ]);
       header('Location: ' . $_SERVER['HTTP_REFERER']);
       break;
     
-    case 'monday':
+    case 'Mon':
       $doneQuery = $db->prepare("
         INSERT INTO todotasks (name, user, day, done, created)
         VALUES (:name, :user, :day, 0, NOW())
@@ -68,12 +80,12 @@ if (isset($_GET['day'], $_POST['name'])) {
       $doneQuery->execute([
         'name' => $name,
         'user' => $_SESSION['user_id'],
-        'day' => "monday"
+        'day' => "mon"
       ]);
       header('Location: ' . $_SERVER['HTTP_REFERER']);
       break;
     
-    case 'tuesday':
+    case 'Tue':
       $doneQuery = $db->prepare("
         INSERT INTO todotasks (name, user, day, done, created)
         VALUES (:name, :user, :day, 0, NOW())
@@ -82,12 +94,12 @@ if (isset($_GET['day'], $_POST['name'])) {
       $doneQuery->execute([
         'name' => $name,
         'user' => $_SESSION['user_id'],
-        'day' => "tuesday"
+        'day' => "tue"
       ]);
       header('Location: ' . $_SERVER['HTTP_REFERER']);
       break;
     
-    case 'wednesday':
+    case 'Wed':
       $doneQuery = $db->prepare("
         INSERT INTO todotasks (name, user, day, done, created)
         VALUES (:name, :user, :day, 0, NOW())
@@ -96,12 +108,12 @@ if (isset($_GET['day'], $_POST['name'])) {
       $doneQuery->execute([
         'name' => $name,
         'user' => $_SESSION['user_id'],
-        'day' => "wednesday"
+        'day' => "wed"
       ]);
       header('Location: ' . $_SERVER['HTTP_REFERER']);
       break;
     
-    case 'thursday':
+    case 'Thu':
       $doneQuery = $db->prepare("
         INSERT INTO todotasks (name, user, day, done, created)
         VALUES (:name, :user, :day, 0, NOW())
@@ -110,12 +122,12 @@ if (isset($_GET['day'], $_POST['name'])) {
       $doneQuery->execute([
         'name' => $name,
         'user' => $_SESSION['user_id'],
-        'day' => "thursday"
+        'day' => "thu"
       ]);
       header('Location: ' . $_SERVER['HTTP_REFERER']);
       break;
     
-    case 'friday':
+    case 'Fri':
       $doneQuery = $db->prepare("
         INSERT INTO todotasks (name, user, day, done, created)
         VALUES (:name, :user, :day, 0, NOW())
@@ -124,12 +136,12 @@ if (isset($_GET['day'], $_POST['name'])) {
       $doneQuery->execute([
         'name' => $name,
         'user' => $_SESSION['user_id'],
-        'day' => "friday"
+        'day' => "fri"
       ]);
       header('Location: ' . $_SERVER['HTTP_REFERER']);
       break;
     
-    case 'saturday':
+    case 'Sat':
       $doneQuery = $db->prepare("
         INSERT INTO todotasks (name, user, day, done, created)
         VALUES (:name, :user, :day, 0, NOW())
@@ -138,7 +150,7 @@ if (isset($_GET['day'], $_POST['name'])) {
       $doneQuery->execute([
         'name' => $name,
         'user' => $_SESSION['user_id'],
-        'day' => "saturday"
+        'day' => "sat"
       ]);
       header('Location: ' . $_SERVER['HTTP_REFERER']);
       break;

@@ -17,15 +17,56 @@
   // Gets the current user.
   $currentuser = $_SESSION["username"];
 
+
+
+
+
+
+
+
+
   // Gets the current day to highlight the current day in the task listing.
   // When the screen gets to small, this will also scroll the user down the current day.
   $tz = 'America/Detroit';
   $timestamp = time();
   $dt = new DateTime("now", new DateTimeZone($tz));
   $dt->setTimestamp($timestamp);
-  $datetime = $dt->format('M.d.Y g:i:s A');
-  $date = $dt->format('M.d.Y');
-  $day = $dt->format('D');
+  $today = $dt->format('D');
+  $day = $dt->format('M.d.Y');
+  $date = $dt->format('D');
+
+  $todaynav = $dt->format('DMdY');
+  
+  $tomorrowtimenav = new DateTime('tomorrow', new DateTimeZone($tz));
+  $tomorrownav = $tomorrowtimenav->format('DMdY');
+
+  $twodaystimenav = new DateTime('+2 day', new DateTimeZone($tz));
+  $twodaysnav = $twodaystimenav->format('DMdY');
+
+  $threedaystimenav = new DateTime('+3 day');
+  $threedaysnav = $threedaystimenav->format('DMdY');
+
+
+
+  $yesterdaytime = new DateTime('yesterday', new DateTimeZone($tz));
+  $yesterday = $yesterdaytime->format('D.M.d.Y');
+
+  $tomorrowtime = new DateTime('tomorrow', new DateTimeZone($tz));
+  $tomorrow= $tomorrowtime->format('D.M.d.Y');
+
+  $twodaystime = new DateTime('+2 day', new DateTimeZone($tz));
+  $twodays = $twodaystime->format('D.M.d.Y');
+
+  $threedaystime = new DateTime('+3 day', new DateTimeZone($tz));
+  $threedays = $threedaystime->format('D.M.d.Y');
+
+
+
+
+
+
+
+
 
   // Checks to make sure the user if verified.
   $username = $_SESSION['username'];
@@ -46,6 +87,14 @@
     exit();
   }
 
+
+
+
+
+
+
+
+
   // Pulls everything from the database.
   $themeitems = $db->prepare("SELECT id, username, theme FROM users WHERE username = :user");
 
@@ -55,97 +104,102 @@
 
   $theme = $themeitems->rowCount() ? $themeitems : [];
 
+  include('css/theme-light.php');
   foreach($theme as $item){
     $usertheme = $item['theme'];
-    if($usertheme == "light") {
+    /*if($usertheme == "light") {
       // Things to do for the user theme if it is set to light.
       include('css/theme-light.php');
-    }
+    }*/
     if($usertheme == "dark") {
       // Things to do for the user theme if it is set to dark.
       include('css/theme-dark.php');
     }
   }
 
-  $sundayitems = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
 
-  $sundayitems->execute([
+
+
+
+
+
+
+
+
+  $yesterdayitemsget = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
+
+  $yesterdayget = $yesterdaytime->format('DMdY');
+
+  $yesterdayitemsget->execute([
     'user' => $_SESSION['user_id'],
-    'day' => "sunday"
+    'day' => "$yesterdayget"
     ]);
 
-  $sunday = $sundayitems->rowCount() ? $sundayitems : [];
+  $yesterdayitems = $yesterdayitemsget->rowCount() ? $yesterdayitemsget : [];
 
-  $mondayitems = $db->prepare("SELECT id, name, priority, day, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
+  $todayitemsget = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
 
-  $mondayitems->execute([
+  $todaydayget = $dt->format('DMdY');
+
+  $todayitemsget->execute([
     'user' => $_SESSION['user_id'],
-    'day' => "monday"
+    'day' => "$todaydayget"
     ]);
 
-  $monday = $mondayitems->rowCount() ? $mondayitems : [];
+  $todayitems = $todayitemsget->rowCount() ? $todayitemsget : [];
 
-  $tuesdayitems = $db->prepare("SELECT id, name, priority, day, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
+  $tomorrowitemsget = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
 
-  $tuesdayitems->execute([
+  $tomorrowdayget = $tomorrowtime->format('DMdY');
+
+  $tomorrowitemsget->execute([
     'user' => $_SESSION['user_id'],
-    'day' => "tuesday"
+    'day' => "$tomorrowdayget"
     ]);
 
-  $tuesday = $tuesdayitems->rowCount() ? $tuesdayitems : [];
+  $tomorrowitems = $tomorrowitemsget->rowCount() ? $tomorrowitemsget : [];
 
-  $wednesdayitems = $db->prepare("SELECT id, name, priority, day, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
+  $twodaysitemsget = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
 
-  $wednesdayitems->execute([
+  $twodaysdayget = $twodaystime->format('DMdY');
+
+  $twodaysitemsget->execute([
     'user' => $_SESSION['user_id'],
-    'day' => "wednesday"
+    'day' => "$twodaysdayget"
     ]);
 
-  $wednesday = $wednesdayitems->rowCount() ? $wednesdayitems : [];
+  $twodaysitems = $twodaysitemsget->rowCount() ? $twodaysitemsget : [];
 
-  $thursdayitems = $db->prepare("SELECT id, name, priority, day, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
+  $threedaysitemsget = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
 
-  $thursdayitems->execute([
+  $threedaysdayget = $threedaystime->format('DMdY');
+
+  $threedaysitemsget->execute([
     'user' => $_SESSION['user_id'],
-    'day' => "thursday"
+    'day' => "$threedaysdayget"
     ]);
 
-  $thursday = $thursdayitems->rowCount() ? $thursdayitems : [];
+  $threedaysitems = $threedaysitemsget->rowCount() ? $threedaysitemsget : [];
 
-  $fridayitems = $db->prepare("SELECT id, name, priority, day, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
+  $todayitemsgettoday = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
 
-  $fridayitems->execute([
+  $todaydaygettoday = $dt->format('DMdY');
+
+  $todayitemsgettoday->execute([
     'user' => $_SESSION['user_id'],
-    'day' => "friday"
+    'day' => "$todaydayget"
     ]);
 
-  $friday = $fridayitems->rowCount() ? $fridayitems : [];
+  $todayitemstoday = $todayitemsgettoday->rowCount() ? $todayitemsgettoday : [];
 
-  $saturdayitems = $db->prepare("SELECT id, name, priority, day, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
 
-  $saturdayitems->execute([
-    'user' => $_SESSION['user_id'],
-    'day' => "saturday"
-    ]);
 
-  $saturday = $saturdayitems->rowCount() ? $saturdayitems : [];
 
-  $inboxitems = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
 
-  $inboxitems->execute([
-    'user' => $_SESSION['user_id'],
-    'day' => "inbox"
-    ]);
 
-  $inbox = $inboxitems->rowCount() ? $inboxitems : [];
 
-  $allitems = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user ORDER BY priority ASC");
 
-  $allitems->execute([
-    'user' => $_SESSION['user_id']
-    ]);
 
-  $all = $allitems->rowCount() ? $allitems : [];
 
   $staritems = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND special = :special ORDER BY priority ASC");
 
@@ -184,44 +238,6 @@
     $gettoday = "saturday";
   }
 
-  $todayitems = $db->prepare("SELECT id, name, day, priority, done FROM todotasks WHERE user = :user AND day = :day ORDER BY priority ASC");
-
-  $todayitems->execute([
-    'user' => $_SESSION['user_id'],
-    'day' => $gettoday
-    ]);
-
-  $today = $todayitems->rowCount() ? $todayitems : [];
-
-  // Highlights the day of the week
-  if($day == 'Sun') {
-    include('css/tuesday.php');
-  }
-
-  if($day == 'Mon') {
-    include('css/monday.php');
-  }
-
-  if($day == 'Tue') {
-    include('css/tuesday.php');
-  }
-
-  if($day == 'Wed') {
-    include('css/wednesday.php');
-  }
-
-  if($day == 'Thu') {
-    include('css/thursday.php');
-  }
-
-  if($day == 'Fri') {
-    include('css/friday.php');
-  }
-
-  if($day == 'Sat') {
-    include('css/saturday.php');
-  }
-
   $folderslist = $db->prepare("SELECT id, foldername, user FROM todofolders WHERE user = :user");
 
   $folderslist->execute([
@@ -254,11 +270,11 @@
     <link rel="stylesheet" href="https://joshlee.pw/fontawesome/js/all.css">
     <script src="https://kit.fontawesome.com/8f49cccb89.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-1.9.1.js"></script>
   </head>
-  <body>
+  <body onResize="refresh()">
     <script>
-      var mq = window.matchMedia( "(max-width: 1096px)" );
+      /*var mq = window.matchMedia( "(max-width: 1096px)" );
       if (mq.matches) {
         window.onload = function () {
           // nothing
@@ -268,7 +284,7 @@
         window.onload = function () {
           nav();
         }
-      }
+      }*/
     </script>
     <!--For the sidenav-->
     <div class="left" id="left">
@@ -280,166 +296,208 @@
     <!--Right section of the listing-->
     <div class="right" id="right">
       <!--Slide out nav button-->  
-      <span class="navbutton switch-one" style="font-size:30px;cursor:pointer" onclick="nav()"><i class="fas fa-bars black"></i></span>
-      <span class="navbutton switch-two" style="font-size:30px;cursor:pointer" onclick="smallnav()"><i class="fas fa-bars black"></i></span>
+      <span class="navbutton switch-one" style="font-size:30px;cursor:pointer" onclick="nav()"><i class="fas fa-bars nav-black"></i></span>
+      <span class="navbutton switch-two" style="font-size:30px;cursor:pointer" onclick="smallnav()"><i class="fas fa-bars nav-black"></i></span>
       <?php 
         if($_GET['page'] == "week") 
         { 
       ?>
         <div class="container week-tasks">
-          
-          <!--Sunday-->
-          <div class="day sunday sun">
-            <h2>Sunday</h2>
-            <?php if(!empty($sunday)): ?>
-              <ul id="myul" class="items">
-                <?php foreach($sunday as $item): ?>
-                  <?php include('dynamic/days-task-list.php'); ?>
-                <?php endforeach; ?>
-              </ul>
-              <?php else: ?>
-                <!--What is shown when there aren't any items in the list-->
-            <?php endif; ?>
-            
-            <!--Form for adding all of the tasks.-->
-            <form class="item-add" method="post" action="add.php?day=sunday">
-              <input type="submit" name="taskadd" value="Add" class="submit">
-              <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-            </form>
+          <div class="row">
+            <!--Yesterday-->
+            <div id="yesterday" class="column yesterday">
+              <h2><?php echo $yesterdaytime->format('D'); ?> <span class="date"><?php echo $yesterdaytime->format('M d'); ?></span></h2>
+              <?php if(!empty($yesterdayitems)): ?>
+                <ul id="myul" class="items">
+                  <?php foreach($yesterdayitems as $item): ?>
+                      <li>
+                        <?php $priority = $item['priority']; ?>
+                        <?php include('dynamic/priority.php'); ?>
+                        <?php if(!$item['done']){
+                            include('dynamic/dropdown.php');
+                          }
+                        ?>
+                        <span class="dot dot-<?php echo $item['id']; ?>"></span>
+
+                        <span class="item<?php echo $item['done'] ? 'done' : '' ?>">
+                          <?php $decrypted = openssl_decrypt(base64_decode($item['name']), $method, $key, OPENSSL_RAW_DATA, $iv);?>
+                          
+                          
+                          <form class="inline form<?php echo $item['id']; ?>" id="task-form" method="post" action="actions.php?action=taskupdate">
+                            <p id="input<?php echo $item['id'];?>" class="inline taskarea" onKeyPress="return checkSubmit(event)" onKeyup="updatefunction<?php echo $item['id'];?>()"><?php  if($item['done']){echo '<i class="fas fa-check"></i>&nbsp;';} ?><?php echo $decrypted; ?></p>
+                          </form>
+                        </span>
+                      </li>
+                  <?php endforeach; ?>
+                </ul>
+                <?php else: ?>
+                  <!--What is shown when there aren't any items in the list-->
+              <?php endif; ?>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <!--Today-->
+            <div id="today" class="column today">
+              <div class="buttons">
+                <!--Prev-->
+                <button class="smallernav" >
+                  <i style="opacity: 0.3" class="fas fa-angle-double-left"></i>
+                </button>
+
+                <!--Forward-->
+                <button class="smallernav" onclick="forwardToday()">
+                  <i class="fas fa-angle-double-right"></i>
+                </button>
+              </div>
+
+              <h2 style="color:#5297ff;"><?php echo $dt->format('D'); ?> <span class="date"><?php echo $dt->format('M d'); ?></span></h2>
+              <?php if(!empty($todayitems)): ?>
+                <ul id="myul" class="items">
+                  <?php foreach($todayitems as $item): ?>
+                    <?php include('dynamic/days-task-list.php'); ?>
+                  <?php endforeach; ?>
+                </ul>
+                <?php else: ?>
+                  <!--What is shown when there aren't any items in the list-->
+              <?php endif; ?>
+              
+              <!--Form for adding all of the tasks.-->
+              <form class="item-add" method="post" action="add-task.php?day=<?php echo $dt->format('DMdY'); ?>">
+                <!--<input type="submit" name="taskadd" value="Add" class="submit">-->
+                <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
+              </form>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <!--Tomorrow-->
+            <div id="tomorrow" class="column tomorrow">
+              <div class="buttons">
+                <!--Prev-->
+                <button class="smallernav" onclick="prevTomorrow()">
+                  <i class="fas fa-angle-double-left"></i>
+                </button>
+
+                <!--Forward-->
+                <button class="smallernav" onclick="forwardTomorrow()">
+                  <i class="fas fa-angle-double-right"></i>
+                </button>
+              </div>
+
+              <h2><?php echo $tomorrowtime->format('D'); ?><span class="date"> <?php echo $tomorrowtime->format('M d'); ?></span></h2>
+              <?php if(!empty($tomorrowitems)): ?>
+                <ul id="myul" class="items">
+                  <?php foreach($tomorrowitems as $item): ?>
+                    <?php include('dynamic/days-task-list.php'); ?>
+                  <?php endforeach; ?>
+                </ul>
+                <?php else: ?>
+                  <!--What is shown when there aren't any items in the list-->
+              <?php endif; ?>
+              
+              <!--Form for adding all of the tasks.-->
+              <form class="item-add" method="post" action="add-task.php?day=<?php echo $tomorrowtime->format('DMdY'); ?>">
+                <!--<input type="submit" name="taskadd" value="Add" class="submit">-->
+                <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
+              </form>
+            </div>
+
+
+
+
+
+
+
+
+
+            <!--Two days out-->
+            <div id="twodays" class="column twodays">
+              <div class="buttons">
+                <!--Prev-->
+                <button class="smallernav" onclick="prevTwodays()">
+                  <i class="fas fa-angle-double-left"></i>
+                </button>
+
+                <!--Forward-->
+                <button class="smallernav" onclick="forwardTwodays()">
+                  <i class="fas fa-angle-double-right"></i>
+                </button>
+              </div>
+
+              <h2><?php echo $twodaystime->format('D'); ?><span class="date"> <?php echo $twodaystime->format('M d'); ?></span></h2>
+              <?php if(!empty($twodaysitems)): ?>
+                <ul id="myul" class="items">
+                  <?php foreach($twodaysitems as $item): ?>
+                    <?php include('dynamic/days-task-list.php'); ?>
+                  <?php endforeach; ?>
+                </ul>
+                <?php else: ?>
+                  <!--What is shown when there aren't any items in the list-->
+              <?php endif; ?>
+              
+              <!--Form for adding all of the tasks.-->
+              <form class="item-add" method="post" action="add-task.php?day=<?php echo $twodaystime->format('DMdY'); ?>">
+                <!--<input type="submit" name="taskadd" value="Add" class="submit">-->
+                <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
+              </form>
+            </div>
+
+
+
+
+
+
+
+
+
+
+            <!--Three days out-->
+            <div id="threedays" class="column threedays">
+              <div class="buttons">
+                <!--Prev-->
+                <button class="smallernav" onclick="prevThreedays()">
+                  <i class="fas fa-angle-double-left"></i>
+                </button>
+
+                <!--Forward-->
+                <button class="smallernav" >
+                  <i style="opacity: 0.3" class="fas fa-angle-double-right"></i>
+                </button>
+              </div>
+
+              <h2><?php echo $threedaystime->format('D'); ?><span class="date"> <?php echo $threedaystime->format('M d'); ?></span></h2>
+              <?php if(!empty($threedaysitems)): ?>
+                <ul id="myul" class="items">
+                  <?php foreach($threedaysitems as $item): ?>
+                    <?php include('dynamic/days-task-list.php'); ?>
+                  <?php endforeach; ?>
+                </ul>
+                <?php else: ?>
+                  <!--What is shown when there aren't any items in the list-->
+              <?php endif; ?>
+              
+              <!--Form for adding all of the tasks.-->
+              <form class="item-add" method="post" action="add-task.php?day=<?php echo $threedaystime->format('DMdY'); ?>">
+                <!--<input type="submit" name="taskadd" value="Add" class="submit">-->
+                <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
+              </form>
+            </div>
           </div>
-
-          <br><br>
-
-          <!--Monday-->
-          <div class="day monday mon">
-            <h2>Monday</h2>
-            <?php if(!empty($monday)): ?>
-              <ul id="myul" class="items">
-                <?php foreach($monday as $item): ?>
-                  <?php include('dynamic/days-task-list.php'); ?>
-                <?php endforeach; ?>
-              </ul>
-              <?php else: ?>
-                <!--What is shown when there aren't any items in the list-->
-            <?php endif; ?>
-            
-            <!--Form for adding all of the tasks.-->
-            <form class="item-add" method="post" action="add.php?day=monday">
-              <input type="submit" name="taskadd" value="Add" class="submit">
-              <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-            </form>
-          </div>
-
-          <br><br>
-
-          <!--Tuesday-->
-          <div class="day tuesday tue">
-            <h2>Tuesday</h2>
-            <?php if(!empty($tuesday)): ?>
-              <ul id="myul" class="items">
-                <?php foreach($tuesday as $item): ?>
-                  <?php include('dynamic/days-task-list.php'); ?>
-                <?php endforeach; ?>
-              </ul>
-              <?php else: ?>
-                <!--What is shown when there aren't any items in the list-->
-            <?php endif; ?>
-            
-            <!--Form for adding all of the tasks.-->
-            <form class="item-add" method="post" action="add.php?day=tuesday">
-              <input type="submit" name="taskadd" value="Add" class="submit">
-              <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-            </form>
-          </div>
-
-          <br><br>
-
-          <!--Wednesday-->
-          <div class="day wednesday wed">
-            <h2>Wednesday</h2>
-            <?php if(!empty($wednesday)): ?>
-              <ul id="myul" class="items">
-                <?php foreach($wednesday as $item): ?>
-                  <?php include('dynamic/days-task-list.php'); ?>
-                <?php endforeach; ?>
-              </ul>
-              <?php else: ?>
-                <!--What is shown when there aren't any items in the list-->
-            <?php endif; ?>
-            
-            <!--Form for adding all of the tasks.-->
-            <form class="item-add" method="post" action="add.php?day=wednesday">
-              <input type="submit" name="taskadd" value="Add" class="submit">
-              <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-            </form>
-          </div>
-
-          <br><br>
-
-          <!--Thursday-->
-          <div class="day thursday thu">
-            <h2>Thursday</h2>
-            <?php if(!empty($thursday)): ?>
-              <ul id="myul" class="items">
-                <?php foreach($thursday as $item): ?>
-                  <?php include('dynamic/days-task-list.php'); ?>
-                <?php endforeach; ?>
-              </ul>
-              <?php else: ?>
-                <!--What is shown when there aren't any items in the list-->
-            <?php endif; ?>
-            
-            <!--Form for adding all of the tasks.-->
-            <form class="item-add" method="post" action="add.php?day=thursday">
-              <input type="submit" name="taskadd" value="Add" class="submit">
-              <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-            </form>
-          </div>
-
-          <br><br>
-
-          <!--Friday-->
-          <div class="day friday fri">
-            <h2>Friday</h2>
-            <?php if(!empty($friday)): ?>
-              <ul id="myul" class="items">
-                <?php foreach($friday as $item): ?>
-                  <?php include('dynamic/days-task-list.php'); ?>
-                <?php endforeach; ?>
-              </ul>
-              <?php else: ?>
-                <!--What is shown when there aren't any items in the list-->
-            <?php endif; ?>
-            
-            <!--Form for adding all of the tasks.-->
-            <form class="item-add" method="post" action="add.php?day=friday">
-              <input type="submit" name="taskadd" value="Add" class="submit">
-              <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-            </form>
-          </div>
-
-          <br><br>
-
-          <!--Saturday-->
-          <div class="day saturday sat">
-            <h2>Saturday</h2>
-            <?php if(!empty($saturday)): ?>
-              <ul id="myul" class="items">
-                <?php foreach($saturday as $item): ?>
-                  <?php include('dynamic/days-task-list.php'); ?>
-                <?php endforeach; ?>
-              </ul>
-              <?php else: ?>
-                <!--What is shown when there aren't any items in the list-->
-            <?php endif; ?>
-            
-            <!--Form for adding all of the tasks.-->
-            <form class="item-add" method="post" action="add.php?day=saturday">
-              <input type="submit" name="taskadd" value="Add" class="submit">
-              <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-            </form>
-          </div>
-          
         </div>
       <?php 
         }
@@ -453,16 +511,16 @@
 
 
 
-      <!--Shows inbox tasks-->
+      <!--Shows tasks due today-->
       <?php 
-        if($_GET['page'] == "inbox") 
+        if($_GET['page'] == "starred") 
         { 
       ?>
       <div class="container inbox-tasks">
-        <h2>Inbox</h2>
-        <?php if(!empty($inbox)): ?>
+        <h2>Starred Tasks</h2>
+        <?php if(!empty($star)): ?>
           <ul id="myul" class="items">
-            <?php foreach($inbox as $item): ?>
+            <?php foreach($star as $item): ?>
               <?php if (!$item['done']):?>
                 <li>
                   <?php $priority = $item['priority']; ?>
@@ -474,10 +532,25 @@
                   <span class="item<?php echo $item['done'] ? 'done' : '' ?>">
                   
                   <?php $decrypted = openssl_decrypt(base64_decode($item['name']), $method, $key, OPENSSL_RAW_DATA, $iv);?>
-                  <form class="inline" id="task-form" method="post" action="actions.php?action=taskupdate">
-                    <input onchange="this.form.submit()" name="tasktext" class="task-box" value="<?php echo $decrypted; ?>">
-                    <input class="display-none" type="text" name="taskid"   value="<?php echo $item['id']; ?>">
+      
+      
+                  <form class="inline form<?php echo $item['id']; ?>" id="task-form" method="post" action="actions.php?action=taskupdate">
+                    <p id="input<?php echo $item['id'];?>" class="inline taskarea" contenteditable="true" onKeyPress="return checkSubmit(event)" onKeyup="updatefunction<?php echo $item['id'];?>()"><?php echo $decrypted; ?></p>
+                    <input onupdate="this.form.submit()" name="tasktext" class="task-box display-none" type="text" id="output<?php echo $item['id'];?>">
+                    <input class="display-none" type="text" name="taskid" value="<?php echo $item['id']; ?>">
+                    <button class="submitd" type="submit">
+                      <i class="fas fa-check-circle"></i>
+                    </button>
                   </form>
+                  <script>
+                    function updatefunction<?php echo $item['id'];?>() {
+                      document.getElementById("output<?php echo $item['id'];?>").value = document.getElementById("input<?php echo $item['id'];?>").innerHTML;
+                    }
+
+                    document.getElementById("formsubmit").onclick = function() {
+                      document.getElementById("form<?php echo $item['id']; ?>").submit();
+                    }
+                  </script>
                   </span>
                 </li>
               <?php endif; ?>
@@ -485,60 +558,7 @@
           </ul>
           <?php else: ?>
           <!--What is shown when there aren't any items in the list-->
-        <?php endif; ?>
-            
-        <!--Form for adding all of the tasks.-->
-        <form class="item-add" method="post" action="add.php?day=inbox">
-          <input type="submit" name="taskadd" value="Add" class="submit">
-          <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-        </form>     
-      </div>
-      <?php
-        }
-      ?>
-
-
-
-
-
-
-
-
-
-      <!--Shows all tasks-->
-      <?php 
-        if($_GET['page'] == "all") 
-        { 
-      ?>
-      <div class="container all-tasks">
-        <h2>All Tasks</h2>
-        <?php if(!empty($all)): ?>
-          <ul id="myul" class="items">
-            <?php foreach($all as $item): ?>
-              <?php if (!$item['done']):?>
-                <li>
-                  <?php $priority = $item['priority']; ?>
-                  <?php include('dynamic/priority.php'); ?>
-                  <!--For the dropdown-->
-                  <?php include('dynamic/dropdown.php'); ?>
-                  <a href="functions.php?action=mark&item=<?php echo $item['id'] ?>" class="done-button inline"><span class="dot dot-<?php echo $item['id']; ?>"></span></a>
-                
-                  <span class="item<?php echo $item['done'] ? 'done' : '' ?>">
-                  
-                  <?php $decrypted = openssl_decrypt(base64_decode($item['name']), $method, $key, OPENSSL_RAW_DATA, $iv);?>
-                  <form class="inline" id="task-form" method="post" action="actions.php?action=taskupdate">
-                    <input onchange="this.form.submit()" name="tasktext" class="task-box" value="<?php echo $decrypted; ?>">
-                    <p class="day"><?php echo $item['day']; ?></p>
-                    <input class="display-none" type="text" name="taskid"   value="<?php echo $item['id']; ?>">
-                  </form>
-                  </span>
-                </li>
-              <?php endif; ?>
-            <?php endforeach; ?>
-          </ul>
-          <?php else: ?>
-          <!--What is shown when there aren't any items in the list-->
-        <?php endif; ?>
+        <?php endif; ?>   
       </div>
       <?php
         }
@@ -558,84 +578,11 @@
         { 
       ?>
       <div class="container inbox-tasks">
-        <h2>Today</h2>
-        <h4><?php echo $date; ?></h4>
-        <br>
-        <?php if(!empty($today)): ?>
+        <h2>Tasks Due Today <span class="date"><?php echo $dt->format('M d'); ?></span></h2>
+        <?php if(!empty($todayitemstoday)): ?>
           <ul id="myul" class="items">
-            <?php foreach($today as $item): ?>
-              <?php if (!$item['done']):?>
-                <li>
-                  <?php $priority = $item['priority']; ?>
-                  <?php include('dynamic/priority.php'); ?>
-                  <!--For the dropdown-->
-                  <?php include('dynamic/dropdown.php'); ?>
-                  <a href="functions.php?action=mark&item=<?php echo $item['id'] ?>" class="done-button inline"><span class="dot dot-<?php echo $item['id']; ?>"></span></a>
-                
-                  <span class="item<?php echo $item['done'] ? 'done' : '' ?>">
-                  
-                  <?php $decrypted = openssl_decrypt(base64_decode($item['name']), $method, $key, OPENSSL_RAW_DATA, $iv);?>
-                  <form class="inline" id="task-form" method="post" action="actions.php?action=taskupdate">
-                    <input onchange="this.form.submit()" name="tasktext" class="task-box" value="<?php echo $decrypted; ?>">
-                    <input class="display-none" type="text" name="taskid"   value="<?php echo $item['id']; ?>">
-                  </form>
-                  </span>
-                </li>
-              <?php endif; ?>
-            <?php endforeach; ?>
-          </ul>
-          <?php else: ?>
-          <!--What is shown when there aren't any items in the list-->
-        <?php endif; ?>
-            
-        <!--Form for adding all of the tasks.-->
-        <form class="item-add" method="post" action="add.php?day=today">
-          <input type="submit" name="taskadd" value="Add" class="submit">
-          <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
-        </form>     
-      </div>
-      <?php
-        }
-      ?>
-
-
-
-
-
-
-
-
-
-      <!--Shows tasks due today-->
-      <?php 
-        if($_GET['page'] == "starred") 
-        { 
-      ?>
-      <div class="container inbox-tasks">
-        <h2>Starred Tasks</h2>
-        <br>
-        <?php if(!empty($star)): ?>
-          <ul id="myul" class="items">
-            <?php foreach($star as $item): ?>
-              <?php if (!$item['done']):?>
-                <li>
-                  <?php $priority = $item['priority']; ?>
-                  <?php include('dynamic/priority.php'); ?>
-                  <!--For the dropdown-->
-                  <?php include('dynamic/dropdown.php'); ?>
-                  <a href="functions.php?action=mark&item=<?php echo $item['id'] ?>" class="done-button inline"><span class="dot dot-<?php echo $item['id']; ?>"></span></a>
-                
-                  <span class="item<?php echo $item['done'] ? 'done' : '' ?>">
-                  
-                  <?php $decrypted = openssl_decrypt(base64_decode($item['name']), $method, $key, OPENSSL_RAW_DATA, $iv);?>
-                  <form class="inline" id="task-form" method="post" action="actions.php?action=taskupdate">
-                    <input onchange="this.form.submit()" name="tasktext" class="task-box" value="<?php echo $decrypted; ?>">
-                    <p class="day"><?php echo $item['day']; ?></p>
-                    <input class="display-none" type="text" name="taskid"   value="<?php echo $item['id']; ?>">
-                  </form>
-                  </span>
-                </li>
-              <?php endif; ?>
+            <?php foreach($todayitemstoday as $item): ?>
+              <?php include('dynamic/days-task-list.php'); ?>
             <?php endforeach; ?>
           </ul>
           <?php else: ?>
@@ -703,11 +650,25 @@
                   <span class="item<?php echo $item['done'] ? 'done' : '' ?>">
                   
                   <?php $decrypted = openssl_decrypt(base64_decode($item['name']), $method, $key, OPENSSL_RAW_DATA, $iv);?>
-                  <form class="inline" id="task-form" method="post" action="actions.php?action=taskupdate">
-                    <input onchange="this.form.submit()" name="tasktext" class="task-box" value="<?php echo $decrypted; ?>">
-                      <p class="day"><?php echo $item['day']; ?></p>
-                      <input class="display-none" type="text" name="taskid" value="<?php echo $item['id']; ?>">
-                    </form>
+      
+      
+                  <form class="inline form<?php echo $item['id']; ?>" id="task-form" method="post" action="actions.php?action=taskupdate">
+                    <p id="input<?php echo $item['id'];?>" class="inline taskarea" contenteditable="true" onKeyPress="return checkSubmit(event)" onKeyup="updatefunction<?php echo $item['id'];?>()"><?php echo $decrypted; ?></p>
+                    <input onupdate="this.form.submit()" name="tasktext" class="task-box display-none" type="text" id="output<?php echo $item['id'];?>">
+                    <input class="display-none" type="text" name="taskid" value="<?php echo $item['id']; ?>">
+                    <button class="submitd" type="submit">
+                      <i class="fas fa-check-circle"></i>
+                    </button>
+                  </form>
+                  <script>
+                    function updatefunction<?php echo $item['id'];?>() {
+                      document.getElementById("output<?php echo $item['id'];?>").value = document.getElementById("input<?php echo $item['id'];?>").innerHTML;
+                    }
+
+                    document.getElementById("formsubmit").onclick = function() {
+                      document.getElementById("form<?php echo $item['id']; ?>").submit();
+                    }
+                  </script>
                   </span>
                 </li>
               <?php endif; ?>
@@ -719,7 +680,7 @@
 
         <!--Form for adding all of the tasks.-->
         <form class="item-add" method="post" action="add-folder-task.php?add=folder&folder=<?php echo $folderbrowser; ?>">
-          <input type="submit" name="taskadd" value="Add" class="submit">
+          <!--<input type="submit" name="taskadd" value="Add" class="submit">-->
           <input type="text" name="name" placeholder="Add task " class="task" autocomplete="off" required>
         </form>
       </div>
