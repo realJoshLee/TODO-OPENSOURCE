@@ -17,8 +17,8 @@ if($priority == "1") {
   ?>
   <style>
     .dot-<?php echo $item['id'];?> {
-      height: 10px;
-      width: 10px;
+      height: 13px;
+      width: 13px;
     
       border-radius: 50%;
     
@@ -34,8 +34,8 @@ if($priority == "2") {
   ?>
   <style>
     .dot-<?php echo $item['id'];?> {
-      height: 10px;
-      width: 10px;
+      height: 13px;
+      width: 13px;
     
       border-radius: 50%;
     
@@ -51,8 +51,8 @@ if($priority == "3") {
   ?>
   <style>
     .dot-<?php echo $item['id'];?> {
-      height: 10px;
-      width: 10px;
+      height: 13px;
+      width: 13px;
 
       border-radius: 50%;
 
