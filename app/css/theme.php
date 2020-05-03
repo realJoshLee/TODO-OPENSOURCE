@@ -86,15 +86,10 @@
   }
 
   span.date {
-    color: #111;
     font-size: 12px;
     font-family: 'Montserrat', Arial, Helvetica, sans-serif;
     text-decoration: none;
     font-weight:normal;
-  }
-
-  .nav-black {
-    color: #111;
   }
 
 
