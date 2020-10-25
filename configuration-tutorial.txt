@@ -1,8 +1,0 @@
-Congrats, you've downloaded the source code. Now time to configure everything to work with the database.
-  1. Configure index.php to point to the database.
-  2. Configure app/init.php to point to the database
-  3. Configure the backend/index.php to point to the database.
-  4. Configure the app/encryption.php with the values.
-  5. Configure the database with the following:
-    - Run the following document to configure the database: 'Create Database.sql'
-  6. Once everything above has been done, everything should work.
