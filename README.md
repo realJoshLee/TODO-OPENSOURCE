@@ -1,15 +1,15 @@
 # TODO
-This is a open source todo list application under the MIT license. If you have any questions, please contact us at contact@joshlee.pw and we will try our best to get back to you. This document is just a link to the project location that gets updated more frequently.
+This is a open source todo list application under the MIT license. If you have any questions, please contact us at contact@madebyjoshlee.com and we will try our best to get back to you. This document is just a link to the project location that gets updated more frequently.
 
 ## Installation
-  - Go to the following link: https://joshlee.pw/webapps/todo/latest/latest.zip
+  - Go to the following link: https://madebyjoshlee.com/webapps/todo/latest/latest.zip
   - Download your copy.
   - Read the copy of the configuration-tutorial.txt to view next steps.
 
 ## Terms and Conditions
 Welcome to todo!
 
-These terms and conditions outline the rules and regulations for the use of todo's Website, located at https://joshlee.pw/webapps/todo/tos.html
+These terms and conditions outline the rules and regulations for the use of todo's Website, located at https://madebyjoshlee.com/webapps/todo/tos.html
 
 By accessing this website we assume you accept these terms and conditions. Do not continue to use todo if you do not agree to take all of the terms and conditions stated on this page.
 
