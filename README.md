@@ -2,14 +2,13 @@
 This is a open source todo list application under the MIT license. If you have any questions, please contact us at contact@madebyjoshlee.com and we will try our best to get back to you. This document is just a link to the project location that gets updated more frequently.
 
 ## Installation
-  - Go to the following link: https://madebyjoshlee.com/webapps/todo/latest/latest.zip
-  - Download your copy.
-  - Read the copy of the configuration-tutorial.txt to view next steps.
+    - Download the repo to your webserver. 
+    - Follow the instructions on how to install
 
 ## Terms and Conditions
 Welcome to todo!
 
-These terms and conditions outline the rules and regulations for the use of todo's Website, located at https://madebyjoshlee.com/webapps/todo/tos.html
+These terms and conditions outline the rules and regulations for the use of todo's Website, located at https://madebyjoshlee.com/webapps/tasks/tos.html
 
 By accessing this website we assume you accept these terms and conditions. Do not continue to use todo if you do not agree to take all of the terms and conditions stated on this page.
 
@@ -21,7 +20,7 @@ We employ the use of cookies. By accessing todo, you agreed to use cookies in ag
 Most interactive websites use cookies to let us retrieve the user’s details for each visit. Cookies are used by our website to enable the functionality of certain areas to make it easier for people visiting our website. Some of our affiliate/advertising partners may also use cookies.
 
 ### License
-This is an open source project under the MIT license. You can download our latest source code and find bugs, edit it and use it for your company, or fully edit it and use it for personal or comercial use. We do ask that if you do edit this Open Source project that you link to the origional page of this project 'https://joshlee.pw/webapps/todo/' and make it visible.
+This is an open source project under the MIT license. You can download our latest source code and find bugs, edit it and use it for your company, or fully edit it and use it for personal or comercial use. We do ask that if you do edit this Open Source project that you link to the origional page of this project 'https://madebyjoshlee.com/webapps/tasks/' and make it visible.
 
 todo reserves the right to monitor all Comments and to remove any Comments which can be considered inappropriate, offensive or causes breach of these Terms and Conditions.
 
