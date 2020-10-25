@@ -1,5 +1,6 @@
-# TODO
+# Tasks
 This is a open source todo list application under the MIT license. If you have any questions, please contact us at contact@madebyjoshlee.com and we will try our best to get back to you. This document is just a link to the project location that gets updated more frequently.
+Privacy Policy: https://madebyjoshlee.com/privacypolicy.php
 
 ## Installation
     - Download the repo to your webserver. 
