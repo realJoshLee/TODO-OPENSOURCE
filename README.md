@@ -1,6 +1,6 @@
 # Tasks
 This is a open source todo list application under the MIT license. If you have any questions, please contact us at contact@madebyjoshlee.com and we will try our best to get back to you. This document is just a link to the project location that gets updated more frequently.
-Privacy Policy: https://madebyjoshlee.com/privacypolicy.php
+Privacy Policy: https://madebyjoshlee.com/webapps/tasks/privacy-terms.html
 
 ## Installation
     - The following is found in the config-tutorial.txt file:
@@ -12,9 +12,9 @@ Privacy Policy: https://madebyjoshlee.com/privacypolicy.php
 ## Terms and Conditions
 Welcome to Tasks!
 
-These terms and conditions outline the rules and regulations for the use of todo's Website, located at https://madebyjoshlee.com/privacypolicy.php
+These terms and conditions outline the rules and regulations for the use of todo's Website, located at https://madebyjoshlee.com/webapps/tasks/privacy-terms.html
 
-By accessing this website you accept these terms and conditions. Do not continue to use tasks if you do not agree to take all of the terms and conditions stated on this page and on this link: https://madebyjoshlee.com/privacypolicy.php.
+By accessing this website you accept these terms and conditions. Do not continue to use tasks if you do not agree to take all of the terms and conditions stated on this page and on this link: https://madebyjoshlee.com/webapps/tasks/privacy-terms.html
 
 The following terminology applies to these Terms and Conditions, Privacy Statement and Disclaimer Notice and all Agreements: "Client", "You" and "Your" refers to you, the person log on this website and compliant to the Company’s terms and conditions. "The Company", "Ourselves", "We", "Our" and "Us", refers to our Company. "Party", "Parties", or "Us", refers to both the Client and ourselves. All terms refer to the offer, acceptance and consideration of payment necessary to undertake the process of our assistance to the Client in the most appropriate manner for the express purpose of meeting the Client’s needs in respect of provision of the Company’s stated services, in accordance with and subject to, prevailing law of Netherlands. Any use of the above terminology or other words in the singular, plural, capitalization and/or he/she or they, are taken as interchangeable and therefore as referring to same.
 
