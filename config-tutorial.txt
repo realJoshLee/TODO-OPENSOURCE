@@ -1,4 +1,7 @@
-- Run the 'import.sql' file on your SQL server.
-- Fill out everything in the init-login file in the base folder.
-- Fill out everything in the app/init.php file.
-- Deploy to your server and navigate to the folder to use.
+  // Update the information in the init and init-verify file for everything to work:
+      - init-login.php
+      - app/scripts/init.php
+      - app/scripts/init-login.php
+      - app/scripts/init-verify.php
+
+  // Run the config.sql file in the root directory

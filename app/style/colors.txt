@@ -1,7 +1,0 @@
-default - grey
-red - #ff006a
-green - #00ff26
-blue - #006fff
-yellow - #eeff00
-purple - #e600ff
-orange - #ff5900

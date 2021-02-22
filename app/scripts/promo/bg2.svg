@@ -1,0 +1,17 @@
+<svg id="bg" xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect id="Rectangle_1" data-name="Rectangle 1" width="1920" height="1080" fill="#fff"/>
+  <path id="Polygon_1" data-name="Polygon 1" d="M123,0,246,101H0Z" transform="matrix(0.875, -0.485, 0.485, 0.875, 101.939, 171.963)" fill="#ffdac1"/>
+  <path id="Polygon_2" data-name="Polygon 2" d="M111.5,0,223,98H0Z" transform="translate(312.463 745.027) rotate(34)" fill="#dfd4ff"/>
+  <path id="Polygon_3" data-name="Polygon 3" d="M96,0l96,82H0Z" transform="matrix(0.921, 0.391, -0.391, 0.921, 1395.651, 113.749)" fill="#e2f0cb"/>
+  <path id="Polygon_4" data-name="Polygon 4" d="M115.5,0,231,72H0Z" transform="translate(621.042 328.005) rotate(3)" fill="#b5ead7"/>
+  <path id="Polygon_5" data-name="Polygon 5" d="M116.5,0,233,61H0Z" transform="matrix(0.921, -0.391, 0.391, 0.921, 1493.344, 967.945)" fill="#b5ead7"/>
+  <path id="Polygon_6" data-name="Polygon 6" d="M138,0,276,71H0Z" transform="matrix(0.966, -0.259, 0.259, 0.966, 1137.514, 642.927)" fill="#dfd4ff"/>
+  <circle id="Ellipse_1" data-name="Ellipse 1" cx="28" cy="28" r="28" transform="translate(258 244)" fill="#ffd3ec"/>
+  <circle id="Ellipse_2" data-name="Ellipse 2" cx="28.5" cy="28.5" r="28.5" transform="translate(986 77)" fill="#dfd4ff"/>
+  <g id="Ellipse_3" data-name="Ellipse 3" transform="translate(522 745)" fill="#ff9aa2" stroke="#707070" stroke-width="1">
+    <circle cx="29" cy="29" r="29" stroke="none"/>
+    <circle cx="29" cy="29" r="28.5" fill="none"/>
+  </g>
+  <circle id="Ellipse_4" data-name="Ellipse 4" cx="25.5" cy="25.5" r="25.5" transform="translate(1174 900)" fill="#ffd3ec"/>
+  <circle id="Ellipse_5" data-name="Ellipse 5" cx="22" cy="22" r="22" transform="translate(1327 236)" fill="#ff9aa2"/>
+</svg>

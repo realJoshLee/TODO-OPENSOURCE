@@ -1,2055 +1,851 @@
 <?php
-/*$query = "
- SELECT * FROM tasks 
- WHERE account = '".$account."'
-";
+  // Gets the init file
+  require('scripts/init.php');
 
-$statement = $connect->prepare($query);
-
-$statement->execute();
-
-$result = $statement->fetchAll();*/
-
-
-session_start();  
-if(!isset($_SESSION["suite"]))  {  
-  header("location:../index.php");  
-}
-
-if(!isset($_GET['week'])){
-  header('Location: ?week=1');
-}
-// Main stuff
-require_once 'init.php';
+  // Gets the document that gets everything from the db
+  // For the insight page
+  include('dynamic/get-items-from-db.php');
   
-  // Yesterday
-  
-
-  // Today
-  //
-
-  // Tomorrow
-  //$tomorrow = date('M.d.Y', strtotime('+1 day'));
-
-  // Two Days Out
-  //$twodays = date('M.d.Y', strtotime('+2 day'));
-
-  // Three Days Out
-  //$threedays = date('M.d.Y', strtotime('+3 day'));
-
-// Moves yesterdays uncompleted tasks to today
-$todaya = date('M.d.Y', strtotime('+0 day'));
-$yesterday = date('M.d.Y', strtotime('-1 day'));
-$yesterdayitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date");
-
-$yesterdayitemsget->execute([
-  'account' => $account,
-  'date' => $yesterday
+  $inboxitemsget = $db->prepare("SELECT * FROM `taskable_tasks` WHERE `account` = :account AND `date` = :date ORDER BY `priority` ASC");
+  $inboxitemsget->execute([
+    'account' => $account,
+    'date' => 'inbox'
   ]);
+  $inboxitems = $inboxitemsget->rowCount() ? $inboxitemsget : [];
 
-$yesterdayitems = $yesterdayitemsget->rowCount() ? $yesterdayitemsget : [];
-foreach($yesterdayitems as $item){
-  if($item['completed']=='false'){
-    header("Refresh:0");
-    $id = $item['id'];
-    $string = "UPDATE tasks SET date='$todaya' WHERE id='$id'"; 
-    mysqli_query($conn, $string);
-    /*$doneQuery = $db->prepare("UPDATE 'tasks' SET 'date' = :date WHERE 'id' = :id");
+  $todayspecialitemsget = $db->prepare("SELECT * FROM `taskable_tasks` WHERE `account` = :account AND `date` = :date ORDER BY `priority` ASC");
+  $todayspecialitemsget->execute([
+    'account' => $account,
+    'date' => $today
+  ]);
+  $todayspecialitems = $todayspecialitemsget->rowCount() ? $todayspecialitemsget : [];
 
-    $doneQuery->execute([
-      'id' => $item['id'],
-      'date' => $today
-    ]);*/
+  $foldersget = $db->prepare("SELECT * FROM `taskable_folders` WHERE `account` = :account");
+  $foldersget->execute([
+    'account' => $account
+  ]);
+  $folderitemslist = $foldersget->rowCount() ? $foldersget : [];
+
+  $todaycdate = date('Y-m-d', strtotime('+0 day'));
+  $dby = "SELECT * FROM `taskable_tasks` WHERE `completed` = 'true' AND `cdate` = '$todaycdate'";
+  $connStatusy = $conn->query($dby);
+  $cdatedone = mysqli_num_rows($connStatusy);
+  
+  //$titlename = ' - Next 31 Days';
+
+  // Gets the daily goal
+  $dailygoalget = $db->prepare("SELECT * FROM passwordlogin WHERE username = :username");
+
+  $dailygoalget->execute([
+    'username' => $account
+    ]);
+
+  $dailygoal = $dailygoalget->rowCount() ? $dailygoalget : []; 
+
+  foreach($dailygoal as $item){
+    $goal = $item['taskcompletegoal'];
   }
-}
 
+  
+  // Gets folder id for the folder divs
+  $folderdivget = $db->prepare("SELECT * FROM `taskable_folders` WHERE `account` = :account");
+  $folderdivget->execute([
+    'account' => $account
+    ]);
+  $folderdiv = $folderdivget->rowCount() ? $folderdivget : [];
 
+  $verifyget = $db->prepare("SELECT * FROM passwordlogin WHERE username = :username");
+  $verifyget->execute([
+    'username' => $account
+  ]);
+  $verify = $verifyget->rowCount() ? $verifyget : []; 
+  foreach($verify as $item){
+    $verifystate = $item['verified'];
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-$today = date('M.d.Y', strtotime('+0 day'));
-$todayitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$todayitemsget->execute([
-  'account' => $account,
-  'date' => $today
-]);
-$todayitems = $todayitemsget->rowCount() ? $todayitemsget : [];
-
-// One
-$one = date('M.d.Y', strtotime('+1 day'));
-$oneitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$oneitemsget->execute([
-  'account' => $account,
-  'date' => $one
-]);
-$oneitems = $oneitemsget->rowCount() ? $oneitemsget : [];
-
-// Two
-$two = date('M.d.Y', strtotime('+2 day'));
-$twoitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twoitemsget->execute([
-  'account' => $account,
-  'date' => $two
-]);
-$twoitems = $twoitemsget->rowCount() ? $twoitemsget : [];
-
-// Three
-$three = date('M.d.Y', strtotime('+3 day'));
-$threeitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$threeitemsget->execute([
-  'account' => $account,
-  'date' => $three
-]);
-$threeitems = $threeitemsget->rowCount() ? $threeitemsget : [];
-
-// Four
-$four = date('M.d.Y', strtotime('+4 day'));
-$fouritemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$fouritemsget->execute([
-  'account' => $account,
-  'date' => $four
-]);
-$fouritems = $fouritemsget->rowCount() ? $fouritemsget : [];
-
-// Five
-$five = date('M.d.Y', strtotime('+5 day'));
-$fiveitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$fiveitemsget->execute([
-  'account' => $account,
-  'date' => $five
-]);
-$fiveitems = $fiveitemsget->rowCount() ? $fiveitemsget : [];
-
-// Six
-$six = date('M.d.Y', strtotime('+6 day'));
-$sixitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$sixitemsget->execute([
-  'account' => $account,
-  'date' => $six
-]);
-$sixitems = $sixitemsget->rowCount() ? $sixitemsget : [];
-
-// Seven
-$seven = date('M.d.Y', strtotime('+7 day'));
-$sevenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$sevenitemsget->execute([
-  'account' => $account,
-  'date' => $seven
-]);
-$sevenitems = $sevenitemsget->rowCount() ? $sevenitemsget : [];
-
-// Eight
-$eight = date('M.d.Y', strtotime('+8 day'));
-$eightitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$eightitemsget->execute([
-  'account' => $account,
-  'date' => $eight
-]);
-$eightitems = $eightitemsget->rowCount() ? $eightitemsget : [];
-
-// Nine
-$nine = date('M.d.Y', strtotime('+9 day'));
-$nineitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$nineitemsget->execute([
-  'account' => $account,
-  'date' => $nine
-]);
-$nineitems = $nineitemsget->rowCount() ? $nineitemsget : [];
-
-// Ten
-$ten = date('M.d.Y', strtotime('+10 day'));
-$tenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$tenitemsget->execute([
-  'account' => $account,
-  'date' => $ten
-]);
-$tenitems = $tenitemsget->rowCount() ? $tenitemsget : [];
-
-// Eleven
-$eleven = date('M.d.Y', strtotime('+11 day'));
-$elevenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$elevenitemsget->execute([
-  'account' => $account,
-  'date' => $eleven
-]);
-$elevenitems = $elevenitemsget->rowCount() ? $elevenitemsget : [];
-
-// Twelve
-$twelve = date('M.d.Y', strtotime('+12 day'));
-$twelveitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twelveitemsget->execute([
-  'account' => $account,
-  'date' => $twelve
-]);
-$twelveitems = $twelveitemsget->rowCount() ? $twelveitemsget : [];
-
-// Thirteen
-$thirteen = date('M.d.Y', strtotime('+13 day'));
-$thirteenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$thirteenitemsget->execute([
-  'account' => $account,
-  'date' => $thirteen
-]);
-$thirteenitems = $thirteenitemsget->rowCount() ? $thirteenitemsget : [];
-
-// Fourteen
-$fourteen = date('M.d.Y', strtotime('+14 day'));
-$fourteenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$fourteenitemsget->execute([
-  'account' => $account,
-  'date' => $fourteen
-]);
-$fourteenitems = $fourteenitemsget->rowCount() ? $fourteenitemsget : [];
-
-// Fifteen
-$fifteen = date('M.d.Y', strtotime('+15 day'));
-$fifteenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$fifteenitemsget->execute([
-  'account' => $account,
-  'date' => $fifteen
-]);
-$fifteenitems = $fifteenitemsget->rowCount() ? $fifteenitemsget : [];
-
-// Sixteen
-$sixteen = date('M.d.Y', strtotime('+16 day'));
-$sixteenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$sixteenitemsget->execute([
-  'account' => $account,
-  'date' => $sixteen
-]);
-$sixteenitems = $sixteenitemsget->rowCount() ? $sixteenitemsget : [];
-
-// Seventeen
-$seventeen = date('M.d.Y', strtotime('+17 day'));
-$seventeenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$seventeenitemsget->execute([
-  'account' => $account,
-  'date' => $seventeen
-]);
-$seventeenitems = $seventeenitemsget->rowCount() ? $seventeenitemsget : [];
-
-// Eightteen
-$eightteen = date('M.d.Y', strtotime('+18 day'));
-$eightteenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$eightteenitemsget->execute([
-  'account' => $account,
-  'date' => $eightteen
-]);
-$eightteenitems = $eightteenitemsget->rowCount() ? $eightteenitemsget : [];
-
-// Nineteen
-$nineteen = date('M.d.Y', strtotime('+19 day'));
-$nineteenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$nineteenitemsget->execute([
-  'account' => $account,
-  'date' => $nineteen
-]);
-$nineteenitems = $nineteenitemsget->rowCount() ? $nineteenitemsget : [];
-
-// Twenty
-$twenty = date('M.d.Y', strtotime('+20 day'));
-$twentyitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentyitemsget->execute([
-  'account' => $account,
-  'date' => $twenty
-]);
-$twentyitems = $twentyitemsget->rowCount() ? $twentyitemsget : [];
-
-// Twentyone
-$twentyone = date('M.d.Y', strtotime('+21 day'));
-$twentyoneitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentyoneitemsget->execute([
-  'account' => $account,
-  'date' => $twentyone
-]);
-$twentyoneitems = $twentyoneitemsget->rowCount() ? $twentyoneitemsget : [];
-
-// Twentytwo
-$twentytwo = date('M.d.Y', strtotime('+22 day'));
-$twentytwoitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentytwoitemsget->execute([
-  'account' => $account,
-  'date' => $twentytwo
-]);
-$twentytwoitems = $twentytwoitemsget->rowCount() ? $twentytwoitemsget : [];
-
-// Twentythree
-$twentythree = date('M.d.Y', strtotime('+23 day'));
-$twentythreeitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentythreeitemsget->execute([
-  'account' => $account,
-  'date' => $twentythree
-]);
-$twentythreeitems = $twentythreeitemsget->rowCount() ? $twentythreeitemsget : [];
-
-// Twentyfour
-$twentyfour = date('M.d.Y', strtotime('+24 day'));
-$twentyfouritemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentyfouritemsget->execute([
-  'account' => $account,
-  'date' => $twentyfour
-]);
-$twentyfouritems = $twentyfouritemsget->rowCount() ? $twentyfouritemsget : [];
-
-// Twentyfive
-$twentyfive = date('M.d.Y', strtotime('+25 day'));
-$twentyfiveitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentyfiveitemsget->execute([
-  'account' => $account,
-  'date' => $twentyfive
-]);
-$twentyfiveitems = $twentyfiveitemsget->rowCount() ? $twentyfiveitemsget : [];
-
-// Twentysix
-$twentysix = date('M.d.Y', strtotime('+26 day'));
-$twentysixitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentysixitemsget->execute([
-  'account' => $account,
-  'date' => $twentysix
-]);
-$twentysixitems = $twentysixitemsget->rowCount() ? $twentysixitemsget : [];
-
-// Twentyseven
-$twentyseven = date('M.d.Y', strtotime('+27 day'));
-$twentysevenitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentysevenitemsget->execute([
-  'account' => $account,
-  'date' => $twentyseven
-]);
-$twentysevenitems = $twentysevenitemsget->rowCount() ? $twentysevenitemsget : [];
-
-// Twentyeight
-$twentyeight = date('M.d.Y', strtotime('+28 day'));
-$twentyeightitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentyeightitemsget->execute([
-  'account' => $account,
-  'date' => $twentyeight
-]);
-$twentyeightitems = $twentyeightitemsget->rowCount() ? $twentyeightitemsget : [];
-
-// Twentynine
-$twentynine = date('M.d.Y', strtotime('+29 day'));
-$twentynineitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$twentynineitemsget->execute([
-  'account' => $account,
-  'date' => $twentynine
-]);
-$twentynineitems = $twentynineitemsget->rowCount() ? $twentynineitemsget : [];
-
-// Thirty
-$thirty = date('M.d.Y', strtotime('+30 day'));
-$thirtyitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$thirtyitemsget->execute([
-  'account' => $account,
-  'date' => $thirty
-]);
-$thirtyitems = $thirtyitemsget->rowCount() ? $thirtyitemsget : [];
-
-// Thirtyone
-$thirtyone = date('M.d.Y', strtotime('+31 day'));
-$thirtyoneitemsget = $db->prepare("SELECT * FROM `tasks` WHERE `account` = :account AND `date` = :date ORDER BY `color` ASC");
-$thirtyoneitemsget->execute([
-  'account' => $account,
-  'date' => $thirtyone
-]);
-$thirtyoneitems = $thirtyoneitemsget->rowCount() ? $thirtyoneitemsget : [];
-
-$color = '#ededed';
-
-
+  include('scripts/promo/end.php'); 
 ?>
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->
-    <?php include('dynamic/header.php'); ?>
-    <?php //include('dynamic/modal.php'); ?>
+    <?php 
+    // Calls all of the header elements
+    include('dynamic/header.php');
+    include('dynamic/modal.php');
+    ?>
   </head>
-  <body>
-    <?php if($_GET['week']=='1'): ?>
+  <body onload="currentPage()">
+    <!--NAV-->
+    <!--<div class="nav-container" id="nav-container">
+      <div class="nav-display-none"><br></div>
+      <?php //include('dynamic/one-page/nav.php'); ?>
+      <div class="nav-display-none"><br></div>
+    </div>-->
 
-
-      <div class="rowone">
-        <div class="columnone left">
-          <?php include('dynamic/nav.php'); ?>
-        </div>
-        <div class="columnone right" id="main">
-          <span class="previewnav">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=1" class="previewlink halfopacity"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-left.svg" class="previewimg" style="width:10px;height:auto;"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=2" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-right.svg" class="previewimg" style="width:10px;height:auto;"></a></span>
-        </div>
+    <!--Remove to remove loader-->
+    <!--Loader Box-->
+    <div class="loader" id="loader">
+      <img src="icons/check.v3.svg" alt="" class="loader_img">
+      <div class="center">
+        <!--<div class="loadercircle"></div>-->
+        <!--<br><br><br>
+        <img src="icons/loader-icons/spinner.gif" alt="" class="spinner">-->
       </div>
+    </div>
 
-
-      <div class="row" id="mainalt">
-        <!--today-->
-        <div class="column today">
-          <h2 style="color: #006fff !important;"><span class="day"><?php echo date('D', strtotime('+0 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+0 day')); ?></span></h2>
-          <div class="list-grouptoday">
-            <?php foreach($todayitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtoday">
-              <input name="task_name" type="text" id="task task_nametoday" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtoday', function(event){
-                event.preventDefault();
-
-                if($('#task_nametoday').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $today; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtoday')[0].reset();
-                    $('.list-grouptoday').prepend(data);
-                  }
-                  })
-                }
-                });
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--one-->
-        <div class="column one">
-          <h2><span class="day"><?php echo date('D', strtotime('+1 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+1 day')); ?></span></h2>
-          <div class="list-groupone">
-            <?php foreach($oneitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formone">
-              <input name="task_name" type="text" id="task task_nameone" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formone', function(event){
-                event.preventDefault();
-
-                if($('#task_nameone').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $one; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formone')[0].reset();
-                    $('.list-groupone').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--two-->
-        <div class="column two">
-          <h2><span class="day"><?php echo date('D', strtotime('+2 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+2 day')); ?></span></h2>
-          <div class="list-grouptwo">
-            <?php foreach($twoitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwo">
-              <input name="task_name" type="text" id="task task_nametwo" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwo', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwo').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $two; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwo')[0].reset();
-                    $('.list-grouptwo').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-                
-        <!--three-->
-        <div class="column three">
-          <h2><span class="day"><?php echo date('D', strtotime('+3 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+3 day')); ?></span></h2>
-          <div class="list-groupthree">
-            <?php foreach($threeitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formthree">
-              <input name="task_name" type="text" id="task task_namethree" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formthree', function(event){
-                event.preventDefault();
-
-                if($('#task_namethree').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $three; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formthree')[0].reset();
-                    $('.list-groupthree').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
+    <div class="page-row">
+      <div class="page-column page-nav">
+        <?php include('dynamic/one-page/nav-content.php'); ?>
       </div>
-    <?php endif; ?>
+      <div class="page-column page-content">
+        <!--Nav button that only shows on smaller screens-->
+        <div class="small-screen-show">
+          <div class="nav-small-spacer">
+            <span style="cursor:pointer;" class="navbutton" onclick="openNav()"><img class="logo" src="icons/menu.v2.svg"></span>
+          </div>
+        </div>
 
+        <!--Insight/31 day view-->
+        <div class="insight" id="insight">
+          <br><br>
+          <?php if($verifystate == 'false'):?>
+            <div class="main" id="main">
+              <div class="alert-style">
+                <a class="red" href="scripts/verify/email.php?to=<?php echo $account; ?>&verifyid=<?php echo $account; ?>"><h3>Please Verify Your Email - Click Here</h3></a>
+              </div>
+            </div> 
+          <?php endif; ?>
+          
+          <?php include('dynamic/one-page/insight.php'); ?>
+          <br><br>
+        </div>
 
+        <!--Today view-->
+        <div class="today" id="today">
+          <br><br>
+          <?php if($verifystate == 'false'):?>
+            <div class="main" id="main">
+              <div class="alert-style">
+                <a class="red" href="scripts/verify/email.php?to=<?php echo $account; ?>&verifyid=<?php echo $account; ?>"><h3>Please Verify Your Email - Click Here</h3></a>
+              </div>
+            </div> 
+          <?php endif; ?>
+          
+          <?php include('dynamic/one-page/today.php'); ?>
+        </div>
 
+        <!--Inbox view-->
+        <div class="inbox" id="inbox">
+          <br><br>
+          <?php if($verifystate == 'false'):?>
+            <div class="main" id="main">
+              <div class="alert-style">
+                <a class="red" href="scripts/verify/email.php?to=<?php echo $account; ?>&verifyid=<?php echo $account; ?>"><h3>Please Verify Your Email - Click Here</h3></a>
+              </div>
+            </div> 
+          <?php endif; ?>
+          
+          <?php include('dynamic/one-page/inbox.php'); ?>
+        </div>
 
+        <!--Tomorrow View-->
+        <div class="tomorrow" id="tomorrow">
+          <br><br>
+          <?php if($verifystate == 'false'):?>
+            <div class="main" id="main">
+              <div class="alert-style">
+                <a class="red" href="scripts/verify/email.php?to=<?php echo $account; ?>&verifyid=<?php echo $account; ?>"><h3>Please Verify Your Email - Click Here</h3></a>
+              </div>
+            </div> 
+          <?php endif; ?>
+          
+          <?php include('dynamic/one-page/tomorrow.php'); ?>
+        </div>
 
+        <!--Today Overview View-->
+        <div class="overview" id="overview">
+          <br><br>
+          <?php if($verifystate == 'false'):?>
+            <div class="main" id="main">
+              <div class="alert-style">
+                <a class="red" href="scripts/verify/email.php?to=<?php echo $account; ?>&verifyid=<?php echo $account; ?>"><h3>Please Verify Your Email - Click Here</h3></a>
+              </div>
+            </div> 
+          <?php endif; ?>
+          
+          <?php include('dynamic/one-page/overview.php'); ?>
+        </div>
 
+        <!--Folders view-->
+        <!--<div class="folder" id="folder">
+          <?php //include('dynamic/one-page/folder.php'); ?>
+        </div>-->
 
+        <!--Folder expand view-->
+        <!--<div class="folderexpand" id="folderexpand">
+          <div id="folder-content-clear">
+            <?php //include('dynamic/one-page/folderexpand.php'); ?>
+          </div>
+        </div>-->
 
-
-
-
-
-
-
-
+        <?php include('dynamic/one-page/folder.php'); ?>
+        <div class="folderaddto" id="folderaddto">
+        </div>
     
-    <?php if($_GET['week']=='2'): ?>
-
-
-      <div class="rowone">
-        <div class="columnone left">
-          <?php include('dynamic/nav.php'); ?>
-        </div>
-        <div class="columnone right" id="main">
-          <span class="previewnav">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=1" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-left.svg" class="previewimg" style="width:10px;height:auto;"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=3" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-right.svg" class="previewimg" style="width:10px;height:auto;"></a></span>
-        </div>
       </div>
+    </div>
 
-
-      <div class="row" id="mainalt">
-        <!--four-->
-        <div class="column four">
-          <h2><span class="day"><?php echo date('D', strtotime('+4 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+4 day')); ?></span></h2>
-          <div class="list-groupfour">
-            <?php foreach($fouritems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formfour">
-              <input name="task_name" type="text" id="task task_namefour" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formfour', function(event){
-                event.preventDefault();
-
-                if($('#task_namefour').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $four; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formfour')[0].reset();
-                    $('.list-groupfour').prepend(data);
-                  }
-                  })
-                }
-                });
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--five-->
-        <div class="column five">
-          <h2><span class="day"><?php echo date('D', strtotime('+5 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+5 day')); ?></span></h2>
-          <div class="list-groupfive">
-            <?php foreach($fiveitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formfive">
-              <input name="task_name" type="text" id="task task_namefive" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formfive', function(event){
-                event.preventDefault();
-
-                if($('#task_namefive').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $five; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formfive')[0].reset();
-                    $('.list-groupfive').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--six-->
-        <div class="column six">
-          <h2><span class="day"><?php echo date('D', strtotime('+6 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+6 day')); ?></span></h2>
-          <div class="list-groupsix">
-            <?php foreach($sixitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formsix">
-              <input name="task_name" type="text" id="task task_namesix" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formsix', function(event){
-                event.preventDefault();
-
-                if($('#task_namesix').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $six; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formsix')[0].reset();
-                    $('.list-groupsix').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-                
-        <!--seven-->
-        <div class="column seven">
-          <h2><span class="day"><?php echo date('D', strtotime('+7 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+7 day')); ?></span></h2>
-          <div class="list-groupseven">
-            <?php foreach($sevenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formseven">
-              <input name="task_name" type="text" id="task task_nameseven" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formseven', function(event){
-                event.preventDefault();
-
-                if($('#task_nameseven').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $seven; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formseven')[0].reset();
-                    $('.list-groupseven').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-      </div>
-    <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    <?php if($_GET['week']=='3'): ?>
-
-
-      <div class="rowone">
-        <div class="columnone left">
-          <?php include('dynamic/nav.php'); ?>
-        </div>
-        <div class="columnone right" id="main">
-          <span class="previewnav">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=2" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-left.svg" class="previewimg" style="width:10px;height:auto;"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=4" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-right.svg" class="previewimg" style="width:10px;height:auto;"></a></span>
-        </div>
-      </div>
-
-
-      <div class="row" id="mainalt">
-        <!--eight-->
-        <div class="column eight">
-          <h2><span class="day"><?php echo date('D', strtotime('+8 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+8 day')); ?></span></h2>
-          <div class="list-groupeight">
-            <?php foreach($eightitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formeight">
-              <input name="task_name" type="text" id="task task_nameeight" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formeight', function(event){
-                event.preventDefault();
-
-                if($('#task_nameeight').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $eight; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formeight')[0].reset();
-                    $('.list-groupeight').prepend(data);
-                  }
-                  })
-                }
-                });
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--nine-->
-        <div class="column nine">
-          <h2><span class="day"><?php echo date('D', strtotime('+9 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+9 day')); ?></span></h2>
-          <div class="list-groupnine">
-            <?php foreach($nineitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formnine">
-              <input name="task_name" type="text" id="task task_namenine" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formnine', function(event){
-                event.preventDefault();
-
-                if($('#task_namenine').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $nine; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formnine')[0].reset();
-                    $('.list-groupnine').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-                
-        <!--ten-->
-        <div class="column ten">
-          <h2><span class="day"><?php echo date('D', strtotime('+10 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+10 day')); ?></span></h2>
-          <div class="list-groupten">
-            <?php foreach($tenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formten">
-              <input name="task_name" type="text" id="task task_nameten" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formten', function(event){
-                event.preventDefault();
-
-                if($('#task_nameten').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $ten; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formten')[0].reset();
-                    $('.list-groupten').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--eleven-->
-        <div class="column eleven">
-          <h2><span class="day"><?php echo date('D', strtotime('+11 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+11 day')); ?></span></h2>
-          <div class="list-groupeleven">
-            <?php foreach($elevenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formeleven">
-              <input name="task_name" type="text" id="task task_nameeleven" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formeleven', function(event){
-                event.preventDefault();
-
-                if($('#task_nameeleven').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $eleven; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formeleven')[0].reset();
-                    $('.list-groupeleven').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-      </div>
-    <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    <?php if($_GET['week']=='4'): ?>
-
-
-      <div class="rowone">
-        <div class="columnone left">
-          <?php include('dynamic/nav.php'); ?>
-        </div>
-        <div class="columnone right" id="main">
-          <span class="previewnav">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=3" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-left.svg" class="previewimg" style="width:10px;height:auto;"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=5" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-right.svg" class="previewimg" style="width:10px;height:auto;"></a></span>
-        </div>
-      </div>
-
-
-      <div class="row" id="mainalt">
-        <!--twelve-->
-        <div class="column twelve">
-          <h2><span class="day"><?php echo date('D', strtotime('+12 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+12 day')); ?></span></h2>
-          <div class="list-grouptwelve">
-            <?php foreach($twelveitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwelve">
-              <input name="task_name" type="text" id="task task_nametwelve" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwelve', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwelve').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twelve; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwelve')[0].reset();
-                    $('.list-grouptwelve').prepend(data);
-                  }
-                  })
-                }
-                });
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--thirteen-->
-        <div class="column thirteen">
-          <h2><span class="day"><?php echo date('D', strtotime('+13 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+13 day')); ?></span></h2>
-          <div class="list-groupthirteen">
-            <?php foreach($thirteenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formthirteen">
-              <input name="task_name" type="text" id="task task_namethirteen" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formthirteen', function(event){
-                event.preventDefault();
-
-                if($('#task_namethirteen').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $thirteen; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formthirteen')[0].reset();
-                    $('.list-groupthirteen').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-                
-        <!--fourteen-->
-        <div class="column fourteen">
-          <h2><span class="day"><?php echo date('D', strtotime('+14 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+14 day')); ?></span></h2>
-          <div class="list-groupfourteen">
-            <?php foreach($fourteenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formfourteen">
-              <input name="task_name" type="text" id="task task_namefourteen" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formfourteen', function(event){
-                event.preventDefault();
-
-                if($('#task_namefourteen').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $fourteen; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formfourteen')[0].reset();
-                    $('.list-groupfourteen').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--fifteen-->
-        <div class="column fifteen">
-          <h2><span class="day"><?php echo date('D', strtotime('+15 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+15 day')); ?></span></h2>
-          <div class="list-groupfifteen">
-            <?php foreach($fifteenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formfifteen">
-              <input name="task_name" type="text" id="task task_namefifteen" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formfifteen', function(event){
-                event.preventDefault();
-
-                if($('#task_namefifteen').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $fifteen; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formfifteen')[0].reset();
-                    $('.list-groupfifteen').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-      </div>
-    <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    <?php if($_GET['week']=='5'): ?>
-
-
-      <div class="rowone">
-        <div class="columnone left">
-          <?php include('dynamic/nav.php'); ?>
-        </div>
-        <div class="columnone right" id="main">
-          <span class="previewnav">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=4" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-left.svg" class="previewimg" style="width:10px;height:auto;"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=6" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-right.svg" class="previewimg" style="width:10px;height:auto;"></a></span>
-        </div>
-      </div>
-
-      
-      <div class="row" id="mainalt">
-        <!--sixteen-->
-        <div class="column sixteen">
-          <h2><span class="day"><?php echo date('D', strtotime('+16 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+16 day')); ?></span></h2>
-          <div class="list-groupsixteen">
-            <?php foreach($sixteenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formsixteen">
-              <input name="task_name" type="text" id="task task_namesixteen" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formsixteen', function(event){
-                event.preventDefault();
-
-                if($('#task_namesixteen').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $sixteen; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formsixteen')[0].reset();
-                    $('.list-groupsixteen').prepend(data);
-                  }
-                  })
-                }
-                });
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--seventeen-->
-        <div class="column seventeen">
-          <h2><span class="day"><?php echo date('D', strtotime('+17 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+17 day')); ?></span></h2>
-          <div class="list-groupseventeen">
-            <?php foreach($seventeenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formseventeen">
-              <input name="task_name" type="text" id="task task_nameseventeen" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formseventeen', function(event){
-                event.preventDefault();
-
-                if($('#task_nameseventeen').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $seventeen; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formseventeen')[0].reset();
-                    $('.list-groupseventeen').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-                
-        <!--eightteen-->
-        <div class="column eightteen">
-          <h2><span class="day"><?php echo date('D', strtotime('+18 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+18 day')); ?></span></h2>
-          <div class="list-groupeightteen">
-            <?php foreach($eightteenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formeightteen">
-              <input name="task_name" type="text" id="task task_nameeightteen" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formeightteen', function(event){
-                event.preventDefault();
-
-                if($('#task_nameeightteen').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $eightteen; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formeightteen')[0].reset();
-                    $('.list-groupeightteen').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--nineteen-->
-        <div class="column nineteen">
-          <h2><span class="day"><?php echo date('D', strtotime('+19 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+19 day')); ?></span></h2>
-          <div class="list-groupnineteen">
-            <?php foreach($nineteenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formnineteen">
-              <input name="task_name" type="text" id="task task_namenineteen" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formnineteen', function(event){
-                event.preventDefault();
-
-                if($('#task_namenineteen').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $nineteen; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formnineteen')[0].reset();
-                    $('.list-groupnineteen').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-      </div>
-    <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    <?php if($_GET['week']=='6'): ?>
-
-
-      <div class="rowone">
-        <div class="columnone left">
-          <?php include('dynamic/nav.php'); ?>
-        </div>
-        <div class="columnone right" id="main">
-          <span class="previewnav">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=5" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-left.svg" class="previewimg" style="width:10px;height:auto;"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=7" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-right.svg" class="previewimg" style="width:10px;height:auto;"></a></span>
-        </div>
-      </div>
-
-
-      <div class="row" id="mainalt">
-        <!--twenty-->
-        <div class="column twenty">
-          <h2><span class="day"><?php echo date('D', strtotime('+20 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+20 day')); ?></span></h2>
-          <div class="list-grouptwenty">
-            <?php foreach($twentyitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwenty">
-              <input name="task_name" type="text" id="task task_nametwenty" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwenty', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwenty').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twenty; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwenty')[0].reset();
-                    $('.list-grouptwenty').prepend(data);
-                  }
-                  })
-                }
-                });
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--twentyone-->
-        <div class="column twentyone">
-          <h2><span class="day"><?php echo date('D', strtotime('+21 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+21 day')); ?></span></h2>
-          <div class="list-grouptwentyone">
-            <?php foreach($twentyoneitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentyone">
-              <input name="task_name" type="text" id="task task_nametwentyone" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentyone', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentyone').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentyone; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentyone')[0].reset();
-                    $('.list-grouptwentyone').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-                
-        <!--twentytwo-->
-        <div class="column twentytwo">
-          <h2><span class="day"><?php echo date('D', strtotime('+22 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+22 day')); ?></span></h2>
-          <div class="list-grouptwentytwo">
-            <?php foreach($twentytwoitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentytwo">
-              <input name="task_name" type="text" id="task task_nametwentytwo" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentytwo', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentytwo').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentytwo; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentytwo')[0].reset();
-                    $('.list-grouptwentytwo').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--twentythree-->
-        <div class="column twentythree">
-          <h2><span class="day"><?php echo date('D', strtotime('+23 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+23 day')); ?></span></h2>
-          <div class="list-grouptwentythree">
-            <?php foreach($twentythreeitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentythree">
-              <input name="task_name" type="text" id="task task_nametwentythree" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentythree', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentythree').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentythree; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentythree')[0].reset();
-                    $('.list-grouptwentythree').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-      </div>
-    <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    <?php if($_GET['week']=='7'): ?>
-
-
-      <div class="rowone">
-        <div class="columnone left">
-          <?php include('dynamic/nav.php'); ?>
-        </div>
-        <div class="columnone right" id="main">
-          <span class="previewnav">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=6" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-left.svg" class="previewimg" style="width:10px;height:auto;"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=8" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-right.svg" class="previewimg" style="width:10px;height:auto;"></a></span>
-        </div>
-      </div>
-
-
-      <div class="row" id="mainalt">
-        <!--twentyfour-->
-        <div class="column twentyfour">
-          <h2><span class="day"><?php echo date('D', strtotime('+24 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+24 day')); ?></span></h2>
-          <div class="list-grouptwentyfour">
-            <?php foreach($twentyfouritems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentyfour">
-              <input name="task_name" type="text" id="task task_nametwentyfour" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentyfour', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentyfour').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentyfour; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentyfour')[0].reset();
-                    $('.list-grouptwentyfour').prepend(data);
-                  }
-                  })
-                }
-                });
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--twentyfive-->
-        <div class="column twentyfive">
-          <h2><span class="day"><?php echo date('D', strtotime('+25 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+25 day')); ?></span></h2>
-          <div class="list-grouptwentyfive">
-            <?php foreach($twentyfiveitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentyfive">
-              <input name="task_name" type="text" id="task task_nametwentyfive" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentyfive', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentyfive').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentyfive; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentyfive')[0].reset();
-                    $('.list-grouptwentyfive').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-                
-        <!--twentysix-->
-        <div class="column twentysix">
-          <h2><span class="day"><?php echo date('D', strtotime('+26 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+26 day')); ?></span></h2>
-          <div class="list-grouptwentysix">
-            <?php foreach($twentysixitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentysix">
-              <input name="task_name" type="text" id="task task_nametwentysix" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentysix', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentysix').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentysix; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentysix')[0].reset();
-                    $('.list-grouptwentysix').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--twentyseven-->
-        <div class="column twentyseven">
-          <h2><span class="day"><?php echo date('D', strtotime('+27 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+27 day')); ?></span></h2>
-          <div class="list-grouptwentyseven">
-            <?php foreach($twentysevenitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentyseven">
-              <input name="task_name" type="text" id="task task_nametwentyseven" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentyseven', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentyseven').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentyseven; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentyseven')[0].reset();
-                    $('.list-grouptwentyseven').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-      </div>
-    <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    <?php if($_GET['week']=='8'): ?>
-
-
-      <div class="rowone">
-        <div class="columnone left">
-          <?php include('dynamic/nav.php'); ?>
-        </div>
-        <div class="columnone right" id="main">
-          <span class="previewnav">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=7" class="previewlink"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-left.svg" class="previewimg" style="width:10px;height:auto;"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?week=8" class="previewlink halfopacity"><img src="svg<?php if($theme=='dark'){echo '/dark';}?>/arrow-right.svg" class="previewimg" style="width:10px;height:auto;"></a></span>
-        </div>
-      </div>
-
-
-      <div class="row" id="mainalt">
-        <!--twentyeight-->
-        <div class="column twentyeight">
-          <h2><span class="day"><?php echo date('D', strtotime('+28 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+28 day')); ?></span></h2>
-          <div class="list-grouptwentyeight">
-            <?php foreach($twentyeightitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentyeight">
-              <input name="task_name" type="text" id="task task_nametwentyeight" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentyeight', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentyeight').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentyeight; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentyeight')[0].reset();
-                    $('.list-grouptwentyeight').prepend(data);
-                  }
-                  })
-                }
-                });
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--twentynine-->
-        <div class="column twentynine">
-          <h2><span class="day"><?php echo date('D', strtotime('+29 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+29 day')); ?></span></h2>
-          <div class="list-grouptwentynine">
-            <?php foreach($twentynineitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formtwentynine">
-              <input name="task_name" type="text" id="task task_nametwentynine" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formtwentynine', function(event){
-                event.preventDefault();
-
-                if($('#task_nametwentynine').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $twentynine; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formtwentynine')[0].reset();
-                    $('.list-grouptwentynine').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-                
-        <!--thirty-->
-        <div class="column thirty">
-          <h2><span class="day"><?php echo date('D', strtotime('+30 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+30 day')); ?></span></h2>
-          <div class="list-groupthirty">
-            <?php foreach($thirtyitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formthirty">
-              <input name="task_name" type="text" id="task task_namethirty" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formthirty', function(event){
-                event.preventDefault();
-
-                if($('#task_namethirty').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $thirty; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formthirty')[0].reset();
-                    $('.list-groupthirty').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-
-        
-        <!--thirtyone-->
-        <div class="column thirtyone">
-          <h2><span class="day"><?php echo date('D', strtotime('+31 day')); ?></span>&nbsp;<span class="date"><?php echo date('M.d', strtotime('+31 day')); ?></span></h2>
-          <div class="list-groupthirtyone">
-            <?php foreach($thirtyoneitems as $item): ?>
-              <?php include('dynamic/task.php'); ?>
-            <?php endforeach; ?>
-              
-            <form method="POST" id="to_do_formthirtyone">
-              <input name="task_name" type="text" id="task task_namethirtyone" class="form-control" required autocomplete="off" placeholder='Add Task...'>
-            </form>
-            <script>
-              $(document).ready(function(){
-                $(document).on('submit', '#to_do_formthirtyone', function(event){
-                event.preventDefault();
-
-                if($('#task_namethirtyone').val() == '')
-                {
-                  //$('#message').html('<div class="alert alert-danger">Enter Task Details</div>');
-                  //return false;
-                }
-                else
-                {
-                  $('#submit').attr('disabled', 'disabled');
-                  $.ajax({
-                  url:"add_task.php?date=<?php echo $thirtyone; ?>",
-                  method:"POST",
-                  data:$(this).serialize(),
-                  success:function(data)
-                  {
-                    $('#submit').attr('disabled', false);
-                    $('#to_do_formthirtyone')[0].reset();
-                    $('.list-groupthirtyone').prepend(data);
-                  }
-                  })
-                }
-                });
-
-              });
-            </script>
-          </div>
-        </div>
-      </div>
-    <?php endif; ?>
   </body>
 </html>
-
-
-<?php 
-  if($theme=='dark'){
-    include('../app/style/index-dark.html');
-  }else{
-    include('../app/style/index.html');
-  }
+<?php
+  // Calls the complete script and the style sheet
+  include('scripts/complete-script.js');
+  include('style/index.php');
+  include('../include-all-user-pages.php'); 
 ?>
-
-
-<style>
-  a.halfopacity {
-    opacity: 0.5;
-  }
-</style>
+<script src="plugins/pulltorefresh.js/dist/pulltorefresh.js" type="text/javascript"></script>
 <script>
-$(document).ready(function(){
-  $(document).on('click', '.dropbtn', function(){
-    var id = $(this).data('id');
-    $('.dropdown-'+id).css('display', 'block');
-  });
+  // Remove to remove loader  
+  $('.page-row').css('display','none');
+  setTimeout(() => { 
+    document.getElementById("loader").style.display = 'none';
+    $('.page-row').css('display','initial');
+  }, 1000);
 
-  $(document).on('click', '.close', function(){
-    var id = $(this).data('id');
-    $('.dropdown-'+id).css('display', 'none');
-  });
-  
-  $(document).on('click', '.list-group-item', function(){
-    var id = $(this).data('id');
+  // Gets the has from the url (IF SET) and selects the page on load
+  function currentPage(){
+    if(window.location.hash=='#today'){
+      todayActive();
+    }
+
+    if(window.location.hash=='#insight'){
+      insightActive();
+    }
+
+    if(window.location.hash=='#tomorrow'){
+      tomorrowActive();
+    }
+
+    if(window.location.hash=='#inbox'){
+      inboxActive();
+    }
+
+    if(window.location.hash=='#overview'){
+      overviewActive();
+    }
     
-    //Removes the item from the list
-    $('.getridof-'+id).css('display', 'none');
+    if(window.location.hash.includes('fnb')){
+      function getSecondPart(str) {
+        return str.split('-')[1];
+      }
+      // use the function:
+      var folderpath = getSecondPart(window.location.hash);
+
+      $(" #insight ").css("display", "none");
+      $(" #today ").css("display", "none");
+      $(" #inbox ").css("display", "none");
+      $(` .folderview `).css("display", "none");
+      $(" #tomorrow ").css("display", "none");
+      $(" #overview ").css("display", "none");
+      
+      document.title = "Tasks";
+
+      location.hash = `fnb-${folderpath}`;
+
+      document.getElementById(`todayactive`).classList.remove("active");
+      document.getElementById(`insightactive`).classList.remove("active");
+      document.getElementById(`inboxactive`).classList.remove("active");
+      $(` .folderbutton `).removeClass( "active" );
+      $(` #tomorrowactive `).removeClass( "active" );
+      $(` #overviewactive `).removeClass( "active" );
+      $(` .fnb-${folderpath} `).addClass( "active" );
+
+      $(` #div-${folderpath} `).css("display", "initial");
+    }
+  }
+
+  // This is what controls the current page
+  // Sets everything but the landing page to a display none
+  document.getElementById("today").style.display = 'none';
+  document.getElementById("inbox").style.display = 'none';
+  $('.tomorrow').css('display','none');
+  $('.folderview').css('display','none');
+
+  // Changes the current page to the today view
+  function todayActive(){
+    //closeNav();
+    if ($(window).width() < 750) {
+      closeNav();
+    }
+
+    location.hash = '#today';
+
+    $(`.edit-container`).css('display', 'none');
+    document.title = "Tasks - Today";
+
+    document.getElementById(`todayactive`).classList.add("active");
+    document.getElementById(`insightactive`).classList.remove("active");
+    document.getElementById(`inboxactive`).classList.remove("active");
+    $(` .folderbutton `).removeClass( "active" );
+    $(` #tomorrowactive `).removeClass( "active" );
+    $(` #overviewactive `).removeClass( "active" );
+
+    $(" #insight ").css("display", "none");
+    $(" #today ").css("display", "initial");
+    $(" #inbox ").css("display", "none");
+    $(" #tomorrow ").css("display", "none");
+    $(` .folderview `).css("display", "none");
+    $(" #overview ").css("display", "none");
+    /* document.getElementById("insight").style.display = 'none';
+    document.getElementById("today").style.display = 'initial';
+    document.getElementById("inbox").style.display = 'none'; */
+  }
+
+  // Changes the current page to the insight
+  function insightActive(){
+    //closeNav();
+    if ($(window).width() < 750) {
+      closeNav();
+    }
+
+    $(`.edit-container`).css('display', 'none');
+    document.title = "Tasks - Planning";
+
+    location.hash = '#insight';
+
+    document.getElementById(`todayactive`).classList.remove("active");
+    document.getElementById(`insightactive`).classList.add("active");
+    document.getElementById(`inboxactive`).classList.remove("active");
+    $(` .folderbutton `).removeClass( "active" );
+    $(` #tomorrowactive `).removeClass( "active" );
+    $(` #overviewactive `).removeClass( "active" );
+
+    $(" #insight ").css("display", "initial");
+    $(" #today ").css("display", "none");
+    $(" #inbox ").css("display", "none");
+    $(" #tomorrow ").css("display", "none");
+    $(` .folderview `).css("display", "none");
+    $(" #overview ").css("display", "none");
+    /*document.getElementById("insight").style.display = 'initial';
+    document.getElementById("today").style.display = 'none';
+    document.getElementById("inbox").style.display = 'none'; */
+  }
+
+  // Changes the current page to the inbox
+  function inboxActive(){
+    //closeNav();
+    if ($(window).width() < 750) {
+      closeNav();
+    }
+    
+    $(`.edit-container`).css('display', 'none');
+    document.title = "Tasks - Inbox";
+
+    location.hash = '#inbox';
+
+    document.getElementById(`todayactive`).classList.remove("active");
+    document.getElementById(`insightactive`).classList.remove("active");
+    document.getElementById(`inboxactive`).classList.add("active");
+    $(` .folderbutton `).removeClass( "active" );
+    $(` #tomorrowactive `).removeClass( "active" );
+    $(` #overviewactive `).removeClass( "active" );
+
+    $(" #insight ").css("display", "none");
+    $(" #today ").css("display", "none");
+    $(" #inbox ").css("display", "initial");
+    $(" #tomorrow ").css("display", "none");
+    $(` .folderview `).css("display", "none");
+    $(" #overview ").css("display", "none");
+    /*document.getElementById("insight").style.display = 'none';
+    document.getElementById("today").style.display = 'none';
+    document.getElementById("inbox").style.display = 'initial';*/
+  }
+
+  // Changes the current page to the tomorrow page
+  function tomorrowActive(){
+    //closeNav();
+    if ($(window).width() < 750) {
+      closeNav();
+    }
+    
+    $(`.edit-container`).css('display', 'none');
+    document.title = "Tasks - Tomorrow";
+
+    location.hash = '#tomorrow';
+
+    document.getElementById(`todayactive`).classList.remove("active");
+    document.getElementById(`insightactive`).classList.remove("active");
+    document.getElementById(`inboxactive`).classList.remove("active");
+    $(` .folderbutton `).removeClass( "active" );
+    $(` #tomorrowactive `).addClass( "active" );
+    $(` #overviewactive `).removeClass( "active" );
+
+    $(" #insight ").css("display", "none");
+    $(" #today ").css("display", "none");
+    $(" #inbox ").css("display", "none");
+    $(" #tomorrow ").css("display", "initial");
+    $(` .folderview `).css("display", "none");
+    $(" #overview ").css("display", "none");
+    /*document.getElementById("insight").style.display = 'none';
+    document.getElementById("today").style.display = 'none';
+    document.getElementById("inbox").style.display = 'initial';*/
+  }
+
+  // Gets the folder and appends to a container
+  $(document).on('click', '.folderbutton', function(){
+    // Gets the task id
+    var id = $(this).data('id');
+
+    // Shows the folder
+    $(" #insight ").css("display", "none");
+    $(" #today ").css("display", "none");
+    $(" #inbox ").css("display", "none");
+    $(` .folderview `).css("display", "none");
+    $(" #tomorrow ").css("display", "none");
+    $(" #overview ").css("display", "none");
+    
+    document.title = "Tasks";
+
+    location.hash = `#fnb-${id}`;
+
+    document.getElementById(`todayactive`).classList.remove("active");
+    document.getElementById(`insightactive`).classList.remove("active");
+    document.getElementById(`inboxactive`).classList.remove("active");
+    $(` .folderbutton `).removeClass( "active" );
+    $(` #tomorrowactive `).removeClass( "active" );
+    $(` .fnb-${id} `).addClass( "active" );
+    $(` #overviewactive `).removeClass( "active" );
+
+    $(` #div-${id} `).css("display", "initial");
+    if ($(window).width() < 750) {
+      closeNav();
+    }
 
     // Calls the document that marks task as done
-    $.ajax({
-      url:"update_task.php",
+    /*$.ajax({
+      url: `scripts/del_task.php?task=${id}`,
       method:"POST",
-      data:{id:id},
-      success:function(data)
-      {
-        //$('#list-group-item-'+id).css('display', 'none');
-        //$('#list-group-dropdown-'+id).css('display', 'none');
-      }
-    })
+      data:{id:id}
+    })*/
   });
 
-});
+  // Changes the current page to the overview page
+  function overviewActive(){
+    //closeNav();
+    if ($(window).width() < 750) {
+      closeNav();
+    }
+    
+    $(`.edit-container`).css('display', 'none');
+    document.title = "Tasks - Overview";
+
+    location.hash = '#overview';
+
+    document.getElementById(`todayactive`).classList.remove("active");
+    document.getElementById(`insightactive`).classList.remove("active");
+    document.getElementById(`inboxactive`).classList.remove("active");
+    $(` .folderbutton `).removeClass( "active" );
+    $(` #tomorrowactive `).removeClass( "active" );
+    $(` #overviewactive `).addClass( "active" );
+
+    $(" #insight ").css("display", "none");
+    $(" #today ").css("display", "none");
+    $(" #inbox ").css("display", "none");
+    $(" #tomorrow ").css("display", "none");
+    $(` .folderview `).css("display", "none");
+    $(" #overview ").css("display", "initial");
+    /*document.getElementById("insight").style.display = 'none';
+    document.getElementById("today").style.display = 'none';
+    document.getElementById("inbox").style.display = 'initial';*/
+  }
+
+  // Pull to refresh function for the app/mobile 
+  PullToRefresh.init({
+    mainElement: 'body',
+    onRefresh: function(){ window.location.reload(); }
+  });
+
+  // Page load script (tracking)
+  window.addEventListener("load", myInit, true); function myInit(){
+    $.get('https://www.cloudflare.com/cdn-cgi/trace', function(data) {
+      //console.log(data);
+      //$("#track").html(data);
+      $.ajax({
+        url: `scripts/tracking/sendrequest.php?a=appload&cfdata=${data}`,
+        method:"POST",
+        data:$(this).serialize(),
+      })
+    })
+  }; 
+</script>
+
+
+<!--Everything bwloe this is for the task completion and the edit boxes-->
+<script> 
+  // Updates task as the user types
+  $(document).ready(function(){
+    $('.task-input').keyup(function(){
+      // Get the task id
+      var textareaid = $(this).data('id');
+
+      // Gets the content that the user is typing
+      var content = document.getElementById(`input-${textareaid}`).innerHTML;
+      
+      $.ajax({
+        // Send the request to the server
+        url: `scripts/auto-update-task.php?content=${content}&id=${textareaid}`,
+        method:"POST",
+        data:$(this).serialize(),
+      })
+    });
+
+    
+    // Closes all of the edit containers when the page loads
+    $('.edit-container').css('display', 'none');
+
+    // Opens the edit container when the edit button is clicked
+    $(document).on('click', '.edit-button', function(){
+      // Gets the container id from the edit button
+      var id = $(this).data('id');
+
+      // Closes any other open edit containers
+      $(`.edit-container`).css('display', 'none');
+      // Opens the current one being clicked on
+      $(`.edit-container-${id}`).css('display', 'initial');
+    });
+
+    // Closes all of the containers when the exit (x) button is pressed
+    $(document).on('click', '.exit', function(){
+      $(`.edit-container`).css('display', 'none');
+    });
+
+    // Changing the priority of the items
+      // P1
+      $(document).on('click', '.pf-1', function(){
+        // Gets the task id
+        var id = $(this).data('id');
+
+        // Clears past alerts if there are any 
+        document.getElementById(`alert-${id}`).innerHTML = "";
+
+        // Put alerts on the page with the tag that it was changed to
+        $( `#alert-${id}` ).append( `<span class="green">Priority Updated! P1</span>` );
+
+        // Updates the class name so the color changes
+        document.getElementById(`update-${id}`).className = `p1`;
+
+        // Calls the document that marks task as done
+        $.ajax({
+          url: `scripts/priority.php?taskid=${id}&id=p1`,
+          method:"POST",
+          data:{id:id},
+          success:function(data)
+          {
+          }
+        })
+      });
+      
+      // P2
+      $(document).on('click', '.pf-2', function(){
+        // Gets the task id
+        var id = $(this).data('id');
+
+        // Clears past alerts if there are any 
+        document.getElementById(`alert-${id}`).innerHTML = "";
+
+        // Put alerts on the page with the tag that it was changed to
+        $( `#alert-${id}` ).append( `<span class="green">Priority Updated! P2</span>` );
+
+        // Updates the class name so the color changes
+        document.getElementById(`update-${id}`).className = `p2`;
+        // Calls the document that marks task as done
+        $.ajax({
+          url: `scripts/priority.php?taskid=${id}&id=p2`,
+          method:"POST",
+          data:{id:id},
+          success:function(data)
+          {
+          }
+        })
+      });
+      
+      // P3
+      $(document).on('click', '.pf-3', function(){
+        // Gets the task id
+        var id = $(this).data('id');
+
+        // Clears past alerts if there are any 
+        document.getElementById(`alert-${id}`).innerHTML = "";
+
+        // Put alerts on the page with the tag that it was changed to
+        $( `#alert-${id}` ).append( `<span class="green">Priority Updated! P3</span>` );
+
+        // Updates the class name so the color changes
+        document.getElementById(`update-${id}`).className = `p3`;
+
+        // Calls the document that marks task as done
+        $.ajax({
+          url: `scripts/priority.php?taskid=${id}&id=p3`,
+          method:"POST",
+          data:{id:id},
+          success:function(data)
+          {
+          }
+        })
+      });
+
+    // Date edit edit box
+    $(document).on('submit', '.date-form', function(event){
+      // Gets the task id from the date edit box
+      var editaskid = $(this).data('id');
+
+      // Stops the form from refreshing the page
+      event.preventDefault();
+      // Gets the date and other content from the box
+      var content = document.getElementById(`date-box-${editaskid}`).value;
+
+      // Sends everything to the server
+      $.ajax({
+        url: `scripts/edit_date.php?date=${content}&id=${editaskid}`,
+        method:"POST",
+        data:$(this).serialize(),
+      })
+
+      // Reloads the page so the changes take effect
+      location.reload();
+    });
+
+    // Updates the notes from the edit box
+    $(document).on('submit', '.edit-box-update-notes', function(event){
+      // Gets the task id from the note container
+      var noteboxid = $(this).data('id');
+
+      // Stops the form from refreshing the page
+      event.preventDefault();
+
+      // Sends everything to the add_task page for it to be added to the db
+      $('#submit').attr('disabled', 'disabled');
+      
+      // Send everything to the server
+      $.ajax({
+        url: `scripts/edit_notes.php?task=${noteboxid}`,
+        method:"POST",
+        data:$(this).serialize(),
+      })
+    });
+  });
+
+  $(document).ready(function(){
+  
+    // Completes the task
+    $(document).on('click', '.task-complete', function(){
+      // Gets the hash when the task complete button is clicked
+      var completehash = window.location.hash;
+
+      // Gets the task id from the item that was clcked
+      var id = $(this).data('id');
+      
+      // Removes the item from the page/list
+      $('.task-outer-'+id).css('display', 'none');
+
+      // Calls the document that marks task as done
+      $.ajax({
+        url: 'scripts/complete_task.php',
+        method:"POST",
+        data:{id:id},
+        success:function(data)
+        {
+          // Replces the hash after the URL has been cleared
+          location.hash = `${completehash}`;
+        }
+      })
+    });
+
+    // Deletes the task
+    $(document).on('click', '.deltask-box', function(){
+      // Gets the task id
+      var id = $(this).data('id');
+      
+      // Removes the item from the list
+      $('.task-outer-'+id).css('display', 'none');
+
+      // Calls the document that marks task as done
+      $.ajax({
+        url: `scripts/del_task.php?task=${id}`,
+        method:"POST",
+        data:{id:id},
+        success:function(data)
+        {
+          //$('#list-group-item-'+id).css('display', 'none');
+          //$('#list-group-dropdown-'+id).css('display', 'none');
+        }
+      })
+    });
+
+    // Handles deleting of the folder
+    $(document).on('click', '.trash-del', function(){
+      // Gets the task id
+      var id = $(this).data('id');
+        
+      // Removes the item from the list
+      $('.div-'+id).css('display', 'none');
+
+      $(" #insight ").css("display", "initial");
+      $(" #today ").css("display", "none");
+      $(" #inbox ").css("display", "none");
+      $(` .folderview `).css("display", "none");
+
+      $(' .fni-'+id ).css("display","none");
+
+      // Calls the document that marks task as done
+      $.ajax({
+        url: `scripts/del_folder.php?folderid=${id}`,
+        method:"POST",
+        data:{id:id},
+      })
+    });
+
+
+    // Handles adding of the folder tasks
+    $(document).on('submit', '#folderform', function(event){
+      // Gets the task id
+      var id = $(this).data('id');
+
+      // Stops the form from refreshing the page
+      event.preventDefault();
+
+      // Gemerates a random taskid code
+      function maketfid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+      } 
+      //console.log(makeid(64));
+      var taskid = maketfid(64);
+
+      // Adds everything to the div
+      var taskvar = document.getElementById(`fi-${id}`).value;
+      $( `.f-${id}` ).append( `
+        <?php include('dynamic/add-task-list.php'); ?>
+      ` );
+                  
+      // Sends everything to the add_task page for it to be added to the db
+      $('#submit').attr('disabled', 'disabled');
+      $.ajax({
+        url: `scripts/add_folder_task.php?taskid=${taskid}&folder=${id}`,
+        method:"POST",
+        data:$(this).serialize(),
+      })
+
+      // Clears the form
+      $(`.ff-${id}`)[0].reset();
+    });
+
+    // Opens the folder alert box
+    $(document).on('click', '.fa-del-box-open', function(){
+      // Gets the task id
+      var id = $(this).data('id');
+
+      $(`.fa-${id}`).removeClass("alert-fa-none");
+    });
+
+    // Opens the folder alert box
+    $(document).on('click', '.fa-close', function(){
+      // Gets the task id
+      var id = $(this).data('id');
+      
+      $(`.fa-${id}`).addClass("alert-fa-none");
+    });
+
+    // Edits the name of a folder
+    $('.foldername-edit').keyup(function(){
+      // Get the task id
+      var fnid = $(this).data('id');
+
+      // Gets the content that the user is typing
+      var content = document.getElementById(`fn-${fnid}`).innerHTML;
+
+      // Update the text in the nav button
+      document.getElementById(`fnavb-${fnid}`).innerHTML = content;
+
+      $.ajax({
+        // Send the request to the server
+        url: `scripts/folder_name_update.php?name=${content}&folderid=${fnid}`,
+        method:"POST",
+        data:$(this).serialize(),
+      })
+    });
+
+    // Edits the content of the notes
+    $(document).on('click', '.folder-notes-save', function(){
+      // Get the task id
+      var foldernotes = $(this).data('id');
+
+      // Gets the content that the user is typing
+      var content = document.getElementById(`folder-notes-${foldernotes}`).innerHTML;
+
+      $.ajax({
+        // Send the request to the server
+        url: `scripts/folder_notes_update.php?name=${content}&folderid=${foldernotes}`,
+        method:"POST",
+        data:$(this).serialize(),
+      })
+    });
+
+    // Adds the sub tasks
+    $(document).on('submit', '.subtasks-form', function(event){
+      // Get the form id
+      var id = $(this).data('id');
+
+      // Stops the form from refreshing the page
+      event.preventDefault();
+
+      // Gemerates a random taskid code
+      function makeid(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+      }
+      //console.log(makeid(64));
+      var taskid = makeid(64);
+
+      // Adds everything to the div
+      var taskvar = document.getElementById(`sti-${id}`).value;
+      $( `.stl-${id}` ).append( `
+      <?php include('dynamic/add-subtask.php'); ?>
+      ` );
+                
+      // Sends everything to the add_task page for it to be added to the db
+      $('#submit').attr('disabled', 'disabled');
+      $.ajax({
+        url: `scripts/add_subtask.php?taskid=${taskid}&ptid=${id}`,
+        method:"POST",
+        data:$(this).serialize(),
+      })
+
+      // Clears the form
+      $('.subtasks-form')[0].reset();
+    });
+
+    // Adds complete styles to the subtask when clicked
+    $(document).on('click', '.sub-task-complete-button', function(){
+      // Get the form id
+      var id = $(this).data('id');
+
+      // Stops the form from refreshing the page
+      event.preventDefault();
+
+      $(`#input-${id}`).addClass('sub-completed-text');
+      $(`#update-${id}`).addClass('sub-completed');
+      $(`#update-${id}`).removeClass('p3');
+    });
+  });
 </script>

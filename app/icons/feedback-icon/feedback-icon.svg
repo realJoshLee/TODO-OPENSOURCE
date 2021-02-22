@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="931" height="931" viewBox="0 0 931 931">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.684" y1="0.037" x2="0.326" y2="0.987" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#006fff"/>
+      <stop offset="1" stop-color="#0049a7"/>
+    </linearGradient>
+    <filter id="Ellipse_1" x="0" y="0" width="931" height="931" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.341"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="feedback" x="177" y="182" width="615.155" height="615.155" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur-2"/>
+      <feFlood flood-opacity="0.259"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_1" data-name="Group 1" transform="translate(-15 -13)">
+    <g transform="matrix(1, 0, 0, 1, 15, 13)" filter="url(#Ellipse_1)">
+      <circle id="Ellipse_1-2" data-name="Ellipse 1" cx="456.5" cy="456.5" r="456.5" transform="translate(9 6)" fill="url(#linear-gradient)"/>
+    </g>
+    <g transform="matrix(1, 0, 0, 1, 15, 13)" filter="url(#feedback)">
+      <path id="feedback-2" data-name="feedback" d="M522.511,0H74.644A74.714,74.714,0,0,0,0,74.644v335.9a74.714,74.714,0,0,0,74.644,74.644H186.611v97.971a13.956,13.956,0,0,0,14,14,13.392,13.392,0,0,0,8.281-2.8L354.561,485.189h167.95a74.714,74.714,0,0,0,74.644-74.644V74.644A74.714,74.714,0,0,0,522.511,0Zm37.322,410.544a37.432,37.432,0,0,1-37.322,37.322H342.081l-9.914,7.464L223.933,536.507v-88.64H74.644a37.432,37.432,0,0,1-37.322-37.322V74.644A37.432,37.432,0,0,1,74.644,37.322H522.511a37.432,37.432,0,0,1,37.322,37.322ZM326.569,279.917H158.619a9.358,9.358,0,0,0-9.331,9.331v18.661a9.358,9.358,0,0,0,9.331,9.331h167.95a9.358,9.358,0,0,0,9.331-9.331V289.247A9.358,9.358,0,0,0,326.569,279.917ZM438.536,167.95H158.619a9.358,9.358,0,0,0-9.331,9.331v18.661a9.358,9.358,0,0,0,9.331,9.331H438.536a9.358,9.358,0,0,0,9.331-9.331V177.28A9.358,9.358,0,0,0,438.536,167.95Z" transform="translate(186 188)" fill="#fff"/>
+    </g>
+  </g>
+</svg>

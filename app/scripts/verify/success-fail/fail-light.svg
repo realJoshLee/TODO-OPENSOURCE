@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="819" height="321" viewBox="0 0 819 321">
+  <defs>
+    <linearGradient id="linear-gradient" y1="0.487" x2="1.06" y2="0.516" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ff6a97"/>
+      <stop offset="1" stop-color="#f9f9f9"/>
+    </linearGradient>
+  </defs>
+  <g id="Fail" transform="translate(-73 -288)">
+    <rect id="Rectangle_1" data-name="Rectangle 1" width="819" height="321" rx="20" transform="translate(73 288)" fill="#f9f9f9"/>
+    <rect id="Rectangle_2" data-name="Rectangle 2" width="819" height="321" rx="20" transform="translate(73 288)" opacity="0.03" fill="url(#linear-gradient)"/>
+    <g id="Check">
+      <circle id="Ellipse_1" data-name="Ellipse 1" cx="65" cy="65" r="65" transform="translate(119 384)" fill="#ff6a97"/>
+      <path id="times-solid" d="M48.958,115.5,69.142,95.315a6.345,6.345,0,0,0,0-8.972l-4.486-4.486a6.345,6.345,0,0,0-8.972,0L35.5,102.042,15.315,81.858a6.345,6.345,0,0,0-8.972,0L1.858,86.344a6.345,6.345,0,0,0,0,8.972L22.042,115.5,1.858,135.685a6.345,6.345,0,0,0,0,8.972l4.486,4.486a6.345,6.345,0,0,0,8.972,0L35.5,128.958l20.185,20.185a6.345,6.345,0,0,0,8.972,0l4.486-4.486a6.345,6.345,0,0,0,0-8.972Z" transform="translate(149 334)" fill="#f9f8f8"/>
+    </g>
+    <g id="Text" transform="translate(0 9)">
+      <text id="Please_try_again." data-name="Please try again." transform="translate(283 405)" fill="#111" font-size="30" font-family="Montserrat-Medium, Montserrat" font-weight="500"><tspan x="0" y="0">Please try again.</tspan></text>
+      <text id="The_code_that_you_entered_seems_to_be_wrong._Head_back_over_to_your_email_and_re-check_it." data-name="The code that you entered seems to be
+wrong. Head back over to your email
+and re-check it." transform="translate(283 437)" fill="#75768b" font-size="25" font-family="Montserrat-Regular, Montserrat"><tspan x="0" y="0">The code that you entered seems to be</tspan><tspan x="0" y="30">wrong. Head back over to your email</tspan><tspan x="0" y="60">and re-check it.</tspan></text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="https://use.typekit.net/rdi8jbs.css">
+
+Sofia Pro Bold
+  font-family: sofia-pro, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+
+
+Sofia Pro Bold italic
+  font-family: sofia-pro, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+
+
+Sofia Pro Regular
+  font-family: sofia-pro, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+
+
+Sofia Pro Regular italic
+  font-family: sofia-pro, sans-serif;
+  font-weight: 400;
+  font-style: italic;
+
+
+Sofia Pro Soft Bold
+  font-family: sofia-pro-soft, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+
+
+Sofia Pro Soft Bold Italic
+  font-family: sofia-pro-soft, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+
+
+Sofia Pro Soft Regular
+  font-family: sofia-pro-soft, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+
+
+Sofia Pro Soft Regular Italic
+  font-family: sofia-pro-soft, sans-serif;
+  font-weight: 400;
+  font-style: italic;
+
+
+Sofia Pro Condensed Bold
+  font-family: sofia-pro-condensed, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+
+
+Sofia Pro Condensed Bold italic
+  font-family: sofia-pro-condensed, sans-serif;
+  font-weight: 700;
+  font-style: italic;
+
+
+Sofia Pro Condensed Regular
+  font-family: sofia-pro-condensed, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+
+
+Sofia Pro Condensed Regular italic
+  font-family: sofia-pro-condensed, sans-serif;
+  font-weight: 400;
+  font-style: italic;

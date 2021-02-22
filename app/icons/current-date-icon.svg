@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <g id="Group_1" data-name="Group 1" transform="translate(-50 -50)">
+    <path id="Rectangle_3" data-name="Rectangle 3" d="M70,0H320a70,70,0,0,1,70,70V96a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V70A70,70,0,0,1,70,0Z" transform="translate(55 50)" fill="#006fff" opacity="0.29"/>
+    <g id="Rectangle_1" data-name="Rectangle 1" transform="translate(50 50)" fill="none" stroke="#006fff" stroke-width="10">
+      <rect width="400" height="400" rx="70" stroke="none"/>
+      <rect x="5" y="5" width="390" height="390" rx="65" fill="none"/>
+    </g>
+    <rect id="Rectangle_2" data-name="Rectangle 2" width="395" height="10" transform="translate(55 141)" fill="#006fff"/>
+    <text id="_01" data-name="01" transform="translate(55 147)" fill="#006fff" font-size="249" font-family="Montserrat-Regular, Montserrat"><tspan x="68.385" y="241">01</tspan></text>
+  </g>
+</svg>

@@ -3,7 +3,7 @@ require_once 'init-login.php';
 session_start();
 
 if (isset($_SESSION["suite"])) {
-  header('Location: app/index.php?week=1');
+  header('Location: app/index.php');
 }
 
 if(isset($_COOKIE['token'])){
@@ -20,7 +20,7 @@ if(isset($_COOKIE['token'])){
   // Assigns the Session based on the users token
   foreach($useracc as $item){
     $_SESSION['suite'] = $item['username'];
-    header('Location: app/index.php?week=1');
+    header('Location: app/index.php');
   }
 }
 
@@ -57,18 +57,19 @@ if (isset($_POST["register"])) {
     //require_once'app/encryption.php';
     //$recovery = base64_encode(openssl_encrypt($recoveryUnencrypted, $method, $key, OPENSSL_RAW_DATA, $iv));
 
-    $tokenlength = 100;
-    function getNum($tokenlength)
-    {
-      $characters = '0123456789';
-      $randomString = '';
-      for ($i = 0; $i < $tokenlength; $i++) {
-        $index = rand(0, strlen($characters) - 1);
-        $randomString .= $characters[$index];
-      }
-      return $randomString;
-    }
-    $token = getNum($tokenlength);
+    $nlength=100; 
+    function getName($nlength) { 
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'; 
+        $randomString = ''; 
+      
+        for ($i = 0; $i < $nlength; $i++) { 
+            $index = rand(0, strlen($characters) - 1); 
+            $randomString .= $characters[$index]; 
+        } 
+      
+        return $randomString; 
+    } 
+    $token = getName($nlength); 
 
     // For the username and passwords
     $username = mysqli_real_escape_string($connect, $_POST["username"]);
@@ -77,12 +78,13 @@ if (isset($_POST["register"])) {
     $last = mysqli_real_escape_string($connect, $_POST["last"]);
     $preminum = "false";
     $password = password_hash($password, PASSWORD_DEFAULT);
-    $query = "INSERT INTO passwordlogin(firstname, lastname, username, password, recovery, sessionid, token, preminum) VALUES('$first','$last','$username', '$password', '$recovery', '$session','$token','$preminum')";
+    $query = "INSERT INTO passwordlogin(firstname, lastname, username, password, recovery, sessionid, preminum, token) VALUES('$first','$last','$username', '$password', '$recovery', '$session','$preminum','$token')";
     if (mysqli_query($connect, $query)) {
       echo '<script>alert("Registration Done! - When you first log in, please take note of your recovery code. This is the only way to recover your account if you forget your password.")</script>';
     }
   }
 }
+
 if (isset($_POST["login"])) {
   if (empty($_POST["username"]) || empty($_POST["password"])) {
     echo '<script>alert("Both Fields are required")</script>';
@@ -99,7 +101,17 @@ if (isset($_POST["login"])) {
           $token_cookie = base64_encode(openssl_encrypt($row["token"], $method, $key, OPENSSL_RAW_DATA, $iv));
           setcookie('token',$token_cookie,time()+604800); // 86400 = 1 day 604800
           session_regenerate_id(true);
-          header('Location: app/index.php?week=1');
+          header('Location: app/index.php');
+
+          $logquery = $db->prepare("
+            INSERT INTO taskable_log (item, cfdata)
+            VALUES (:item, :cfdata)
+          ");
+          $logstatement = 'User: '.$username.' : Logged in successfully.';
+          $logquery->execute([
+            ':item' => 'Login Successful',
+            ':cfdata' => $logstatement
+          ]);
         } else {
           //return false;  
           echo '<script>alert("Wrong User Details")</script>';
@@ -116,70 +128,98 @@ if (isset($_POST["login"])) {
 
   <head>
     <title>Login</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />  
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <link rel="shortcut icon" type="image/png" href="https://madebyjoshlee.com/assets/images/favicon.png"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>-->
+    <link rel="shortcut icon" type="image/png" href="app/icons/favicon.v3.png"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/rdi8jbs.css">
   </head>
 
   <body>
-    <br><br><br><br><br><br>
-    <div class="container" style="width: 450px;">
-      <div class="logo">
-        <svg class="logo" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 444.27 583.71"><path d="M3975.67,305.13,3642.6,358.6v73.6l263.2-46.4V642.33S3899.4,822.6,3531.4,829c0,0,4.8,56,41.6,59.2,0,0,339.73,25.6,402.67-246.4Z" transform="translate(-3531.4 -305.13)"/><polygon points="111.2 212.57 111.2 273.5 291.73 235.47 291.73 174.53 111.2 212.57"/><path d="M3601.8,367V668.47l221.33-36.27s6.4,54.4-58.66,81.07l-181.87,30.4s-50.13-1.07-51.2-50.14v-312Z" transform="translate(-3531.4 -305.13)"/><polygon points="152.53 204.15 152.53 265.08 333.07 227.05 333.07 166.12 152.53 204.15"/><path id="logo" d="M3817,633.21l48.05-7.68s7.91,64.27-39.2,78.14L3712,722l105-88.83" transform="translate(-3531.4 -305.13)"/></svg>
-        <br>
+
+    <div class="row">
+      <div class="column left">
+        <div class="left-container">
+          <div class="top">
+            <img src="app/images/White-Grey.svg" alt="" class="logo">
+          </div>
+          <div class="left-center">
+            <p class="title">Welcome Back!<br><span class="subtxt">You're just one login away<br>from being productive!</span></p>
+          </div>
+        </div>
       </div>
-      <?php
-      if (isset($_GET["action"]) == "register") {
-      ?>
-        <h3>Register</h3>
-        <form method="post">
-          <input type="text" name="first" required class="form-control-new" placeholder="First Name:"/>
-          <input type="text" name="last" required class="form-control-new" placeholder="Last Name:"/>
-          <br><br>
-          <input type="email" name="username" required class="form-control-new" placeholder="Username:"/>
-          <input type="password" name="password" required class="form-control-new" placeholder="Password:"/>
-          <br /><br>
-          <p><a href="login.php" class="button">Login</a></p>
-          <p><a href="recover-account.php" class="button">Recover Account</a></p>
-          <br><br>
-          <div class="align-right-container">
-            <div class="align-right">
-              <input type="submit" name="register" value="Register" class="btn btn-info" />
-            </div>
-          </div>
-          <br><br><br><br>
-          <div class="center-container" style="text-align: center;">
-            <a href="https://madebyjoshlee.com/privacypolicy.php" class="button">Privacy Policy and Terms of Service</a>
-          </div>
-        </form>
-      <?php
-      } else {
-      ?>
-        <h3>Sign In</h3>
-        <form method="post">
-          <input type="email" name="username" required class="form-control-new" placeholder="Username:"/>
-          <input type="password" name="password" required class="form-control-new" placeholder="Password:"/>
-          <br /><br>
-          <p><a href="login.php?action=register" class="button">Create an Account</a></p>
-          <p><a href="recover-account.php" class="button">Recover Account</a></p>
-          <br><br>
-          <div class="align-right-container">
-            <div class="align-right">
-              <input type="submit" name="login" value="Login" class="btn btn-info" />
-            </div>
-          </div>
-          <br><br><br><br>
-          <div class="center-container" style="text-align: center;">
-            <a href="https://madebyjoshlee.com/privacypolicy.php" class="button">Privacy Policy and Terms of Service</a>
-          </div>
-        </form>
-      <?php
-      }
-      ?>
+        <div class="logo-left">
+          <img src="app/icons/checkv2.svg" alt="" class="main-logo">
+        </div>
+      <div class="column right">
+        <div class="container">
+          <?php
+          if (isset($_GET["action"]) == "register") {
+          ?>
+            <h3 class="title">Register</h3>
+            <form method="post">
+              <input type="text" name="first" required class="form-control-new" placeholder="First Name"/><br><br>
+              <input type="text" name="last" required class="form-control-new" placeholder="Last Name"/><br><br>
+              <br><br>
+              <input type="email" name="username" required class="form-control-new" placeholder="Username"/><br><br>
+              <input type="password" name="password" required class="form-control-new" placeholder="Password"/>
+              <br /><br>
+
+              <input type="checkbox" required>&nbsp;<span class="label">I agree to the Terms and Privacy Policy</span>
+
+              <br><br>
+
+              <div class="align-right-container">
+                <div class="align-right">
+                  <input type="submit" name="register" value="Register" class="btn btn-info" />
+                </div>
+              </div>
+
+              <br>
+
+              <p><a href="login.php" class="link">Login</a> - <a href="recover-account.php" class="link">Recover Account</a></p>
+              <div class="center-container" style="text-align: center;">
+                <p>By clicking register, you agree to our Privacy<br>Policy and our Terms of Service. Click the<br>link below to learn more.</p>
+                <a href="privacy-terms.html" class="link">Privacy Policy and Terms of Service</a>
+              </div>
+            </form>
+          <?php
+          } else {
+          ?>
+            <h3 class="title">Sign In</h3>
+            <form method="post">
+              <input type="email" name="username" required class="form-control-new" placeholder="Username"/><br><br>
+              <input type="password" name="password" required class="form-control-new" placeholder="Password"/>
+              <br />
+              
+              <p>Don't have a login? <a href="login.php?action=register" class="link">Create an Account</a><br>or you can <a href="recover-account.php" class="link">Recover Account</a></p>
+
+              <div class="align-right-container">
+                <div class="align-right">
+                  <input type="submit" name="login" value="Login" class="btn btn-info" />
+                </div>
+              </div>
+
+              <br>
+              <div class="center-container" style="text-align: center;">
+                <a href="privacy-terms.html" class="link">Privacy Policy and Terms of Service</a>
+              </div>
+            </form>
+          <?php
+          }
+          ?>
+        </div>
+      </div>
     </div>
+    
   </body>
 
 </html>
-<?php include('css.css'); ?>
+<?php 
+  include('css-new-new.css');
+  include('include-all-user-pages.php'); 
+?>
