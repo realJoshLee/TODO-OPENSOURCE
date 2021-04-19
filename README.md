@@ -32,5 +32,4 @@ All of the users data is pulled from a MariaDB SQL server so updating code to a 
 ## License
 This form isn't required but it's nice to see the quanity of who self hosts our app and to have emails incase of we need to notify our users. This data is not sold or rented to other companies.
 [Self Host Form](https://tasks.hstly.net/self-host-register.php)
-
 MIT
