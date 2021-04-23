@@ -108,7 +108,7 @@
 
         <!--Log Page-->
         <div class="log-page default-hide" id="log-page">
-          <?php include('dynamic/page/log.php'); ?>
+          <?php //include('dynamic/page/log.php'); ?>
         </div>
 
         <!--Stats Page-->
@@ -135,14 +135,15 @@
 <?php 
 include('scripts/index.js'); 
 ?>
+var todaydate = '<?php echo $today; ?>';
 
-function duealert() {
-  var folderal = $('div.folderlist .task-date:contains("<?php echo $today; ?>")').length;
+/*function duealert() {
+  var folderal = $('div.folderlist .task-date:contains("<?php // echo $today; ?>")').length;
   if(parseInt(folderal) > 0) {
     document.getElementById('nav-alert').innerHTML = '<button class="nav-al-style">!!!</button>';
   }else{
     document.getElementById('nav-alert').innerHTML = '';
   }
-}
+}*/
 </script>
 <!--<script type="text/javascript" src="scripts/index.js"></script>-->

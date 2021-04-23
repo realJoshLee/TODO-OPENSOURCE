@@ -72,6 +72,17 @@ div.content .highlight {
   ];
   $response = $mj->post(Resources::$Email, ['body' => $body]);
   $response->success() && var_dump($response->getData());
+      
+  $logQuery = $db->prepare("
+    INSERT INTO tasks_log (account, content, date)
+    VALUES (:account, :content, :date)
+  ");
+  $maincontent = 'Account verification email sent';
+  $logQuery->execute([
+    ':account' => $account,
+    ':content' => $maincontent,
+    ':date' => $logdate
+  ]);
 
   header('Location: index.php');
 ?>

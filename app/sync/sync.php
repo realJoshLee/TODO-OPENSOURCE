@@ -11,6 +11,17 @@ $hour = date("H");
 // All of the functions
 if(isset($_GET['as'])){
   $action = $_GET['as'];
+      
+  $logQuery = $db->prepare("
+    INSERT INTO tasks_log (account, content, date)
+    VALUES (:account, :content, :date)
+  ");
+  $maincontent = 'API request recieved';
+  $logQuery->execute([
+    ':account' => 'SYSTEM',
+    ':content' => $maincontent,
+    ':date' => $logdate
+  ]);
 
   switch ($action) {
 
@@ -386,6 +397,32 @@ if(isset($_GET['as'])){
       ]);
       break;
 
+    // Removes a date from a task
+    case "removedate":
+      $addQuery = $db->prepare("
+        UPDATE `tasks_tasks`
+        SET `scheduledate` = NULL
+        WHERE `account` = :account
+        AND `tid` = :tid
+      ");
+      
+      $addQuery->execute([
+        ':account' => $account,
+        ':tid' => $_POST['id']
+      ]);
+      
+      $logQuery = $db->prepare("
+        INSERT INTO tasks_log (account, content, date)
+        VALUES (:account, :content, :date)
+      ");
+      $content = 'Updated task (TID: '.$_GET['tid'].')';
+      $logQuery->execute([
+        ':account' => $account,
+        ':content' => $content,
+        ':date' => $logdate
+      ]);
+      break;
+
     // Updates the date of a primary task
     case "updatedate":      
       $addQuery = $db->prepare("
@@ -619,6 +656,15 @@ if(isset($_GET['as'])){
       ]);
       break;
   }
-} else {
-  echo 'Action not set<br>';
+} else { 
+  $logQuery = $db->prepare("
+    INSERT INTO tasks_log (account, content, date)
+    VALUES (:account, :content, :date)
+  ");
+  $maincontent = 'Invalid API request recieved';
+  $logQuery->execute([
+    ':account' => 'SYSTEM',
+    ':content' => $maincontent,
+    ':date' => $logdate
+  ]);
 }

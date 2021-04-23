@@ -8,7 +8,7 @@
   ]);
   $fitems = $fitemget->rowCount() ? $fitemget : [];
 ?>
-<div class="folderlist" id="fdiv-<?php echo $fitem['fid']; ?>">
+<div class="folderlist" id="fdiv-<?php echo $fitem['fid']; ?>" data-id="<?php echo $fitem['fid']; ?>">
   <div class="content">
     <h2><span class="day" id="fn-<?php echo $fitem['fid']; ?>"><?php echo $decfolder; ?></span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="edit-folder-content" data-id="<?php echo $fitem['fid']; ?>"><i class="far fa-edit"></i></span></h2>
 

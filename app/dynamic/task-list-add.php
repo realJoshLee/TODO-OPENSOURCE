@@ -33,6 +33,8 @@
               <br><br>              
               <input type="submit" class="submit save-btn-style" value="Save Date" data-id="${taskid}">
             </form>
+            <br>
+            <input type="submit" class="submit remove-date save-btn-style" value="Remove Date" data-id="${taskid}">
 
             <div class="spacer">.</div>
 
@@ -42,7 +44,14 @@
               <input type="submit" class="submit save-btn-style" value="Save Notes" data-id="${taskid}">
             </form>
 
-            <br><br>
+            <div class="spacer">.</div>
+
+            <p class="label">Sharing:</p>               
+            <input type="submit" class="save-btn-style share-btn enable-share" data-share="true" value="Enable Sharing" data-id="${taskid}">
+            <input type="submit" class="save-btn-style share-btn disable-share" data-share="false" value="Disable Sharing" data-id="${taskid}">
+            <input type="text" class="form-control" style="color: grey;" value="https://tasks.hstly.net/app/viewer.php?id=${taskid}">
+
+            <div class="spacer">.</div>
 
             <p class="label">Subtasks:</p>   
             <div class="subtasks-${taskid}">
@@ -51,7 +60,7 @@
               <input type="text" name="task" placeholder="Add a subtask" class="form-control" id="sti-${taskid}" data-id="${taskid}">
             </form>
 
-            <br><br>
+            <div class="spacer">.</div>
             
             <span class="remove-from-folder del-btn-style" data-id="${taskid}">Remove from folder</span>&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="task-del-btn del-btn-style" data-id="${taskid}">Delete Task</span>

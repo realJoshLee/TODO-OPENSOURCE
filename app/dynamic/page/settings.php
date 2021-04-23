@@ -7,6 +7,7 @@
     </style>
     <h2><span class="day">Settings</span></h2>
 
+    <?php if($themeen=='true'): ?>
     <!--Theme-->
     <div class="theme">
       <h3>Theme</h3>
@@ -18,11 +19,12 @@
     </div>
 
     <br><hr><br>
+    <?php endif; ?>
 
     <!--Usage guide-->
     <div class="actions">
       <h3>Actions</h3>
-      <a href="../logout.php" class="folderbacklink"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Logout</a><br>
+      <a href="../logout.php?err=logout" class="folderbacklink"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Logout</a><br>
     </div>
 
     <br><hr><br>
@@ -33,8 +35,8 @@
       <a href="extras/getting-started/getting-started.html" target="_blank" class="folderbacklink links-border"><i class="fas fa-book"></i>&nbsp;&nbsp;Getting Started Document</a><br>
       <a href="extras/change-log.html" target="_blank" class="folderbacklink links-border"><i class="fas fa-book"></i>&nbsp;&nbsp;Change Log</a><br>
       <a href="extras/bug-log.html" target="_blank" class="folderbacklink links-border"><i class="fas fa-book"></i>&nbsp;&nbsp;Bug Log</a><br>
-      <a href="bug.html" target="_blank" class="folderbacklink links-border"><i class="fas fa-book"></i>&nbsp;&nbsp;Submit a Issue</a><br>
-      <a href="extras/pwa-install/index.html" target="_blank" class="folderbacklink links-border"><i class="fab fa-apple"></i>&nbsp;&nbsp;Install the iOS app (PWA)</a><br>
+      <a href="bug.php" target="_blank" class="folderbacklink links-border"><i class="fas fa-book"></i>&nbsp;&nbsp;Submit a Issue</a><br>
+      <a href="extras/pwa-install/index.html" target="_blank" class="folderbacklink links-border"><i class="fas fa-book"></i>&nbsp;&nbsp;View how to install our apps</a><br>
     </div>
 
     <br><hr><br>
@@ -104,6 +106,16 @@
 
     <!--Download Extension-->
     <div class="download">
+      <h3>Change Account Token</h3>
+      <p>This will log out you and every other account signed into you account. If you suspect you have an unauthorized login, change your password then refresh your token.</p>
+      
+      <a class="folderbacklink links-border" href="scripts/settings/token-refresh.php" style="color: #0962b9;">Refresh account token&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a>
+    </div>
+
+    <br><hr><br>
+
+    <!--Download Extension-->
+    <div class="download">
       <h3>Delete Account</h3>
       <p>You're about to delete your account. This will delete everything (Tasks, folders, account data, etc). This action can't be undone and nothing can be recovered</p>
       
@@ -124,8 +136,7 @@
       <h3>Admin Actions</h3>
       <p>Only admins can see this section.</p>
       
-      <a href="../admin/index.php?p=rollout" class="folderbacklink"><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Rollout Management</a><br>
-      <a href="../admin/index.php?p=users" class="folderbacklink"><i class="fas fa-user-shield"></i>&nbsp;&nbsp;User Management</a><br>
+      <a href="admin/index.php?p=main" class="folderbacklink"><i class="fas fa-user-shield"></i>&nbsp;&nbsp;Admin Dashboard/Management</a><br>
     </div>
     <?php endif; ?>
 

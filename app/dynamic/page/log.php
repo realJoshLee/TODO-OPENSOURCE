@@ -1,5 +1,8 @@
 <div class="content">
   <div class="day-container">
+    <br><br>
+    <a href="index.php#planning" class="link"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;Back</a>
+
     <h2><span class="day">Log</span></h2>
     <div class="task-container" id="inbox">
     <?php foreach($log as $item): ?>
@@ -43,5 +46,10 @@ span.dot-completed {
 
 .log-task-spacing {
   padding-bottom: 5px;
+}
+
+a.link {
+  color: #0962b9;
+  text-decoration: none;
 }
 </style>

@@ -1,4 +1,4 @@
-<div class="folderlist" id="fdiv-${fid}">
+<div class="folderlist" id="fdiv-${fid}" data-id="${fid}">
   <div class="content">
     <h2><span class="day" id="fn-${fid}">${foldervar}</span> &nbsp;&nbsp;&nbsp;&nbsp;<span class="edit-folder-content" data-id="${fid}"><i class="far fa-edit"></i></span></h2>
 

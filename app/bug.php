@@ -1,5 +1,9 @@
 <?php
   include 'init/init.php';
+
+  if($bugreporten=='false'){
+    header('Location: ../error.php?err=bugreport')
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en" class="theme-ctrl">

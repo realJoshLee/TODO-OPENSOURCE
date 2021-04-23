@@ -1,5 +1,9 @@
 <?php
   require 'init/init-login.php';
+
+  if($sharepeageen=='false'){
+    header('Location: ../error.php?err=sharepage');
+  }
   
   if(isset($_GET['id'])){
     $getshareable = $db->prepare("SELECT * FROM `tasks_tasks` WHERE `tid` = :tid");

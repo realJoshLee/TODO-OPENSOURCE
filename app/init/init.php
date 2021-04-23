@@ -4,7 +4,7 @@
   // Account initialization
   session_start();  
   if(!isset($_SESSION["suite"]))  {  
-    header("location:../login.php");  
+    header("location: ../logout.php?err=sessioninval");  
   }
 
   // Account ID
@@ -84,3 +84,18 @@
       header('Location: '.$item['version'].'/');
     }
   }*/
+
+  // Token verify
+  if(isset($_COOKIE['token'])){
+    // Decrypts the token/cookie
+    $decrypttoken = openssl_decrypt(base64_decode($_COOKIE['token']), $method, $key, OPENSSL_RAW_DATA, $iv);
+  
+    // Gets everything from the database from the decrypted token
+    $dbtoken = "SELECT * FROM `passwordlogin` WHERE token = '$decrypttoken'";
+    $conntoken = $conn->query($dbtoken);
+    $tokenuserct = mysqli_num_rows($conntoken);
+
+    if($tokenuserct==0){
+      header('Location: ../logout.php?err=invaltoken');
+    }
+  }

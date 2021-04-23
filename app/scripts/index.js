@@ -5,7 +5,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
-var devmode = 'true'; // set to true or false
+var devmode = 'false'; // set to true or false
 
 // Show the loader when in production.
 if(devmode=='false'){
@@ -138,7 +138,7 @@ document.onkeydown = function(e) {
   // Opens log
   // ALT+3
   if (e.altKey && e.which == 51) {
-    logactive();
+    window.location.href = 'log.php';
   }
 
   // Opens stats
@@ -184,17 +184,13 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
-/*$('.today-page').css('display','none');
-$('.inbox-page').css('display','none');
-$('.settings-page').css('display','none');
-$('.log-page').css('display','none');
-$('.stats-page').css('display','none');*/
 $('.default-hide').css('display','none');
 $('[id^=fdiv-]').css('display','none');
 
 count();
 duealert();
 
+// Where it send the user if they have the hash in the status bar.
 if(location.hash=='#planning'){
   planningactive();
 }
@@ -203,9 +199,6 @@ if(location.hash=='#inbox'){
 }
 if(location.hash=='#settings'){
   settingsactive();
-}
-if(location.hash=='#log'){
-  logactive();
 }
 if(location.hash=='#stats'){
   statsactive();
@@ -218,20 +211,8 @@ function statsactive() {
   document.title = "Tasks - Stats";
 
   // Changes the view
-  $('.inbox-page').css('display','none');
-  $( ".inbox-nav" ).removeClass('active').addClass('');
-
-  $('.insight-page').css('display','none');
-  $( ".planning-nav" ).removeClass('active').addClass('');
-
-  $('.settings-page').css('display','none');
-  $( `.settings-btn` ).removeClass('active').addClass('');
-
-  $('.log-page').css('display','none');
-  $( `.log-nav` ).removeClass('active').addClass('');
-
-  $('[id^=fdiv-]').css('display','none');
-  $( `.folder-btn` ).removeClass('active').addClass('');
+  $('.inbox-page, .insight-page, .settings-page, .log-page, [id^=fdiv-]').css('display','none');
+  $( ".inbox-nav, .planning-nav, .setting-btn, .log-nav, .folder-btn" ).removeClass('active').addClass('');
 
   $('.stats-page').css('display','initial');
   $( `.stats-nav` ).removeClass('').addClass('active');
@@ -250,23 +231,11 @@ function planningactive() {
   document.title = "Tasks - Planning";
 
   // Changes the view
-  $('.inbox-page').css('display','none');
-  $( ".inbox-nav" ).removeClass('active').addClass('');
+  $('.inbox-page, .settings-page, .log-page, [id^=fdiv-], .stats-page').css('display','none');
+  $( ".inbox-nav, .settings-btn, .log-nav, .folder-btn, .stats-nav" ).removeClass('active').addClass('');
 
   $('.insight-page').css('display','initial');
   $( ".planning-nav" ).removeClass('').addClass('active');
-
-  $('.settings-page').css('display','none');
-  $( `.settings-btn` ).removeClass('active').addClass('');
-
-  $('.log-page').css('display','none');
-  $( `.log-nav` ).removeClass('active').addClass('');
-
-  $('[id^=fdiv-]').css('display','none');
-  $( `.folder-btn` ).removeClass('active').addClass('');
-
-  $('.stats-page').css('display','none');
-  $( `.stats-nav` ).removeClass('active').addClass('');
 
   count();
   
@@ -287,20 +256,8 @@ function inboxactive() {
   $('.inbox-page').css('display','initial');
   $( ".inbox-nav" ).removeClass('').addClass('active');
 
-  $('.insight-page').css('display','none');
-  $( ".planning-nav" ).removeClass('active').addClass('');
-
-  $('.settings-page').css('display','none');
-  $( `.settings-btn` ).removeClass('active').addClass('');
-
-  $('.log-page').css('display','none');
-  $( `.log-nav` ).removeClass('active').addClass('');
-
-  $('[id^=fdiv-]').css('display','none');
-  $( `.folder-btn` ).removeClass('active').addClass('');
-
-  $('.stats-page').css('display','none');
-  $( `.stats-nav` ).removeClass('active').addClass('');
+  $('.insight-page, .settings-page, .log-page, [id^=fdiv-], .stats-page').css('display','none');
+  $( ".planning-nav, .settings-btn, .log-nav, .folder-btn, .stats-nav" ).removeClass('active').addClass('');
 
   count();
   
@@ -316,33 +273,7 @@ function logactive() {
   // Header info
   location.hash = 'log';
   document.title = "Tasks - Log";
-  
-  // Changes the view
-  $('.inbox-page').css('display','none');
-  $( ".inbox-nav" ).removeClass('active').addClass('');
-
-  $('.insight-page').css('display','none');
-  $( ".planning-nav" ).removeClass('active').addClass('');
-
-  $('.settings-page').css('display','none');
-  $( `.settings-btn` ).removeClass('active').addClass('');
-
-  $('.log-page').css('display','initial');
-  $( `.log-nav` ).removeClass('').addClass('active');
-
-  $('[id^=fdiv-]').css('display','none');
-  $( `.folder-btn` ).removeClass('active').addClass('');
-
-  $('.stats-page').css('display','none');
-  $( `.stats-nav` ).removeClass('active').addClass('');
-
-  count();
-  
-  if ($(window).width() < 830) {
-    setTimeout(() => { 
-      closenav();
-    }, 100);
-  }
+  window.location.href = 'log.php';
 }
 
 // Opens the folder
@@ -354,26 +285,11 @@ $(document).on('click', '.folder-btn', function(){
   document.title = `Tasks - Folder`;
   
   // Changes the view
-  $('.inbox-page').css('display','none');
-  $( ".inbox-nav" ).removeClass('active').addClass('');
-
-  $('.insight-page').css('display','none');
-  $( ".planning-nav" ).removeClass('active').addClass('');
-
-  $('.settings-page').css('display','none');
-  $( `.settings-btn` ).removeClass('active').addClass('');
-
-  $('.log-page').css('display','none');
-  $( `.log-nav` ).removeClass('active').addClass('');
-
-  $('[id^=fdiv-]').css('display','none');
-  $( `.folder-btn` ).removeClass('active').addClass('');
+  $('.inbox-page, .insight-page, .settings-page, .log-page, [id^=fdiv-], .stats-page').css('display','none');
+  $( ".inbox-nav, .planning-nav, .settings-btn, .log-nav, .folder-btn, .stats-nav" ).removeClass('active').addClass('');
 
   $(`#fdiv-${fid}`).css('display','initial');
   $( `#f-${fid}` ).removeClass('').addClass('active');
-
-  $('.stats-page').css('display','none');
-  $( `.stats-nav` ).removeClass('active').addClass('');
 
   count();
   
@@ -384,6 +300,7 @@ $(document).on('click', '.folder-btn', function(){
   }
 });
 
+// For the location hash reguarding folders
 if(window.location.hash.includes('fid-')){
   function getSecondPart(str) {
     return str.split('-')[1];
@@ -396,26 +313,11 @@ if(window.location.hash.includes('fid-')){
   document.title = `Tasks - Folder`;
   
   // Changes the view
-  $('.inbox-page').css('display','none');
-  $( ".inbox-nav" ).removeClass('active').addClass('');
-
-  $('.insight-page').css('display','none');
-  $( ".planning-nav" ).removeClass('active').addClass('');
-
-  $('.settings-page').css('display','none');
-  $( `.settings-btn` ).removeClass('active').addClass('');
-
-  $('.log-page').css('display','none');
-  $( `.log-nav` ).removeClass('active').addClass('');
-
-  $('[id^=fdiv-]').css('display','none');
-  $( `.folder-btn` ).removeClass('active').addClass('');
+  $('.inbox-page, .insight-page, .settings-page, .log-page, [id^=fdiv-], .stats-page').css('display','none');
+  $( ".inbox-nav, .planning-nav, .settings-btn, .log-nav, .folder-btn, .stats-nav" ).removeClass('active').addClass('');
 
   $(`#fdiv-${fid}`).css('display','initial');
   $( `#f-${fid}` ).removeClass('').addClass('active');
-
-  $('.stats-page').css('display','none');
-  $( `.stats-nav` ).removeClass('active').addClass('');
 
   count();
   
@@ -433,23 +335,11 @@ function settingsactive() {
   document.title = "Tasks - Settings";
   
   // Changes the view
-  $('.inbox-page').css('display','none');
-  $( ".inbox-nav" ).removeClass('active').addClass('');
-
-  $('.insight-page').css('display','none');
-  $( ".planning-nav" ).removeClass('active').addClass('');
-
-  $('.log-page').css('display','none');
-  $( `.log-nav` ).removeClass('active').addClass('');
+  $('.inbox-page, .insight-page, .log-page, [id^=fdiv-], .stats-page').css('display','none');
+  $( ".inbox-nav, .planning-nav, .log-nav, .folder-btn, .stats-nav" ).removeClass('active').addClass('');
 
   $('.settings-page').css('display','initial');
   $( `.settings-btn` ).removeClass('').addClass('active');
-
-  $('[id^=fdiv-]').css('display','none');
-  $( `.folder-btn` ).removeClass('active').addClass('');
-
-  $('.stats-page').css('display','none');
-  $( `.stats-nav` ).removeClass('active').addClass('');
   
   if ($(window).width() < 830) {
     setTimeout(() => { 
@@ -485,8 +375,6 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
 // Opens the nav on smaller screens
 function opennavdesktop() {
-  //$(`.left`).css('display','initial');
-  //$(`.right`).css('display','none');
   $('.left').fadeIn(200);
   $('.nav-desktop-page').css('display','none');
 
@@ -496,16 +384,12 @@ function opennavdesktop() {
 
 // Opens the nav on smaller screens
 function opennav() {
-  //$(`.left`).css('display','initial');
-  //$(`.right`).css('display','none');
   $('.left').fadeIn(200);
   $('.right').fadeOut(200);
 }
 
 // Closes the side nav
 function closenav() {
-  //$(`.left`).css('display','none');
-  //$(`.right`).css('display','initial');
   $('.left').fadeOut(200);
   $('.right').fadeIn(200);
 
@@ -653,24 +537,25 @@ $(document).on('click', '.overlay-close', function(){
 // Opens the add folder box 
 function folderaddopen() {
   $(`.folder-add-form`).css('display','initial');
-  $(`.folder-add-icon`).css('display','none');
-  $(`.folder-add-btn`).css('display','none');
+  $(`.folder-add-icon, .folder-add-btn`).css('display','none');
 }
 
 // Closes the folder
 function folderaddclose() {
   $(`.folder-add-form`).css('display','none');
-  $(`.folder-add-icon`).css('display','initial');
-  $(`.folder-add-btn`).css('display','initial');
+  $(`.folder-add-icon, .folder-add-btn`).css('display','initial');
 }
 
+// Closes the folder edit container
 $('.folder-edit-container').css('display','none');
 
+// Opens the folder edit container
 $(document).on('click', '.edit-folder-content', function(){
   var id = $(this).data('id');
   $(`.fec-${id}`).css('display','initial');
 });
 
+// Closes the folder edit container
 $(document).on('click', '.edit-folder-close', function(){
   var id = $(this).data('id');
   $(`.folder-edit-container`).css('display','none');
@@ -723,12 +608,23 @@ function countallsubtasks(){
   }).get();
 }
 
-// Counts the folders
+function duealert() {
+  countfoldertasks();
+}
+
+// Counts the folders tasks
 function countfoldertasks(){
   $('.folder-nav-container').map(function(){
     var id = $(this).data('id');
     
     document.getElementById(`fct-${id}`).innerHTML = $(`div#fdiv-${id} .task-main`).length;
+    
+    var folderal = $(`div#fdiv-${id} .task-date:contains(${todaydate})`).length;
+    if(parseInt(folderal) > 0) {
+      $(`#fct-${id}`).addClass('duetodayalert');
+    }else{
+      $(`#fct-${id}`).removeClass('duetodayalert');
+    }
   }).get();
 }
 
@@ -811,11 +707,22 @@ $(document).on('click', '.task-del-btn', function(){
 $(document).on('click', '.task-complete-btn', function(){
   // Gets the task id
   var tid = $(this).data('id');
-  $(`.task-${tid}`).fadeOut(100);
-  $(`.task-${tid}`).remove();
 
-  count();
-  duealert();
+  $(`.task-${tid}`).css('background-color','#bbd2f0');
+  $(`.task-${tid}`).css('opacity','0.5');
+  $(`.task-${tid} .dot`).css('background','#0962b9');
+  $(`.task-${tid} .dot`).css('color','#fff');
+  $(`.task-${tid} .dot`).css('border','2px solid #0962b9');
+  setTimeout(function() {
+    $(`.task-${tid}`).fadeOut(100);
+    $(`.task-${tid}`).remove();
+
+    count();
+    duealert();
+  
+    countallsubtasks();
+    countfoldertasks();
+  }, 1000);
 
   var counter = $("#counter");
   counter.html( parseInt(counter.html()) + 1 );
@@ -830,9 +737,6 @@ $(document).on('click', '.task-complete-btn', function(){
   setTimeout(() => { 
     $('.alert-taskcomplete').fadeOut(100);
   }, 1500);
-  
-  countallsubtasks();
-  countfoldertasks();
 });
 
 // Updates the date
@@ -853,6 +757,7 @@ $(document).on('submit', 'div.insight-page .task-date-form', function(event){
   })
 
   count();
+  countfoldertasks();
 
   // For the alert
   $('.alert-taskmove').fadeIn(100);
@@ -1042,6 +947,22 @@ $(document).on('click', '.share-btn', function(event){
       'share': `${share}`
     },
   })
+});
+
+$(document).on('click', '.remove-date', function(event){
+  var tid = $(this).data('id');
+  document.getElementById(`td-${tid}`).innerHTML = '';
+  $(`#date-${tid}`).val("")
+
+  $.ajax({
+    url: `sync/sync.php?as=removedate`,
+    method:"POST",
+    data:{
+      'id': `${tid}`
+    },
+  })
+
+  countfoldertasks();
 });
 
 
@@ -1268,12 +1189,10 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
 function themelight() {
   $( ".theme-ctrl" ).removeClass('').addClass('light');
-  $( ".theme-ctrl" ).removeClass('dark').addClass('');
-  $( ".theme-ctrl" ).removeClass('black').addClass('');
+  $( ".theme-ctrl" ).removeClass('dark black').addClass('');
 
   $( ".lighttgl" ).removeClass('').addClass('activetoggle');
-  $( ".darktgl" ).removeClass('activetoggle').addClass('');
-  $( ".blacktgl" ).removeClass('activetoggle').addClass('');
+  $( ".darktgl, .blacktgl" ).removeClass('activetoggle').addClass('');
 
   $.ajax({
     url: `sync/sync.php?as=theme`,
@@ -1285,13 +1204,11 @@ function themelight() {
 }
 
 function themedark() {
-  $( ".theme-ctrl" ).removeClass('light').addClass('');
+  $( ".theme-ctrl" ).removeClass('light black').addClass('');
   $( ".theme-ctrl" ).removeClass('').addClass('dark');
-  $( ".theme-ctrl" ).removeClass('black').addClass('');
 
-  $( ".lighttgl" ).removeClass('activetoggle').addClass('');
+  $( ".lighttgl, .blacktgl" ).removeClass('activetoggle').addClass('');
   $( ".darktgl" ).removeClass('').addClass('activetoggle');
-  $( ".blacktgl" ).removeClass('activetoggle').addClass('');
 
   $.ajax({
     url: `sync/sync.php?as=theme`,
@@ -1303,12 +1220,10 @@ function themedark() {
 }
 
 function themeblack() {
-  $( ".theme-ctrl" ).removeClass('light').addClass('');
-  $( ".theme-ctrl" ).removeClass('dark').addClass('');
+  $( ".theme-ctrl" ).removeClass('light dark').addClass('');
   $( ".theme-ctrl" ).removeClass('').addClass('black');
 
-  $( ".lighttgl" ).removeClass('activetoggle').addClass('');
-  $( ".darktgl" ).removeClass('activetoggle').addClass('');
+  $( ".lighttgl, .darktgl" ).removeClass('activetoggle').addClass('');
   $( ".blacktgl" ).removeClass('').addClass('activetoggle');
   
   $.ajax({

@@ -2,9 +2,6 @@
 ## _A minimal and useful task manager that you control._
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-## Overview
-I could never find a nice elegant task manager where I had control over all of my data. Tasks is a simple task manager that contains advanced features from high end task managers like Todoist, Tick Tick, and Things 3. This is all provided for free and able to be self hosted!
-
 ## Updating
 All of the users data is pulled from a MariaDB SQL server so updating code to a newer release is as simple as it can be. When a new relase comes along, download the code from the repo and place it on your web server.
 
@@ -15,21 +12,37 @@ All of the users data is pulled from a MariaDB SQL server so updating code to a 
 - Entirely built on HTML, PHP, CSS, JavaScript, and JQuery. That means that there isn't any compiling to be done to edit this. Edit some code and push it to your web server.
 
 ## Setup
-1. Run the 'database-configure.sql' file located in the 'configure' folder.
-2. Configure everything in the 'config.php' file in the 'app/init/' folder.
-3. Setup and configure 'mailjet.com' and configure '$fromemail' with the email address you have configured, set the name value you want under '$fromname', set your '$apipublic' and '$apiprivate' keys provided to you in the 'mailjet.com' setup.
+1. Run the 'database-configure.sql' file located in the 'app/init/' folder.
+2. Configure database connection and encryption in the 'config.php' file in the 'app/init/' folder.
+
+## Setup Pt.2 (In a web interface)
+1. Navigate to the url of ur hosted instance.
+2. Create an account.
+3. Log into the database and set your account as admin.
+4. Navigate to the setting and click on the admin button at the bottom of the settings page.
+5. Open the side nav and click on 'App Settings'.
+6. Configure all of the settings that you would like to change.
+7. If you don't want to setup emails to be sent to users. Disable 'Magic Link Page' and 'Verification' by setting them to false and leave everything Mailjet related blank (Mailjet items are labeled as Mailjet required.)
 
 ## Configure domain whitelist
-1. Navigate to 'app/init/' and edit the 'config.php' file.
-2. If you would like to enable whitelist update the '$whitelistacti' to 'true' and if you would like to disable the whitelist set the value to 'false'.
-3. To add/remove a domain to the whitelist add/remove a value on the array '$whitelist'. Add everything like 'example.com', 'domain.com' not like 'john.doe@example.com' the whitelist function will not work.
+1. Go to the admin page (Follow step 1-5 in 'Setup Pt.2')
+2. Enable 'Whitelist' by setting it to 'true'
+3. Update whitelisted domains in 'app/init/config.php'. Make it the domain of the email account. (i.e.: example@gmail.com you would whitelist gmail.com )
+4. Click 'Update Content'
 
 ## Disable user email verification
-1. Open a SQL editor program and connect to your server. (I use HeidiSQL for SQL database editing).
-2. Open the 'passwordlogin' table under the 'webapps' database.
-3. Set the default of the 'verified' row to 'true'.
+1. Go to the admin page (Follow step 1-5 in 'Setup Pt.2')
+2. Set 'Verification' to 'false'
+3. Click 'Update Content'
+
+## Mark other users as admins
+1. Go to the admin page (Follow step 1-5 in 'Setup Pt.2')
+2. Open the side nav and click on 'Users'
+3. Click on the user that you would like to promote to an admin. (There will be a icon in the admin section if a user if an admin.)
+4. Scroll down to Stats and click on the green button under the admin section.
 
 ## License
 This form isn't required but it's nice to see the quanity of who self hosts our app and to have emails incase of we need to notify our users. This data is not sold or rented to other companies.
 [Self Host Form](https://tasks.hstly.net/self-host-register.php)
+
 MIT

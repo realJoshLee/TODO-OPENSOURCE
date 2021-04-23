@@ -31,10 +31,12 @@
       </div>
     </button>
     
-    <!--Inbox button-->
+    <?php if($logpageen=='true'): ?>
+    <!--Logbook button-->
     <button class="nav-btn-container log-nav" onclick="logactive()" data-btn="log">
       <img src="icons/nav-icons/Log.svg" alt="" class="nav-icon"><span class="nav-text">Logbook</span>
     </button>
+    <?php endif; ?>
     
     <!--Stats button-->
     <button class="nav-btn-container stats-nav" onclick="statsactive()" data-btn="stats">
@@ -62,7 +64,7 @@
     <hr style="opacity:0.1;color:grey;">
     <!--Folder add button-->
     <button class="nav-btn-container folder-add-btn" onclick="folderaddopen()">
-      <span class="nav-text-bottom"><img src="icons/nav-icons/Add Folder.svg" alt="" class="folder-add-icon"> <span class="nav-text-bottom">Add Folder</span></span>
+      <span class="nav-text-bottom"><img src="icons/nav-icons/Add Folder.svg" alt="" class="nav-icon"> <span class="nav-text-bottom">Add Folder</span></span>
     </bottom> 
 
     <!--Settings btn-->

@@ -41,10 +41,12 @@
             <p class="label">Date:</p>
 
             <form method="post" class="task-date-form" data-id="<?php echo $item['tid']; ?>">
-              <input type="text" name="date" value="<?php echo $item['scheduledate']; ?>" id="date-<?php echo $item['tid']; ?>" class="form-control" data-id="<?php echo $item['tid']; ?>">
-              <br><br>              
-              <input type="submit" class="submit save-btn-style" value="Save Date" data-id="<?php echo $item['tid']; ?>">
+              <input type="text" name="date" value="<?php echo $item['scheduledate']; ?>" id="date-<?php echo $item['tid']; ?>" class="form-control" data-id="<?php echo $item['tid']; ?>">            
+
+              <br><br><input type="submit" class="submit save-btn-style" value="Save Date" data-id="<?php echo $item['tid']; ?>">
             </form>
+            <br>
+            <input type="submit" class="submit remove-date save-btn-style" value="Remove Date" data-id="<?php echo $item['tid']; ?>">
 
             <div class="spacer">.</div>
 
@@ -54,13 +56,14 @@
               <input type="submit" class="submit save-btn-style" value="Save Notes" data-id="<?php echo $item['tid']; ?>">
             </form>
 
-            <br><br>
-            
+            <div class="spacer">.</div>
+
+            <p class="label">Sharing:</p>               
             <input type="submit" class="save-btn-style share-btn enable-share" data-share="true" value="Enable Sharing" data-id="<?php echo $item['tid']; ?>">
             <input type="submit" class="save-btn-style share-btn disable-share" data-share="false" value="Disable Sharing" data-id="<?php echo $item['tid']; ?>">
             <input type="text" class="form-control" style="color: grey;" value="https://tasks.hstly.net/app/viewer.php?id=<?php echo $item['tid']; ?>">
 
-            <br><br>
+            <div class="spacer">.</div>
 
             <p class="label">Subtasks:</p>   
             <div class="subtasks-<?php echo $item['tid']; ?>">
@@ -72,7 +75,7 @@
               <input type="text" name="task" placeholder="Add a subtask" class="form-control" id="sti-<?php echo $item['tid']; ?>" data-id="<?php echo $item['tid']; ?>">
             </form>
 
-            <br><br>
+            <div class="spacer">.</div>
             
             <?php if(isset($item['folderid'])){ ?><span class="remove-from-folder del-btn-style" data-id="<?php echo $item['tid']; ?>">Remove from folder</span>&nbsp;&nbsp;&nbsp;&nbsp;<?php } ?>
             <span class="task-del-btn del-btn-style" data-id="<?php echo $item['tid']; ?>">Delete Task</span>

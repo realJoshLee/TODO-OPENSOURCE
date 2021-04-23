@@ -21,6 +21,7 @@
           <div class="initial-laning theme">
             <h2>Theme:</h2>
             <p>Please select a theme that you would like to use. This can be changed in the settings later if you decide you would like to spruce things up.</p>
+            <?php if($themeen=='true'){ ?>
             <div class="row">
               <div class="column" >
                 <h2>Light:</h2>
@@ -35,6 +36,9 @@
                 <img src="images/Black.png" class="theme-icon" onclick="themeblack()">
               </div>
             </div>
+            <?php }else{ ?>
+            <p>Your admin does not allow chaning of themes.</p>
+            <?php } ?>
 
             <br>
 

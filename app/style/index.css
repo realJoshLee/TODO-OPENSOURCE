@@ -223,7 +223,7 @@ html, body {
 /*
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-    GLOBAL
+    LOADER CIRCLE
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
@@ -320,12 +320,12 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
 div.task div.spacer {
   opacity: 0;
-  padding-bottom: 2px;
+  padding-bottom: 1px;
 }
 
 div.content div.spacer {
   opacity: 0;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 
@@ -407,8 +407,8 @@ div.nav-content .bottom {
 }
 
 .nav-text-bottom {
-  font-size: 18px;
-  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-family: 'SF UI Text Medium', Arial, Helvetica, sans-serif;
   color: grey;
   
   margin-left: 10px;
@@ -417,12 +417,12 @@ div.nav-content .bottom {
 div.nav-continue p.label {
   font-weight: bold;
   font-size: 16px;
-  font-family: 'SF UI Text Medium', Arial, Helvetica, sans-serif;
+  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
   color: grey;
 }
 
 .folder-add-icon {
-  height: 18px;
+  height: 16px;
   width: auto;
   cursor: pointer;
 }
@@ -449,7 +449,7 @@ div.nav-continue p.label {
 }
 
 .nav-icon {
-  height: 18px;
+  height: 16px;
   width: auto;
 }
 
@@ -481,8 +481,8 @@ div.nav-continue p.label {
 }
 
 .nav-text {
-  font-size: 18px;
-  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-family: 'SF UI Text Medium', Arial, Helvetica, sans-serif;
   color: #2f3030;
   
   margin-left: 10px;
@@ -512,6 +512,14 @@ div.nav .nav-column {
 
 .nav-desktop-page {
   display: none;
+}
+
+.duetodayalert {
+  background: red;
+  padding-left: 3px;
+  padding-right: 5px;
+  color: #fff;
+  border-radius: 5px;
 }
 
 
@@ -1155,6 +1163,19 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
   .right {
     padding-left: 50px !important;
     padding-right: 50px !important;
+  }
+
+  .nav-text {
+    font-size: 18px;
+  }
+
+  .nav-icon {
+    height: 18px;
+    width: auto;
+  }
+
+  .nav-text-bottom {
+    font-size: 18px;
   }
 }
 
