@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="264" height="264" viewBox="0 0 264 264">
+  <g id="Stats" transform="translate(20.223 19.785)">
+    <g id="Rectangle_73" data-name="Rectangle 73" transform="translate(-0.223 0.215)" fill="none" stroke="#2acdb0" stroke-width="20">
+      <rect width="224" height="224" rx="50" stroke="none"/>
+      <rect x="-10" y="-10" width="244" height="244" rx="60" fill="none"/>
+    </g>
+    <path id="Path_67" data-name="Path 67" d="M1208.657,8900.24H1352.25" transform="translate(-1165.881 -8720.763)" fill="none" stroke="#2acdb0" stroke-linecap="round" stroke-width="20"/>
+    <g id="Lines" transform="translate(52.314 47.185)">
+      <path id="Path_68" data-name="Path 68" d="M3337.118,8997.931v-81.152" transform="translate(-3337.118 -8899.947)" fill="none" stroke="#2acdb0" stroke-linecap="round" stroke-width="20"/>
+      <path id="Path_69" data-name="Path 69" d="M3337.118,8957.354v-40.576" transform="translate(-3297.118 -8859.371)" fill="none" stroke="#2acdb0" stroke-linecap="round" stroke-width="20"/>
+      <path id="Path_70" data-name="Path 70" d="M3337.118,8979.618v-62.84" transform="translate(-3257.118 -8881.635)" fill="none" stroke="#2acdb0" stroke-linecap="round" stroke-width="20"/>
+      <path id="Path_71" data-name="Path 71" d="M3337.118,9014.761v-97.982" transform="translate(-3217.118 -8916.777)" fill="none" stroke="#2acdb0" stroke-linecap="round" stroke-width="20"/>
+    </g>
+  </g>
+</svg>

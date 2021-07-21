@@ -1,0 +1,576 @@
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    FONTS
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+@font-face {
+  font-family: 'SF UI Text Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Regular'), url('fonts/SFUIText-Regular.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Italic'), url('fonts/SFUIText-RegularItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SF UI Text Light';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Light'), url('fonts/SFUIText-Light.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Light Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Light Italic'), url('fonts/SFUIText-LightItalic.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Medium'), url('fonts/SFUIText-Medium.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Medium Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Medium Italic'), url('fonts/SFUIText-MediumItalic.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Semibold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Semibold'), url('fonts/SFUIText-Semibold.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Semibold Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Semibold Italic'), url('fonts/SFUIText-SemiboldItalic.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Bold'), url('fonts/SFUIText-Bold.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Bold Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Bold Italic'), url('fonts/SFUIText-BoldItalic.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Heavy';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Heavy'), url('fonts/SFUIText-Heavy.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Heavy Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Heavy Italic'), url('fonts/SFUIText-HeavyItalic.woff') format('woff');
+}
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    GLOBAL
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+html, body {
+  padding: 0;
+  margin: 0;
+
+  background: #fff;
+  color: #111;
+
+  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.content {
+  padding-top: 10px;
+  padding-left: 700px;
+  padding-right: 700px;
+}
+
+.goal-alert {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.goal-complete {
+  background: #77DD77;
+}
+
+.goal-fail {
+  background: #FF6961;
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    RESPONSIVE
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+@media screen and (max-width: 1513px) {
+  .content {
+    padding-left: 250px;
+    padding-right: 250px;
+  }
+}
+
+@media screen and (max-width: 1413px) {
+  .content {
+    padding-left: 200px;
+    padding-right: 200px;
+  }
+}
+
+@media screen and (max-width: 1313px) {
+  .content {
+    padding-left: 150px;
+    padding-right: 150px;
+  }
+}
+
+@media screen and (max-width: 1213px) {
+  .content {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media screen and (max-width: 1133px) {
+  .content {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+
+@media screen and (max-width: 965px) {
+  .content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media screen and (max-width: 830px) {
+  .left {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: none;
+    overflow: scroll;
+  }
+
+  .right {
+    width: 100%;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  div.nav {
+    padding-top: 0px;
+  }
+
+  .nav-small {
+    display: initial;
+  }
+
+  div.nav-content .bottom {
+    position: static;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 695px) {
+  div#text{
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+
+    border-radius: 0px;
+  }
+
+  div.overlay-padding-top {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 527px) {
+  div.task-row div.task-left {
+    width: 25px;
+  }
+  
+  div.task-row div.task-right {
+    width: 90%;
+  }
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    DARK THEME
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+html.dark,body.dark {
+  background: #27262c;
+  color: #fff;
+}
+
+body.dark span.dot {
+  color: #27262c;
+}
+
+body.dark .left {
+  background: #2d2c32;
+}
+
+body.dark .drag-show {
+  background: #2d2c32;
+}
+
+body.dark .alert {
+  background-color: #2d2c32;
+  color: #fff;
+}
+
+body.dark .closebtn {
+  color: #fff;
+}
+
+body.dark div.nav {
+  background: #2d2c32;
+}
+
+body.dark div.nav-continue {
+  background: #2d2c32;
+}
+
+body.dark .darktest {
+  fill: #fff;
+  stroke: #fff;
+}
+
+body.dark div.nav p.label {
+  color: grey;
+}
+
+body.dark .nav-btn {
+  color: grey;
+}
+
+body.dark .active {
+  background: #36353b;
+}
+
+body.dark .nav-btn-container:hover {
+  background: #36353b;
+  transition-duration: 0.3s;
+}
+
+body.dark .nav-text {
+  color: #fff;
+}
+
+body.dark .day {
+  color: #4169e1;
+}
+
+body.dark div.task-overlay span.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.dark div.task-overlay span.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.dark div.task-overlay input.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.dark div.task-overlay input.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.dark div.task-overlay span.del-btn-style {
+  background: #41373f;
+  color: #c46e81;
+}
+
+body.dark div.task-overlay span.del-btn-style:hover {
+  background: #ffe0e0;
+}
+
+body.dark div#text{
+  color: #fff;
+  background: #2d2c32;
+}
+
+body.dark .form-control {
+  color: #fff;
+}
+
+body.dark div.task textarea.ol-task-notes {
+  background: #4c4b54;
+  border: 1px solid #4c4b54;
+  color: #fff;
+}
+
+body.dark div.task textarea.ol-task-notes:focus {
+  border: 1px solid #7b98ed;
+}
+
+body.dark div.task select.select-control {
+  border: 1px solid grey;
+}
+
+body.dark .theme-change {
+  background: #2d2c32;
+}
+
+body.dark .activetoggle {
+  background: #36353b !important;
+}
+
+body.dark .theme-control-btn {
+  background: #2d2c32;
+  color: #fff;
+}
+
+body.dark .form-control-settings {
+  color: #fff;
+  background: #2d2c32;
+}
+
+body.dark span.task-date {
+  background: #36353b;
+  color: #fff;
+}
+
+body.dark .folderbacklink {
+  color: #fff;
+  text-decoration: none;
+}
+
+body.dark button.nav-al-style {
+  color: #4169e1;
+  background: #33394d;
+}
+
+body.dark .folder-edit-main {
+  background: #2d2c32;
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    BLACK THEME
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+html.black,body.black {
+  background: #1c1d22;
+  color: #fff;
+}
+
+body.black span.dot {
+  color: #1c1d22;
+}
+
+body.black .left {
+  background: #25252d;
+}
+
+body.black .drag-show {
+  background: #25252d;
+}
+
+body.black .alert {
+  background-color: #25252d;
+  color: #fff;
+}
+
+body.black .closebtn {
+  color: #fff;
+}
+
+body.black div.nav {
+  background: #25252d;
+}
+
+body.black div.nav-continue {
+  background: #25252d;
+}
+
+body.black .darktest {
+  fill: #fff;
+  stroke: #fff;
+}
+
+body.black div.nav p.label {
+  color: grey;
+}
+
+body.black .nav-btn {
+  color: grey;
+}
+
+body.black .active {
+  background: #36353b;
+}
+
+body.black .nav-btn-container:hover {
+  background: #36353b;
+  transition-duration: 0.3s;
+}
+
+body.black .nav-text {
+  color: #fff;
+}
+
+body.black .day {
+  color: #4169e1;
+}
+
+body.black div.task-overlay span.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.black div.task-overlay span.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.black div.task-overlay input.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.black div.task-overlay input.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.black div.task-overlay span.del-btn-style {
+  background: #41373f;
+  color: #c46e81;
+}
+
+body.black div.task-overlay span.del-btn-style:hover {
+  background: #ffe0e0;
+}
+
+body.black div#text{
+  color: #fff;
+  background: #25252d;
+}
+
+body.black .form-control {
+  color: #fff;
+}
+
+body.black div.task textarea.ol-task-notes {
+  background: #4c4b54;
+  border: 1px solid #4c4b54;
+  color: #fff;
+}
+
+body.black div.task textarea.ol-task-notes:focus {
+  border: 1px solid #7b98ed;
+}
+
+body.black div.task select.select-control {
+  border: 1px solid grey;
+}
+
+body.black .theme-change {
+  background: #2d2c32;
+}
+
+body.black .activetoggle {
+  background: #36353b !important;
+}
+
+body.black .theme-control-btn {
+  background: #2d2c32;
+  color: #fff;
+}
+
+body.black .theme-control-btn {
+  background: #2d2c32;
+  color: #fff;
+}
+
+body.black .form-control-settings {
+  color: #fff;
+  background: #2d2c32;
+}
+
+body.black span.task-date {
+  background: #36353b;
+  color: #fff;
+}
+
+body.black .folderbacklink {
+  color: #fff;
+  text-decoration: none;
+}
+
+body.black button.nav-al-style {
+  color: #4169e1;
+  background: #33394d;
+}
+
+body.black .folder-edit-main {
+  background: #25252d;
+}

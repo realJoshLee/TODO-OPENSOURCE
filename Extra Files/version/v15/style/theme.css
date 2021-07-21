@@ -1,0 +1,389 @@
+body.theme_dark .taskolpg-active, body.theme_black .taskolpg-active, body.theme_blacksolid .taskolpg-active {
+  border-bottom: 2px solid #fff;
+}
+
+body.theme_dark .taskol-column, body.theme_black .taskol-column, body.theme_blacksolid .taskol-column {
+  border-bottom: 2px solid grey !important;
+}
+
+body.theme_dark .closebtn, body.theme_black .closebtn, body.theme_blacksolid .closebtn  {
+  color: #fff;
+}
+
+body.theme_dark .darktest, body.theme_black .darktest, body.theme_blacksolid .darktest {
+  fill: #fff;
+  stroke: #fff;
+}
+
+body.theme_dark div.nav p.label, body.theme_black div.nav p.label, body.theme_blacksolid div.nav p.label {
+  color: grey;
+}
+
+body.theme_dark .nav-btn, body.theme_black .nav-btn, body.theme_blacksolid .nav-btn  {
+  color: grey;
+}
+
+body.theme_dark .nav-text, body.theme_black .nav-text, body.theme_blacksolid .nav-text {
+  color: #fff;
+}
+
+body.theme_dark .day, body.theme_black .day, body.theme_blacksolid .day {
+  color: #4169e1;
+}
+
+body.theme_dark div.task-overlay span.save-btn-style, body.theme_black div.task-overlay span.save-btn-style, body.theme_blacksolid div.task-overlay span.save-btn-style  {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.theme_dark div.task-overlay span.save-btn-style:hover, body.theme_black div.task-overlay span.save-btn-style:hover, body.theme_blacksolid div.task-overlay span.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.theme_dark div.task-overlay input.save-btn-style, body.theme_black div.task-overlay input.save-btn-style, body.theme_blacksolid div.task-overlay input.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.theme_dark div.task-overlay input.save-btn-style:hover, body.theme_black div.task-overlay input.save-btn-style:hover, body.theme_blacksolid div.task-overlay input.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.theme_dark div.task-overlay span.del-btn-style, body.theme_black div.task-overlay span.del-btn-style, body.theme_blacksolid div.task-overlay span.del-btn-style {
+  background: #41373f;
+  color: #c46e81;
+}
+
+body.theme_dark div.task-overlay span.del-btn-style:hover, body.theme_black div.task-overlay span.del-btn-style:hover, body.theme_blacksolid div.task-overlay span.del-btn-style:hover {
+  background: #ffe0e0;
+}
+
+body.theme_dark .form-control, body.theme_black .form-control, body.theme_blacksolid .form-control {
+  color: #fff;
+}
+
+body.theme_dark div.task textarea.ol-task-notes, body.theme_black div.task textarea.ol-task-notes, body.theme_blacksolid div.task textarea.ol-task-notes {
+  background: #4c4b54;
+  border: 1px solid #4c4b54;
+  color: #fff;
+}
+
+body.theme_dark div.task textarea.ol-task-notes:focus, body.theme_black div.task textarea.ol-task-notes:focus, body.theme_blacksolid div.task textarea.ol-task-notes:focus {
+  border: 1px solid #7b98ed;
+}
+
+body.theme_dark div.task select.select-control, body.theme_black div.task select.select-control, body.theme_blacksolid div.task select.select-control {
+  border: 1px solid grey;
+}
+
+body.theme_dark .theme-change, body.theme_black .theme-change, body.theme_blacksolid .theme-change {
+  background: #282828;
+}
+
+body.theme_dark .activetoggle, body.theme_black .activetoggle, body.theme_blacksolid .activetoggle {
+  background: #36353b !important;
+}
+
+body.theme_dark .theme-control-btn, body.theme_black .theme-control-btn, body.theme_blacksolid .theme-control-btn {
+  background: #282828;
+  color: #fff;
+}
+
+body.theme_dark .form-control-settings, body.theme_black .form-control-settings, body.theme_blacksolid .form-control-settings {
+  color: #fff;
+  background: #282828;
+}
+
+body.theme_dark span.task-date, body.theme_black span.task-date, body.theme_blacksolid span.task-date {
+  background: #36353b;
+  color: #fff;
+}
+
+body.theme_dark .count, body.theme_black .count, body.theme_blacksolid .count {
+  color: #78777d;
+}
+
+body.theme_dark .folderbacklink, body.theme_black .folderbacklink, body.theme_blacksolid .folderbacklink {
+  color: #fff;
+}
+
+body.theme_dark button.nav-al-style, body.theme_black button.nav-al-style, body.theme_blacksolid button.nav-al-style {
+  color: #4169e1;
+  background: #33394d;
+}
+
+body.theme_dark .loadercircle, body.theme_black .loadercircle, body.theme_blacksolid .loadercircle {
+  color: grey;
+}
+
+body.theme_dark .task-main:hover, body.theme_black .task-main:hover, body.theme_blacksolid .task-main:hover {
+  background-color: #274174;
+}
+
+body.theme_dark .task-main:hover .dot, body.theme_black .task-main:hover .dot, body.theme_blacksolid .task-main:hover .dot {
+  color: #274174;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html.theme_dark, body.theme_dark {
+  background: #1f1f1f;
+  color: #fff;
+}
+
+body.theme_dark span.dot {
+  color: #1f1f1f;
+  border: 1px solid #78777d;
+}
+
+body.theme_dark .left {
+  background: #282828;
+}
+
+body.theme_dark .drag-show {
+  background: #282828;
+}
+
+body.theme_dark .alert {
+  background-color: #282828;
+  color: #fff;
+}
+
+body.theme_dark div.nav {
+  background: #282828;
+}
+
+body.theme_dark div.nav-continue {
+  background: #282828;
+}
+
+body.theme_dark .active {
+  background: #36353b;
+}
+
+body.theme_dark .nav-btn-container:hover {
+  background: #36353b;
+}
+
+body.theme_dark div#text {
+  color: #fff;
+  background: #282828;
+}
+
+body.theme_dark .folder-edit-main {
+  background: #282828;
+}
+
+body.theme_dark .loadercircle:before {
+  background: #1f1f1f;
+}
+
+body.theme_dark .loadercircle:after {
+  background: #1f1f1f;
+}
+
+@media screen and (max-width: 695px){
+  body.theme_dark .task-overlay {
+    background: #1f1f1f;
+    color: #fff;
+  }
+
+  body.theme_dark div#text{
+    background: #1f1f1f;
+    color: #fff;
+  }
+
+  body.theme_dark .overlay-padding-top {
+    background: #1f1f1f;
+    color: #fff;
+  }
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    BLACK THEME
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+html.theme_black, body.theme_black {
+  background: #1c1d22;
+  color: #fff;
+}
+
+body.theme_black span.dot {
+  color: #1c1d22;
+  border: 1px solid #89888f;
+}
+
+body.theme_black .left {
+  background: #25252d;
+}
+
+body.theme_black .drag-show {
+  background: #25252d;
+}
+
+body.theme_black .alert {
+  background-color: #25252d;
+  color: #fff;
+}
+
+body.theme_black div.nav {
+  background: #25252d;
+}
+
+body.theme_black div.nav-continue {
+  background: #25252d;
+}
+
+body.theme_black .active {
+  background: #36353b;
+}
+
+body.theme_black .nav-btn-container:hover {
+  background: #36353b;
+}
+
+body.theme_black div#text{
+  color: #fff;
+  background: #25252d;
+}
+
+body.theme_black .folder-edit-main {
+  background: #25252d;
+}
+
+body.theme_black .loadercircle:before {
+  background: #1c1d22;
+}
+
+body.theme_black .loadercircle:after {
+  background: #1c1d22;
+}
+
+@media screen and (max-width: 695px){
+  body.theme_black .overlay-padding-top {
+    background: #1c1d22;
+    color: #fff;
+  }
+
+  body.theme_black .task-overlay {
+    background: #1c1d22;
+    color: #fff;
+  }
+
+  body.theme_black div#text{
+    background: #1c1d22;
+    color: #fff;
+  }
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    BLACK SOLID THEME
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+html.theme_blacksolid, body.theme_blacksolid {
+  background: #25252d;
+  color: #fff;
+}
+
+body.theme_blacksolid span.dot {
+  color: #25252d;
+  border: 1px solid #89888f;
+}
+
+body.theme_blacksolid .left {
+  background: #25252d;
+  border-right: 1px solid #1c1d22;
+}
+
+body.theme_blacksolid .drag-show {
+  background: #1c1d22;
+}
+
+body.theme_blacksolid .alert {
+  background-color: #1c1d22;
+  color: #fff;
+}
+
+body.theme_blacksolid div.nav {
+  background: #25252d;
+}
+
+body.theme_blacksolid div.nav-continue {
+  background: #25252d;
+}
+
+body.theme_blacksolid .active {
+  background: #36353b;
+}
+
+body.theme_blacksolid .nav-btn-container:hover {
+  background: #36353b;
+}
+
+body.theme_blacksolid div#text{
+  color: #fff;
+  background: #25252d;
+}
+
+body.theme_blacksolid .folder-edit-main {
+  background: #25252d;
+}
+
+body.theme_blacksolid .loadercircle:before {
+  background: #25252d;
+}
+
+body.theme_blacksolid .loadercircle:after {
+  background: #25252d;
+}
+
+@media screen and (max-width: 695px){
+  body.theme_blacksolid .overlay-padding-top {
+    background: #1c1d22;
+    color: #fff;
+  }
+
+  body.theme_blacksolid .task-overlay {
+    background: #1c1d22;
+    color: #fff;
+  }
+
+  body.theme_blacksolid div#text{
+    background: #1c1d22;
+    color: #fff;
+  }
+}

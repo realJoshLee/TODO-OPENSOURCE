@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="264.629" height="263.189" viewBox="0 0 264.629 263.189">
+  <g id="Calendar" transform="translate(-3274.342 -8824.763)">
+    <g id="Path_65" data-name="Path 65" transform="translate(2127.28)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M1167.062,8844.763h224.629v223.189H1167.062Z" stroke="none"/>
+      <path d="M 1167.062377929688 8844.7626953125 L 1167.062377929688 9067.9521484375 L 1391.69140625 9067.9521484375 L 1391.69140625 8844.7626953125 L 1167.062377929688 8844.7626953125 M 1167.062377929688 8824.7626953125 L 1391.69140625 8824.7626953125 C 1402.737060546875 8824.7626953125 1411.69140625 8833.716796875 1411.69140625 8844.7626953125 L 1411.69140625 9067.9521484375 C 1411.69140625 9078.998046875 1402.737060546875 9087.9521484375 1391.69140625 9087.9521484375 L 1167.062377929688 9087.9521484375 C 1156.0166015625 9087.9521484375 1147.062377929688 9078.998046875 1147.062377929688 9067.9521484375 L 1147.062377929688 8844.7626953125 C 1147.062377929688 8833.716796875 1156.0166015625 8824.7626953125 1167.062377929688 8824.7626953125 Z" stroke="none" fill="#944fda"/>
+    </g>
+    <path id="Path_66" data-name="Path 66" d="M1208.657,8900.24h139.077" transform="translate(2128.461 6)" fill="none" stroke="#944fda" stroke-linecap="round" stroke-width="20"/>
+    <g id="TopRow">
+      <rect id="Rectangle_66" data-name="Rectangle 66" width="28" height="30" transform="translate(3449 8943)" fill="#944fda"/>
+      <rect id="Rectangle_67" data-name="Rectangle 67" width="28" height="30" transform="translate(3337 8943)" fill="#944fda"/>
+      <rect id="Rectangle_68" data-name="Rectangle 68" width="28" height="30" transform="translate(3393 8943)" fill="#944fda"/>
+    </g>
+    <g id="BottomRow" transform="translate(0 56)">
+      <rect id="Rectangle_66-2" data-name="Rectangle 66" width="28" height="30" transform="translate(3449 8943)" fill="#944fda"/>
+      <rect id="Rectangle_67-2" data-name="Rectangle 67" width="28" height="30" transform="translate(3337 8943)" fill="#944fda"/>
+      <rect id="Rectangle_68-2" data-name="Rectangle 68" width="28" height="30" transform="translate(3393 8943)" fill="#944fda"/>
+    </g>
+  </g>
+</svg>

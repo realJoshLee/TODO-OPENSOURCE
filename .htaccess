@@ -1,0 +1,17 @@
+<Files .htaccess>
+Order allow,deny
+Deny from all
+</Files>
+
+<Files "init.php">  
+  Order Allow,Deny
+  Deny from all
+</Files>
+
+<Files "*.sql">  
+  Order Allow,Deny
+  Deny from all
+</Files>
+
+# Disable directory browsing 
+Options -Indexes

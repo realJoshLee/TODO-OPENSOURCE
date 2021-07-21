@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../jquery.min.js"></script>
+</head>
+<body>
+  <div class="Mar-24-2021"></div>
+  <div class="Mar-27-2021"></div>
+  <div class="Apr-04-2021"></div>
+  <div class="Apr-06-2021"></div>
+  <div class="Apr-30-2021"></div>
+  <div class="May-09-2021"></div>
+</body>
+</html>
+<script>
+  $.ajax({
+    url: `json.php`,
+    type:'POST',
+    data: {
+    },
+    success:function(data) {
+      // Parse the data as JSON
+      var jsondata = JSON.parse(data);
+
+      // For each object
+      jsondata.forEach((e) => {
+        $(`.${e.scheduledate}`).append(e.scheduledate + '<br>');
+      });
+      
+    }
+  });
+</script>

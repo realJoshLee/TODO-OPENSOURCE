@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  <script src="../plugins/jquery.min.js"></script>
+</head>
+<body>
+  <div data-draggable="target" data-id="box1">
+    <div data-draggable="item" id="item0">Item 0</div>
+    <div data-draggable="item" id="item1">Item 1</div>
+    <div data-draggable="item" id="item2">Item 2</div>
+    <div data-draggable="item" id="item3">Item 3</div>
+  </div>
+  
+  <div data-draggable="target" data-id="box2">
+    <div data-draggable="item" id="item4">Item 4</div>
+    <div data-draggable="item" id="item5">Item 5</div>
+  </div>
+  
+  <div data-draggable="target" data-id="box3">
+    <div data-draggable="item" id="item6">Item 6</div>
+    <div data-draggable="item" id="item7">Item 7</div>
+  </div>
+  
+  <div data-draggable="target" data-id="box4">
+    <div data-draggable="item" id="item8">Item 8</div>
+    <div data-draggable="item" id="item9">Item 9</div>
+    <div data-draggable="item" id="item10">Item 10</div>
+  </div>
+  
+</body>
+</html>
+
+<script>
+  (function(){
+	if(
+		!document.querySelectorAll 
+		|| 
+		!('draggable' in document.createElement('span')) 
+		|| 
+		window.opera
+	) 
+  { return; }
+	
+	for(var 
+		items = document.querySelectorAll('[data-draggable="item"]'), 
+		len = items.length, 
+		i = 0; i < len; i ++){
+		items[i].setAttribute('draggable', 'true');
+  }
+  
+  var item = null;
+  
+	document.addEventListener('dragstart', function(e){
+		item = e.target;
+		e.dataTransfer.setData('text', '');
+	}, false);
+
+	document.addEventListener('dragover', function(e){
+		if(item){
+			e.preventDefault();
+		}
+	}, false);	
+
+	document.addEventListener('drop', function(e){
+		if(e.target.getAttribute('data-draggable') == 'target'){
+			e.target.appendChild(item);	
+      e.preventDefault();
+      
+      var itemid = $(item).attr('id');
+      var boxid = $(e.target).data('id');
+      console.log(`Box Id: ${boxid} Item Id: ${itemid}`);
+		}
+	}, false);
+	
+	document.addEventListener('dragend', function(e){
+		item = null;
+	}, false);
+})();	
+</script>
+
+<style>
+html, body {
+	font:normal normal normal 100%/1.4 tahoma, sans-serif;
+	background:#f9f9f9;
+	color:#000;
+}
+
+body {
+	font-size:0.8em;
+}
+
+[data-draggable="target"] {
+	float:left;
+  list-style-type:none;
+  
+  height: 100px;
+  width: 100%;
+	overflow-y:auto;
+	
+	margin-bottom: 5px;
+	
+	border:2px solid #888;
+	border-radius:0.2em;
+	
+	background:#ddd;
+	color:#555;
+}
+</style>

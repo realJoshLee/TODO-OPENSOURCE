@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" type="image/png" href="../icons/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/rdi8jbs.css">
+
+    <title>Tasks - Change Log</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container-inner">
+        <div class="toplogo">
+          <a href="../index.php">
+            <img src="../icons/check.v3.svg" alt="" class="logo">
+            <style>
+              img.logo {
+                height: 40px;
+                width: auto;
+              }
+            </style>
+          </a>
+        </div>
+        <br>
+        <div class="main text-center">
+          <h2>Change Log</h2>
+        </div>
+
+        <div class="update">
+          <h3>5.8.2021</h3>
+          <ul>
+            <li>Wrote install instructions for the Chrome extension.</li>
+            <li>Added quick actions to the app.</li>
+            <li>Added web share API to the app.</li>
+            <li>Added the option to enable and disable the ability to add tasks from the extension.</li>
+            <li>Updated some stuff in the extension.</li>
+            <li>Fixed some line break issues in the settings page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>5.7.2021</h3>
+          <ul>
+            <li>Added identifier token for the Chrome extension.</li>
+            <li>Published link saving Chrome extension.</li>
+            <li>Changed the icon for the links page.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB17" class="link">TB-17</a></li>
+            <li>Changed the style of the link page tasks.</li>
+            <li>Added more shortcuts.</li>
+            <li>Added a getting started page for the admins.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>5.6.2021</h3>
+          <ul>
+            <li>Made a background sync script.</li>
+            <li>Added a feature where if you change the theme on another device, it'll update without refreshing. (Background sync must be enabled)</li>
+            <li>Added the option to the settings page to enable and disable the background sync.</li>
+            <li>Made it so that when you disable background sync, it'll stop the sync without a refresh.</li>
+            <li>Removed unused scripts to decrease app load time.</li>
+            <li>Removed unused fonts to decrease app load time.</li>
+            <li>Updated the folder add button.</li>
+            <li>Added task sync feature <span class="notice">(Beta)</span> - for now it will just reload the page if new tasks have been added. (Background sync must be enabled)</li>
+            <li>Added a service worker.</li>
+            <li>Made the website installable on desktop.</li>
+            <li>Added more install instructions to the PWA install document.</li>
+            <li>Changed the alignment of the edit button for folders.</li>
+            <li>Fixed some syntax errors on the bug.php page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>5.5.2021</h3>
+          <ul>
+            <li>Condensed the theme css code.</li>
+            <li>Added an IP whitelist feature.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>5.3.2021</h3>
+          <ul>
+            <li>Changed the name of the planning page to Upcoming.</li>
+            <li>Changed the padding for the Inbox page button.</li>
+            <li>Changed the font style of the page buttons in the nav.</li>
+            <li>Changed the folder edit button icon and size.</li>
+            <li>Changed the side nav icons for Upcoming, Inbox, and Stats pages. (Better design for theme changing)</li>
+            <li>Removed the gradient from the alerts icon.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>5.2.2021</h3>
+          <ul>
+            <li>Added more shortcuts.</li>
+            <li>Added a today page.</li>
+            <li>Changed the nav icons.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB15" class="link">TB-15</a></li>
+            <li>Fixed the alignment of the bottom nav icons. (Folder add and settings)</li>
+            <li>Fixed some of the active assignments not visible in light theme.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>5.1.2021</h3>
+          <ul>
+            <li>Squashed Bug <a href="bug-log.html#TB14" class="link">TB-14</a></li>
+            <li>Added multiple pages to the task overlay to keep things clean.</li>
+            <li>Made the default overlay page show when the task overlay is closed. (Default page is subtasks)</li>
+            <li>Removed the default value for the reminder input in the task overlay.</li>
+            <li>Removed delay from when user completes task and the time it takes for it to be removed from the page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.30.2021</h3>
+          <ul>
+            <li>Added the option for admins to disable reminder emails.</li>
+            <li>Gave users the ability to enable and disable reminders.</li>
+            <li>Fixed the issue when moving from alerts page to settings page.</li>
+            <li>Changed the color of the task complete button.</li>
+            <li>Made the icons for the tasks look better.</li>
+            <li>Commented on more of the JavaScript</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.29.2021</h3>
+          <ul>
+            <li>Started tested with notifications and reminders.</li>
+            <li>Fixed some of the console errors.</li>
+            <li>Finished the reminder sending API. (Need to implement the reminder button in the task ID)</li>
+            <li>Implemented the reminder update function.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.28.2021</h3>
+          <ul>
+            <li>Added a Alerts page to view login alerts.</li>
+            <li>Added more shortcuts.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.27.2021</h3>
+          <ul>
+            <li>Fixed the bus where you can't rename a newly added folder.</li>
+            <li>Made it so that when you click on the add folder button, it will focus on the input container.</li>
+            <li>Made it so that when you enter the wrong credentials that it will redirect you to the error page.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB13" class="link">TB-13</a></li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.25.2021</h3>
+          <ul>
+            <li>Squashed Bug <a href="bug-log.html#TB12" class="link">TB-12</a></li>
+            <li>Added more shortcuts.</li>
+            <li>Fixed some of the coloring of the task alerts.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.24.2021</h3>
+          <ul>
+            <li>Added more line breaks to the bottom of the screen in the admin page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.23.2021</h3>
+          <ul>
+            <li>Updated favicons on the backend dashboard.</li>
+            <li>Fixed layout on the logout page.</li>
+            <li>Condensed the string generator code (Used for task and folder identifiers).</li>
+            <li>Condensed the task counting code.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.22.2021</h3>
+          <ul>
+            <li>Made the backend portal look better.</li>
+            <li>Added more things to the app configuration.</li>
+            <li>Added the ability for an admin to add users and bypass domain whitelist.</li>
+            <li>Added an error page for features that are disabled.</li>
+            <li>Added an option to clear the log database in the backend portal.</li>
+            <li>Added a red backgound to the folder task count if there is a task due that day.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB9" class="link">TB-9</a></li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.21.2021</h3>
+          <ul>
+            <li>Made it so that the browser checks with the server is the user is invalid.</li>
+            <li>Changed the way that session tokens are used.</li>
+            <li>Added a button to logout all active sessions.</li>
+            <li>Intergrated a magic link signin option.</li>
+            <li>Added more app control options to the backend.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.20.2021</h3>
+          <ul>
+            <li>Fixed the admin links on the settings page.</li>
+            <li>Added animation for completing a task.</li>
+            <li>Added back links to the PWA install pages.</li>
+            <li>Added instructions on how to install the app on Windows with Microsoft Edge.</li>
+            <li>Made the nav icons and nav text smaller on desktop.</li>
+            <li>Moved the log page to a different page to reduce loading times and lag.</li>
+            <li>Added an option in the settings page to refresh the user token <span class="notice">(This will log all other accounts after the browser is closed)</span></li>
+            <li>Added an option to refresh all of the user tokens in the backend panel.</li>
+            <li>Changed the way that the account token is generated.</li>
+            <li>Added a page on a successful logout.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.19.2021</h3>
+          <ul>
+            <li>Made it so that you can't zoom in on the mobile expierence and mess the sizing up.</li>
+            <li>Made changing the screen size more fluent.</li>
+            <li>Better intergrated the admin panel with everything else.</li>
+            <li>Linked some content to the homepage.</li>
+            <li>Added a screenshots page.</li>
+            <lI>Added more info logged on each login for security.</lI>
+            <li>Added more install instructions for the mobile PWA.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.18.2021</h3>
+          <ul>
+            <li>Made it so that no content shows before the loader script is finished.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB11" class="link">TB-11</a></li>
+            <li>Fixed the task and check box alignment on screensizes 618px and smaller.</li>
+            <li>Added PWA compatability for iOS and Android.</li>
+            <li>Got rid of the native apps and moved them to a PWA so that everything can be dynamic per self host.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.17.2021</h3>
+          <ul>
+            <li>Made it so that less data is sent over the GET method.</li>
+            <li>Added a refresh button to the nav.</li>
+            <li>Added a hover effect to tasks.</li>
+            <li>Made it possible to share a task with someone via URL.</li>
+            <li>Made a viewing page for tasks that are shared.</li>
+            <li>Made the getting started page look better.</li>
+            <li>Added more whitespace</li>
+            <li>Squashed Bug <a href="bug-log.html#TB10" class="link">TB-10</a></li>
+            <li>Made buttons bigger on smaller screens.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.16.2021</h3>
+          <ul>
+            <li>Fixed the iOS style on input containers.</li>
+            <li>Implemented pull to refresh.</li>
+            <li>Added more spacing to the the nav button for the mobile app.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB8" class="link">TB-8</a></li>
+            <li>Added a loader circle to the loader screen.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.15.2021</h3>
+          <ul>
+            <li>Added a README.md to the <a href="https://github.com/realJoshLee/TODO-OPENSOURCE" class="link">GitHub Repo</a>.</li>
+            <li>Added opensource icon to the login page.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB6" class="link">TB-6</a></li>
+            <li>Squashed Bug <a href="bug-log.html#TB4" class="link">TB-4</a></li>
+            <li>Fixed some of the broken link locations.</li>
+            <li>Made all of the config pull from one central location so it can be easily updated in the future.</li>
+            <li>Made the login page look better.</li>
+            <li>Implemented 403, 404, and 500 error pages.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB7" class="link">TB-7</a></li>
+            <li>Added a count of tasks in a folder.</li>
+            <li>Fixed the alignment of the page when the side nav is toggled on desktop.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.14.2021</h3>
+          <ul>
+            <li>For the self hosted version - Added a domain signup whitelist.</li>
+            <li>Added the ability for admins to suspend user accounts.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB5" class="link">TB-5</a></li>
+            <li>Made the sub task icon look better.</li>
+            <li>Fixed the alignment of the checkmark in the checkbox.</li>
+            <li>Added a checkmark icon to the checkbox for the subtasks.</li>
+            <li>Updated the getting started page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.13.2021</h3>
+          <ul>
+            <li>Squashed Bug <a href="bug-log.html#TB2" class="link">TB-2</a></li>
+            <li>Updated shortcuts on the changelog page.</li>
+            <li>Updated the button icon for the nav.</li>
+            <li>Added toggle button on desktop to open/close the nav.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB3" class="link">TB-3</a> (Missing class attribute)</li>
+            <li>Made it so that an icon shows next to a task if there are uncompleted subtasks in the parent task.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.12.2021</h3>
+          <ul>
+            <li>Added more views to the reporting page.</li>
+            <li>Moved the app downloads (Windows and Android apps) to a cloud storage service (Dropbox)</li>
+            <li>Added a bug log page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.11.2021</h3>
+          <ul>
+            <li>Added a reporting page.</li>
+            <li>Added a complete hour to the database for better reporting.</li>
+            <li>Simplified the initial load code.</li>
+            <li>Added a bug reporting page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.9.2021</h3>
+          <ul>
+            <li>Fixed page titles.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.6.2021</h3>
+          <ul>
+            <li>Made pressing the escape button close the task overlay.</li>
+            <li>Added more shortcuts (Page control). View these in the <a style="color: #006fff; text-decoration: none;" href="getting-started/getting-started.html">Getting Started</a> document.</li>
+            <li>Added the ability to close/hide the side nav on desktop.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB1" class="link">TB-1</a></li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.4.2021</h3>
+          <ul>
+            <li>Finished the startup page and made it responsive.</li>
+            <li>Made it so that if you already completed the startup that you can't re-complete the startup procedure.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.3.2021</h3>
+          <ul>
+            <li>Implmented a setup screen for first time users.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.2.2021</h3>
+          <ul>
+            <li>Implemented all of the data to be stored under an account ID that doesn't change rather than being stored under a users account email.</li>
+            <li>Implemented a email verification method.</li>
+            <li>Added a logout button.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>4.1.2021</h3>
+          <ul>
+            <li>Implemented a action log to better help diagnose issues with events.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>3.31.2021</h3>
+          <ul>
+            <li>Implemented the change log.</li>
+            <li>Updated the getting started page with drag and drop information.</li>
+            <li>Added a feature for allowing users to update their name on their account. (For later use and account statues on backend management.)</li>
+            <li>Started working on a rollout feature. This will allow us to test deployments on our production servers without having the public having access to the beta/unstable version of the app.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>3.30.2021</h3>
+          <p>The change log was implemented on 3.31.2021. Any tasks before this date (3.30.2021) are not added to the change log.</p>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  html, body {
+    font-family: 'Montserrat', Arial;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .update {
+    margin-bottom: 50px;
+  }
+
+  div.container {
+    padding-left: 550px;
+    padding-right: 550px;
+  }
+
+  .red {
+    color: red;
+  }
+
+  a.link {
+    color: #006fff; 
+    text-decoration: none;
+  }
+
+@media screen and (max-width: 1659px) {
+  div.container {
+    padding-left: 450px;
+    padding-right: 450px;
+  }
+}
+
+@media screen and (max-width: 1559px) {
+  div.container {
+    padding-left: 350px;
+    padding-right: 350px;
+  }
+}
+
+  @media screen and (max-width: 1323px) {
+    div.container {
+      padding-left: 250px;
+      padding-right: 250px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    div.container {
+      padding-left: 150px;
+      padding-right: 150px;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    div.container {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    div.container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+</style>

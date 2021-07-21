@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Tasks",
+  "author": "Josh Lee",
+  "version": "1.9",
+  "description": "Task Manager",
+  "permissions": [
+    "cookies",
+    "storage",
+    "activeTab",
+    "tabs"
+  ], 
+  "browser_action": {
+    "default_icon": {
+      "20": "icons/icon-48.png",
+      "40": "icons/icon-96.png"
+    },
+    "default_title": "Tasks",
+    "default_popup": "popup/index.html"
+  }
+
+}

@@ -1,0 +1,1576 @@
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    FONTS
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+@font-face {
+  font-family: 'SF UI Text Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Regular'), url('../fonts/SFUIText-Regular.woff') format('woff');
+}
+  
+/*@font-face {
+  font-family: 'SF UI Text Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Italic'), url('fonts/SFUIText-RegularItalic.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'SF UI Text Light';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Light'), url('fonts/SFUIText-Light.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Light Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Light Italic'), url('fonts/SFUIText-LightItalic.woff') format('woff');
+}*/
+  
+@font-face {
+  font-family: 'SF UI Text Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Medium'), url('../fonts/SFUIText-Medium.woff') format('woff');
+}
+  
+/*@font-face {
+  font-family: 'SF UI Text Medium Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Medium Italic'), url('fonts/SFUIText-MediumItalic.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Semibold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Semibold'), url('fonts/SFUIText-Semibold.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Semibold Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Semibold Italic'), url('fonts/SFUIText-SemiboldItalic.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Bold'), url('fonts/SFUIText-Bold.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Bold Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Bold Italic'), url('fonts/SFUIText-BoldItalic.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Heavy';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Heavy'), url('fonts/SFUIText-Heavy.woff') format('woff');
+}
+  
+@font-face {
+  font-family: 'SF UI Text Heavy Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('SF UI Text Heavy Italic'), url('fonts/SFUIText-HeavyItalic.woff') format('woff');
+}*/
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    GLOBAL
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+html, body {
+  padding: 0;
+  margin: 0;
+
+  background: #fff;
+  color: #111;
+
+  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.left {
+  width: 270px;
+  height: 100vh;
+  position: fixed;
+  background: #f3f7f8;
+}
+
+.right {
+  width: 100%;
+  padding-left: 270px;
+  padding-right: 0px;
+}
+
+.column {
+  float: left;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.line {
+  display: block;
+  border-top: 1px solid grey;
+  opacity: 0.2;
+}
+
+.loader-content {
+  text-align: center;
+  padding-top: 100px;
+}
+
+.loader-image {
+  height: auto;
+  width: 200px;
+}
+
+.alert-box {
+  display: none;
+}
+
+.alerts {
+  margin: auto;
+  width: 300px;
+}
+
+.alert {
+  padding: 20px;
+  background-color: #f3f7f8;
+  color: #111;
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: #111;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: grey;
+}
+
+.success {
+  color: #155724 !important;
+}
+
+[data-draggable="target"]{
+  padding-bottom: 10px;
+}
+
+.drag-show {
+  background: #f3f7f8;
+  border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    GLOBAL
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+.loadercircle, .loadercircle:before, .loadercircle:after {
+  border-radius: 50%;
+}
+.loadercircle {
+  color: grey;
+  font-size: 5px;
+  text-indent: -99999em;
+  margin: auto;
+  position: relative;
+  width: 10em;
+  height: 10em;
+  box-shadow: inset 0 0 0 1em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+}
+.loadercircle:before,
+.loadercircle:after {
+  position: absolute;
+  content: '';
+}
+.loadercircle:before {
+  width: 5.2em;
+  height: 10.2em;
+  background: #fff;
+  border-radius: 10.2em 0 0 10.2em;
+  top: -0.1em;
+  left: -0.1em;
+  -webkit-transform-origin: 5.1em 5.1em;
+  transform-origin: 5.1em 5.1em;
+  -webkit-animation: load2 2s infinite ease 1.5s;
+  animation: load2 2s infinite ease 1.5s;
+}
+.loadercircle:after {
+  width: 5.2em;
+  height: 10.2em;
+  background: #fff;
+  border-radius: 0 10.2em 10.2em 0;
+  top: -0.1em;
+  left: 4.9em;
+  -webkit-transform-origin: 0.1em 5.1em;
+  transform-origin: 0.1em 5.1em;
+  -webkit-animation: load2 2s infinite ease;
+  animation: load2 2s infinite ease;
+}
+@-webkit-keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load2 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    SPACERS
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+div.task div.spacer {
+  opacity: 0;
+  padding-bottom: 2px;
+}
+
+div.content div.spacer {
+  opacity: 0;
+  padding-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    NAVIGATION MENU STYLE
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+div.nav .align-right {
+  text-align: right;
+  display: inline-block;
+}
+
+button.nav-al-style {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  border: none;
+
+  color: #4169e1;
+  background: #cfdbff;
+  width: 100%;
+
+  padding-top: 2px;
+  padding-bottom: 2px;
+  
+  border-radius: 5px;
+}
+
+.taskct {
+  opacity: 0.5 !important;
+}
+
+div.nav {
+  background: #f3f7f8;
+
+  padding-top: 50px;
+  padding-left: 13px;
+  padding-right: 13px;
+}
+
+div.nav-continue {
+  background: #f3f7f8;
+
+  padding-top: 20px;
+  padding-left: 13px;
+  padding-right: 13px;
+}
+
+div.nav-content {
+  overflow: scroll;
+}
+
+div.nav-content .bottom {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.nav-text-bottom {
+  font-size: 18px;
+  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  color: grey;
+  
+  margin-left: 10px;
+}
+
+div.nav-continue p.label {
+  font-weight: bold;
+  font-size: 16px;
+  font-family: 'SF UI Text Medium', Arial, Helvetica, sans-serif;
+  color: grey;
+}
+
+.folder-add-icon {
+  height: 18px;
+  width: auto;
+  cursor: pointer;
+}
+
+.folder-add-form {
+  display: none;
+}
+
+.nav-small {
+  display: none;
+}
+
+.nav-btn {
+  font-size: 25px;
+  color: grey;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-toggle-btn-container {
+  padding-top: 25px;
+  padding-left: 10px;
+}
+
+.nav-icon {
+  height: 18px;
+  width: auto;
+}
+
+.nav-btn-container {
+  margin-bottom: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 6px;
+  padding-right: 6px;
+
+  cursor: pointer;
+
+  width: 100%;
+
+  outline: none;
+  border: none;
+  background: none;
+  text-align: left;
+  border-radius: 5px;
+}
+
+.nav-btn-container:hover {
+  background: #dfe4e8;
+  transition-duration: 0.3s;
+}
+
+.active {
+  background: #dfe4e8;
+}
+
+.nav-text {
+  font-size: 18px;
+  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  color: #2f3030;
+  
+  margin-left: 10px;
+}
+
+div.nav .nav-column {
+  float: left;
+  width: 50%;
+}
+
+.nav-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.nav-right {
+  text-align: right;
+}
+
+.goal-style {
+  color: grey !important;
+  background: none !important;
+  text-align: right;
+  cursor: auto;
+}
+
+.nav-desktop-page {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    PAGE DISPLAY
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+.day {
+  color: #4169e1;
+}
+
+.blue {
+  color: #4169e1;
+}
+
+.date {
+  font-size: 18px;
+}
+
+.folderbacklink {
+  color: #111;
+  text-decoration: none;
+}
+
+.form-control-settings-change {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+
+  width: 200px !important;
+  text-align: left !important;
+
+  margin-bottom: 5px;
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    TASK DISPLAY
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+.content {
+  padding-top: 10px;
+  padding-left: 300px;
+  padding-right: 300px;
+}
+
+.count {
+  background: #ededed;
+  color: grey;
+  font-size: 12px;
+  padding: 3px;
+  border-radius: 5px;
+}
+
+input.form-control {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  background: none;
+  border: none;
+  outline: none;
+  width: 100%;
+  
+  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+
+.task-edit {
+  outline: none;
+  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  font-size: 17px;
+}
+
+.task-main:hover {
+  background-color: #bbd2f0;
+  border-radius: 5px;
+  transition-duration: 0.1s;
+  cursor: pointer;
+}
+
+.task-main:hover .dot {
+  color: #bbd2f0;
+  transition-duration: 0.1s;
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    SETTINGS CONTROL
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+.theme-change {
+  background: #ededed;
+  text-align: center;
+  width: 250px;
+  border-radius: 10px;
+}
+
+.activetoggle {
+  background: #d1d1d1;
+}
+
+.theme-control-btn {
+  cursor: pointer;
+
+  height: 30px;
+  width: 32%;
+  border-radius: 10px;
+
+  outline: none;
+  border: none;
+}
+
+.form-control-settings {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  width: 50px;
+  outline: none;
+  border: none;
+  text-align: center;
+  padding: 5px;
+  color: #111;
+  background: #ededed;
+}
+
+div.details input.save-btn-style:hover {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  background: #7b98ed;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+div.details  input.save-btn-style {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  background: #4169e1;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-size: 14px;
+
+  border-radius: 3px;
+
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.delete-account-button-style {
+  text-decoration: none;
+  background: #ff0048;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.delete-account-button-style:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.del-outer {
+  display: none;
+}
+
+.delete-box {
+  background: #ff0048;
+  color: #fff;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.delete-box .delete-account-button-in-box {
+  text-decoration: none;
+  color: #fff;
+  opacity: 0.5;
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    TASK BOX CONTROL
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+.log-date-completed {
+  font-size: 12px;
+  color: #FE6B55;
+}
+
+div.task-overlay {
+  position: fixed;
+  display: none;
+  overflow-x: scroll;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+}
+
+p.overlay-close {
+  font-size: 20px;
+  color: grey;
+  cursor: pointer;
+}
+
+div.task-overlay span.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-size: 14px;
+
+  border-radius: 3px;
+
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+div.task-overlay span.save-btn-style:hover {
+  background: #7b98ed;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+div.task-overlay input.save-btn-style {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  background: #4169e1;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-size: 14px;
+
+  border-radius: 3px;
+
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.form-control-submit {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  background: #4169e1;
+  color: #fff;
+  outline: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+
+  border-radius: 3px;
+
+  margin-top: 5px;
+
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+.form-control-submit:hover {
+  background: #7b98ed;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+div.task-overlay input.save-btn-style:hover {
+  background: #7b98ed;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+div.task-overlay span.del-btn-style {
+  background: #fcf0f0;
+  color: #c46e81;
+  outline: none;
+  border: none;
+  font-size: 14px;
+
+  border-radius: 3px;
+
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 7px;
+  padding-right: 7px;
+}
+
+div.task-overlay span.del-btn-style:hover {
+  background: #ffe0e0;
+  transition-duration: 0.2s;
+  cursor: pointer;
+}
+
+div.overlay-padding-top {
+  margin-top: 20px;
+}
+
+div.task-overlay p.label {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+div#text{
+  width: 650px;
+  margin: auto;
+  padding: 10px;
+
+  border-radius: 10px;
+  color: #111;
+  background: #fff;
+}
+
+div.task {
+  margin-bottom: 6px;
+}
+
+div.task-column {
+  float: left;
+}
+
+div.task-row div.task-left {
+  width: 25px;
+}
+
+div.task-row div.task-right {
+  width: 95%;
+}
+
+div.task-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+div.task span.dot {
+  padding-top: 2px;
+  height: 20px;
+  width: 20px;
+  border: 2px solid #dedede;
+  border-radius: 40%;
+  display: inline-block;
+  font-size: 12px;
+  text-align: center;
+  color: #fff;
+}
+
+div.task span.dot:hover {
+  cursor:pointer;
+  /*background: #f5f5f5;*/
+  color: #fff;
+  border: 2px solid #0962b9;
+  background: #0962b9;
+
+  transition-duration: 0.2s;
+}
+
+div.task textarea.ol-task-notes {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  background: #ecedf0;
+  
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  border: 1px solid #ecedf0;
+  
+  font-family: 'SF UI Text Regular', Arial, Helvetica, sans-serif;
+  font-size: 17px;
+
+  width: 100%;
+  height: 150px;
+}
+
+div.task textarea.ol-task-notes:focus {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  border: 1px solid #7b98ed;
+}
+
+div.task select.select-control {
+  /*Remove all of the background shadows*/
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  
+  border: 1px solid grey;
+  outline: none;
+  padding: 3px;
+  width: 60px;
+}
+
+.day-container {
+  width: 100%;
+}
+
+span.task-date {
+  background: #f3f7f8;
+  color: grey;
+  border-radius: 3px;
+
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-right: 3px;
+}
+
+.folder-edit-main {
+  background: #f3f7f8;
+  border-radius: 10px;
+  padding: 5px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+}
+
+.edit-folder-content {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.edit-folder-close {
+  cursor: pointer;
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    RESPONSIVE
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+@media screen and (max-width: 1513px) {
+  .content {
+    padding-left: 250px;
+    padding-right: 250px;
+  }
+}
+
+@media screen and (max-width: 1413px) {
+  .content {
+    padding-left: 200px;
+    padding-right: 200px;
+  }
+}
+
+@media screen and (max-width: 1313px) {
+  .content {
+    padding-left: 150px;
+    padding-right: 150px;
+  }
+}
+
+@media screen and (max-width: 1213px) {
+  .content {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+@media screen and (max-width: 1133px) {
+  .content {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+}
+
+@media screen and (max-width: 965px) {
+  .content {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media screen and (max-width: 830px) {
+  .left {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    display: none;
+    overflow: scroll;
+
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+  }
+
+  .right {
+    width: 100%;
+
+    padding-left: 100px !important;
+    padding-right: 100px !important;
+  }
+
+  div.task-overlay {
+    background-color: #fff;
+  }
+
+  span.desktop-nav-button {
+    display: none;
+  }
+
+  div.nav {
+    padding-top: 0px;
+  }
+
+  .nav-small {
+    display: initial;
+  }
+
+  div.nav-content .bottom {
+    position: static;
+    width: 100%;
+  }
+
+  .goal {
+    font-size: 18px;
+  }
+
+  .refresh {
+    font-size: 18px;
+  }
+
+  .nav-btn-close {
+    font-size: 30px;
+  }
+
+  .overlay-close {
+    font-size: 25px !important;
+  }
+}
+
+@media screen and (max-width: 695px) {
+  div#text{
+    width: 100%;
+    height: 100vh;
+    padding: 10px;
+
+    border-radius: 0px;
+  }
+
+  div.overlay-padding-top {
+    margin-top: 0px;
+  }
+
+  .left {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+  }
+
+  .right {
+    padding-left: 50px !important;
+    padding-right: 50px !important;
+  }
+}
+
+@media screen and (max-width: 618px) {
+  div.task-row div.task-left {
+    width: 25px;
+  }
+
+  div.task-row div.task-right {
+    width: 93%;
+  }
+}
+
+@media screen and (max-width: 553px) {
+  .left {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .right {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+}
+
+@media screen and (max-width: 527px) {
+  div.task-row div.task-left {
+    width: 25px;
+  }
+  
+  div.task-row div.task-right {
+    width: 90%;
+  }
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    DARK THEME
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+html.dark,body.dark {
+  background: #27262c;
+  color: #fff;
+}
+
+body.dark span.dot {
+  color: #27262c;
+}
+
+body.dark .left {
+  background: #2d2c32;
+}
+
+body.dark .drag-show {
+  background: #2d2c32;
+}
+
+body.dark .alert {
+  background-color: #2d2c32;
+  color: #fff;
+}
+
+body.dark .closebtn {
+  color: #fff;
+}
+
+body.dark div.nav {
+  background: #2d2c32;
+}
+
+body.dark div.nav-continue {
+  background: #2d2c32;
+}
+
+body.dark .darktest {
+  fill: #fff;
+  stroke: #fff;
+}
+
+body.dark div.nav p.label {
+  color: grey;
+}
+
+body.dark .nav-btn {
+  color: grey;
+}
+
+body.dark .active {
+  background: #36353b;
+}
+
+body.dark .nav-btn-container:hover {
+  background: #36353b;
+  transition-duration: 0.3s;
+}
+
+body.dark .nav-text {
+  color: #fff;
+}
+
+body.dark .day {
+  color: #4169e1;
+}
+
+body.dark div.task-overlay span.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.dark div.task-overlay span.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.dark div.task-overlay input.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.dark div.task-overlay input.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.dark div.task-overlay span.del-btn-style {
+  background: #41373f;
+  color: #c46e81;
+}
+
+body.dark div.task-overlay span.del-btn-style:hover {
+  background: #ffe0e0;
+}
+
+body.dark div#text{
+  color: #fff;
+  background: #2d2c32;
+}
+
+body.dark .form-control {
+  color: #fff;
+}
+
+body.dark div.task textarea.ol-task-notes {
+  background: #4c4b54;
+  border: 1px solid #4c4b54;
+  color: #fff;
+}
+
+body.dark div.task textarea.ol-task-notes:focus {
+  border: 1px solid #7b98ed;
+}
+
+body.dark div.task select.select-control {
+  border: 1px solid grey;
+}
+
+body.dark .theme-change {
+  background: #2d2c32;
+}
+
+body.dark .activetoggle {
+  background: #36353b !important;
+}
+
+body.dark .theme-control-btn {
+  background: #2d2c32;
+  color: #fff;
+}
+
+body.dark .form-control-settings {
+  color: #fff;
+  background: #2d2c32;
+}
+
+body.dark span.task-date {
+  background: #36353b;
+  color: #fff;
+}
+
+body.dark .folderbacklink {
+  color: #fff;
+  text-decoration: none;
+}
+
+body.dark button.nav-al-style {
+  color: #4169e1;
+  background: #33394d;
+}
+
+body.dark .folder-edit-main {
+  background: #2d2c32;
+}
+
+body.dark .loadercircle {
+  color: grey;
+}
+
+body.dark .loadercircle:before {
+  background: #27262c;
+}
+
+body.dark .loadercircle:after {
+  background: #27262c;
+}
+
+body.dark .task-main:hover {
+  background-color: #4e5d73;
+  border-radius: 5px;
+  transition-duration: 0.1s;
+  cursor: pointer;
+}
+
+body.dark .task-main:hover .dot {
+  color: #4e5d73;
+  transition-duration: 0.1s;
+}
+
+
+
+
+
+
+
+
+
+/*
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    BLACK THEME
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+*/
+html.black,body.black {
+  background: #1c1d22;
+  color: #fff;
+}
+
+body.black span.dot {
+  color: #1c1d22;
+}
+
+body.black .left {
+  background: #25252d;
+}
+
+body.black .drag-show {
+  background: #25252d;
+}
+
+body.black .alert {
+  background-color: #25252d;
+  color: #fff;
+}
+
+body.black .closebtn {
+  color: #fff;
+}
+
+body.black div.nav {
+  background: #25252d;
+}
+
+body.black div.nav-continue {
+  background: #25252d;
+}
+
+body.black .darktest {
+  fill: #fff;
+  stroke: #fff;
+}
+
+body.black div.nav p.label {
+  color: grey;
+}
+
+body.black .nav-btn {
+  color: grey;
+}
+
+body.black .active {
+  background: #36353b;
+}
+
+body.black .nav-btn-container:hover {
+  background: #36353b;
+  transition-duration: 0.3s;
+}
+
+body.black .nav-text {
+  color: #fff;
+}
+
+body.black .day {
+  color: #4169e1;
+}
+
+body.black div.task-overlay span.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.black div.task-overlay span.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.black div.task-overlay input.save-btn-style {
+  background: #4169e1;
+  color: #fff;
+}
+
+body.black div.task-overlay input.save-btn-style:hover {
+  background: #7b98ed;
+}
+
+body.black div.task-overlay span.del-btn-style {
+  background: #41373f;
+  color: #c46e81;
+}
+
+body.black div.task-overlay span.del-btn-style:hover {
+  background: #ffe0e0;
+}
+
+body.black div#text{
+  color: #fff;
+  background: #25252d;
+}
+
+body.black .form-control {
+  color: #fff;
+}
+
+body.black div.task textarea.ol-task-notes {
+  background: #4c4b54;
+  border: 1px solid #4c4b54;
+  color: #fff;
+}
+
+body.black div.task textarea.ol-task-notes:focus {
+  border: 1px solid #7b98ed;
+}
+
+body.black div.task select.select-control {
+  border: 1px solid grey;
+}
+
+body.black .theme-change {
+  background: #2d2c32;
+}
+
+body.black .activetoggle {
+  background: #36353b !important;
+}
+
+body.black .theme-control-btn {
+  background: #2d2c32;
+  color: #fff;
+}
+
+body.black .theme-control-btn {
+  background: #2d2c32;
+  color: #fff;
+}
+
+body.black .form-control-settings {
+  color: #fff;
+  background: #2d2c32;
+}
+
+body.black span.task-date {
+  background: #36353b;
+  color: #fff;
+}
+
+body.black .folderbacklink {
+  color: #fff;
+  text-decoration: none;
+}
+
+body.black button.nav-al-style {
+  color: #4169e1;
+  background: #33394d;
+}
+
+body.black .folder-edit-main {
+  background: #25252d;
+}
+
+body.black .loadercircle {
+  color: grey;
+}
+
+body.black .loadercircle:before {
+  background: #1c1d22;
+}
+
+body.black .loadercircle:after {
+  background: #1c1d22;
+}
+
+body.black .task-main:hover {
+  background-color: #343d4a;
+  border-radius: 5px;
+  transition-duration: 0.1s;
+  cursor: pointer;
+}
+
+body.black .task-main:hover .dot {
+  color: #343d4a;
+  transition-duration: 0.1s;
+}
