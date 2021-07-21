@@ -1,2 +1,0 @@
-Settings -> Provisioning Server
-http://pepbx.com/pbx/autoprovision/boot/
