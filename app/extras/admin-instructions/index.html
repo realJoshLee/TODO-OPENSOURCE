@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tasks - Admin Usage Guide</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="shortcut icon" type="image/png" href="../../icons/favicon.png"/>
+
+    <!--Scripts-->
+    <script src="../../plugins/jquery.min.js"></script>
+    <link href="../../fa/css/all.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="content">
+        <br><br><a href="../../index.php" style="color: purple; text-decoration: none;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;Back Home</a>
+        <h1 class="header">Overview</h1>
+        <p>Read the following document to learn more about managing your Tasks deployment.</p>
+        <hr width="50%;">
+      </div>
+
+      <div class="content">
+        <h2 class="header">Getting to the admin panel</h2>
+        <p>To get to the admin panel, navigate to the <span class="notice bold"><i class="fas fas fa-sliders-h"></i> Settings</span> page and scroll all the way to the bottom. Next, click on <span class="notice">Admin Dashboard/Management</span>. Clicking this will open a new page.</p>
+        <p>When you first open the admin dashboard, you will see a bunch of sections with different stats and useful links to managing the deployment.</p>
+      </div>
+
+      <br><hr width="50%;"><br>
+
+      <div class="content">
+        <h2 class="header">Setup Pt.1</h2>
+        <p>To setup this deployment, follow these steps.</p>
+        <p><span class="notice"><b>1.</b></span> Move all of files from the GitHub to your webserver. Everything must have it's own website (sub-domain websites are fine as well). This app needs to be in the root of the website.</p>
+        <p><span class="notice"><b>2.</b></span> Run the 'database-configure.sql' file located in the 'app/init/' folder.</p>
+        <p><span class="notice"><b>3.</b></span> Configure database connection and encryption in the 'config.php' file in the 'app/init/' folder.</p>
+      </div>
+
+      <div class="content">
+        <h2 class="header">Setup Pt.2 (Web interface)</h2>
+        <p>To setup this deployment, follow these steps.</p>
+        <p><span class="notice"><b>1.</b></span> Navigate to the url of ur hosted instance.</p>
+        <p><span class="notice"><b>2.</b></span> Log in with the default admin account with the following credentials: Username: admin@example.com Password: iX6qAMXk</p>
+        <p><span class="notice"><b>3.</b></span> Navigate to the settings and click on the admin button at the bottom of the settings page.</p>
+        <p><span class="notice"><b>4.</b></span> You will be directed to the main dashboard of the app. On the top banner that asks you to configure the app, click on HERE and configure all of the settings.</p>
+        <p><span class="notice"><b>5.</b></span> From there your instance is ready to use. You can create an account from the home page and promot it to an admin from the admin panel with the default account.</p>
+        <p>** Make sure that you suspend the default admin once you're done configuring everything. **<br>You can also view more instructions froom the links in the admin panel.</p>
+      </div>
+
+      <br><hr width="50%;"><br>
+
+      <div class="content">
+        <h2 class="header">User management</h2>
+        <p>To manage all of the users who have signed up, in the <span class="notice">Actions</span> panel, click on <span class="notice">Users</span>. The user management page will load where you can select a user to manage.</p>
+
+        <br>
+        <h3 class="header">Manually adding users</h3>
+        <p>In the add user form, you can add a user. The default password for all users is <span class="notice">Tasks1234!</span> if you don't update it. When you add a user through this form, the whitelist feature will not take effect if you have it enabled and configured.</p>
+
+        <br>
+        <h3 class="header">Managing user account (applying permissions)</h3>
+        <p>To manage a certain user, look for their name and email and click on it. You will have some actions and features that you can view. From this panel, you can export all of their data (If enabled), set their preminum status, give them access to the admin panel, mark the user as active or suspend them, or verify them. Clicking the green buttons will put that feature/setting into effect and the red buttons will revoke that permission/settings. In this page you can also view the users full name, email, date the account was created, account id, their timezone, and their theme. If a user is suspeneded, they will not be able to log into their account, but it won't delete any of their data.</p>
+      </div>
+
+      <br><hr width="50%;"><br>
+
+      <div class="content">
+        <h2 class="header">App management</h2>
+        <p>To manage all of the app settings, in the <span class="notice">Actions</span> panel, click on <span class="notice">App Settings</span>. The app management page will load and you will see a large amount of settings.</p>
+        <p>To enable or disable a feature, click on the dropdown and select Enabled/Disabled then scroll down and select the Update Content button.</p>
+        <p><span class="notice">Signup Whitelist</span> - When enabled, this will enforce a domain whitelist for users who want to create an account. Domains can be configured in the "app/init/config.php" document under the "$whitelist" variable. Add root domains: example.com of the emails accounts, each domain should be comma seperated.</p>
+        <p><span class="notice">Magic Link Login</span> - When enabled, users will have the option to login to their account with a link sent to their email account. <b>Mailjet must be setup and configured for this setting to work.</b></p>
+        <p><span class="notice">Email Verification</span> - When enabled, users will be required to verify their email address. If diabled, their account with be auto verified on login. <b>Mailjet must be setup and configured for this setting to work.</b></p>
+        <p><span class="notice">Log Page</span> - When enabled, the log page will show up in the side nav for all users to view.</p>
+        <p><span class="notice">Share Page</span> - When enabled, users will be able to share tasks with other people who do and don't have an account. If this is disabled, the share settings will still show in the task but the view page will not work.</p>
+        <p><span class="notice">Account Creations</span> - When enabled, people can make new accounts. When disable, accounts can't be created unless your in the admin portal.</p>
+        <p><span class="notice">Bug Reporting</span> - When enabled, users will be able to submit bugs and issues in the settings page.</p>
+        <p><span class="notice">Allow theme change</span> - When enabled, users will have the option to change their theme.</p>
+        <p><span class="notice">All data exporting, Login data exporting, App load data exporting</span> - When enabled, the export buttons will show in the user management page. When disabled, these buttons will not appear.</p>
+        <p><span class="notice">Error reporting</span> - When enabled, system errors (PHP) will show for all users.</p>
+        <p><span class="notice">Reminder Email</span> - When enabled, reminder emails will be sent from the server. <b>Mailjet must be setup and configured for this setting to work.</b></p>
+        <p><span class="notice">IP Whitelist</span> - When enabled, an IP whitelist will be applied. To add IP addresses, add comma seperated IP addresses to the IP Whitelist Value field below. Make sure you have your IP Whitelisted before saving. If you don't have your IP whitelisted you can't access the admin panel and will have to login to the database and disable the feature/add your IP whitelist.</p>
+        <p><span class="notice">Contact Email</span> - This email will be tied to all of the help links around the app.</p>
+        <p><span class="notice">Root Website</span> - This is the root url of the deployment (tasks.example.com) and is used around the app.</p>
+        <p><span class="notice">Email sending control</span> - These are the settings to setup and configure Mailjet. Mailjet is a free resource for sending emails. You must have a domain for this to work. View the Mailjet setup <a href="https://www.mailjet.com/pricing/">here</a>. Follow the instuctions and select PHP for the app when it asks. Set the values below with values provided by and configured in Mailjet.</p>
+      </div>
+
+      <br><hr width="50%;"><br>
+
+      <div class="content">
+        <h2 class="header">Revert to defaults</h2>
+        <p>To revert all of the settings back to their default, click on the dropdown and select "Clear defaults" then click "Revert to install defaults".</p>
+      </div>
+
+      <br><hr width="50%;"><br>
+
+      <div class="content">
+        <h2 class="header">Purge logs</h2>
+        <p>This will purge all of the logs from the "tasks_log" database table. These logs can't be retrived unless you have database backups in place. To purge logs click on the drop and select, "Clear log" and then click the "Clear log" button.</p>
+      </div>
+
+      <br><hr width="50%;"><br>
+
+      <div class="content">
+        <h2 class="header">Instructions</h2>
+
+        <h3 class="header">How to configure whitelist</h3>
+        <p><span class="notice"><b>1.</b></span> Open the config.php file located in app/init/.</p>
+        <p><span class="notice"><b>2.</b></span> Edit the '$whitelist' value and add the root domains that you would like to whitelist.</p>
+        <p><span class="notice"><b>3.</b></span> Navigate to the admin panel and then to App Settings.</p>
+        <p><span class="notice"><b>4.</b></span> Enable the Signup Whitelist option.</p>
+
+        
+      </div>
+
+    </div>  
+  </body>
+</html>

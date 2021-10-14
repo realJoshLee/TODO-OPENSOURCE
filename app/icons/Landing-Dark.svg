@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="367.542" height="114.257" viewBox="0 0 367.542 114.257">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1" x2="0" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#333"/>
+      <stop offset="1" stop-color="#333"/>
+    </linearGradient>
+    <filter id="Rectangle_3" x="28.729" y="54.245" width="59.929" height="60.012" filterUnits="userSpaceOnUse">
+      <feOffset input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Dark" transform="translate(-44.458 -587)">
+    <g id="Logo" transform="translate(15.061 442.379) rotate(40)">
+      <rect id="Rectangle_2" data-name="Rectangle 2" width="30.126" height="77.658" rx="15.063" transform="translate(152 135.412) rotate(-90)" fill="url(#linear-gradient)"/>
+      <g transform="matrix(0.77, -0.64, 0.64, 0.77, 115.48, 91.89)" filter="url(#Rectangle_3)">
+        <rect id="Rectangle_3-2" data-name="Rectangle 3" width="29.456" height="30.126" rx="14.728" transform="translate(57.09 63.25) rotate(40)" fill="url(#linear-gradient)"/>
+      </g>
+      <rect id="Rectangle_1" data-name="Rectangle 1" width="30.126" height="110.461" rx="15.063" transform="translate(199.801 24.85)" fill="url(#linear-gradient)"/>
+    </g>
+    <text id="Tasks" transform="translate(193 671)" fill="#333" font-size="84" font-family="SofiaPro-Black, Sofia Pro" font-weight="800"><tspan x="0" y="0">Tasks</tspan></text>
+  </g>
+</svg>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Tasks - Usage Guide</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="shortcut icon" type="image/png" href="../../icons/favicon.png"/>
+
+    <!--Scripts-->
+    <script src="../../plugins/jquery.min.js"></script>
+    <link href="../../fa/css/all.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="content">
+        <br><br><a href="../../index.php" style="color: purple; text-decoration: none;"><i class="fas fa-long-arrow-alt-left"></i>&nbsp;Back Home</a>
+        <h1 class="header">Overview</h1>
+        <p>Tasks is a modern task manager that will let you complete all of your tasks while being able to stay focused. Use Tasks to organize your life and to free up space in your brain.</p>
+        <hr width="50%;">
+      </div>
+
+      <div class="content home-content content-ctrl">
+        <h4>Home:</h4>
+        <p>Please choose from the options below of the type of documentation that you want to be presented to you.</p>
+
+        <button type="button" class="btn btn-primary" onclick="allContent()">All Content</button>
+        <button type="button" class="btn btn-primary" onclick="admin()">Admin Documentation</button>
+        <button type="button" class="btn btn-primary" onclick="user()">General User Documentation</button>
+
+        <br><br><br>
+      </div>
+
+
+      <div class="content general-user-content content-ctrl">
+        <h4>For General Users:</h4>
+        <div class="accordion" id="accordionExample">
+
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOneA">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneA" aria-expanded="false" aria-controls="collapseOneA">
+                Keyboard Shortcuts
+              </button>
+            </h2>
+            <div id="collapseOneA" class="accordion-collapse collapse" aria-labelledby="headingOneA" data-bs-parent="#accordiOneAxample">
+              <div class="accordion-body">
+                <p>
+                  <span class="notice" style="font-weight: bold;">Web/Windows App:</span>
+                  <br><span class="notice" style="font-weight: bold;">ESC</span> - Closes the task edit overlay. 
+                  <br><span class="notice" style="font-weight: bold;">ALT+1</span> - Opens inbox page.
+                  <br><span class="notice" style="font-weight: bold;">ALT+2</span> - Opens today page.
+                  <br><span class="notice" style="font-weight: bold;">ALT+3</span> - Opens planning page.
+                  <br><span class="notice" style="font-weight: bold;">ALT+4</span> - Opens links page.
+                  <br><span class="notice" style="font-weight: bold;">ALT+5</span> - Opens stats page.
+                  <br><span class="notice" style="font-weight: bold;">ALT+6</span> - Opens settings page.
+                  <br><span class="notice" style="font-weight: bold;">ALT+8</span> - Opens alerts page.
+                  <br><span class="notice" style="font-weight: bold;">ALT+9</span> - Opens log page.
+                  <br><span class="notice" style="font-weight: bold;">ALT+M</span> - Closes NAV.
+                  <br><span class="notice" style="font-weight: bold;">ALT+B</span> - Opens NAV.
+                  <br><span class="notice" style="font-weight: bold;">ALT+Q</span> - Opens inbox with input focus.
+                  <br><span class="notice" style="font-weight: bold;">ALT+W</span> - Opens planning with current day focus.
+                  <br><span class="notice" style="font-weight: bold;">ALT+R</span> - Opens planning with next day focus.
+                </p>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwoA">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoA" aria-expanded="false" aria-controls="collapseTwoA">
+                Navigation
+              </button>
+            </h2>
+            <div id="collapseTwoA" class="accordion-collapse collapse" aria-labelledby="headingTwoA" data-bs-parent="#accordiTwoAxample">
+              <div class="accordion-body">
+                <p>We have many different pages to help you sort your tasks and to keep your life organized.</p>
+                <p>The <span class="notice bold"><img class="nav-icon" src="../../icons/nav-icons/Inbox.svg"> Inbox</span> page is for all of the tasks that you don't want to sort into a folder or that you don't want to set a due date for yet. Tasks will only show up in the Inbox and not put in there if they don't have a folder assigned.</p>
+                <p>The <span class="notice bold"><img class="nav-icon" src="../../icons/nav-icons/Calendar.svg"> Planning</span> page is the page where you can view all of the tasks that you planned. You have a 31 day view from the planning page.</p>
+                <p>The <span class="notice bold"><img class="nav-icon" src="../../icons/nav-icons/Log.svg"> Logbook</span> page is a log of all of the tasks that you completed. Under the task you can find the date that the task was completed. Tasks are sorted by the date that you completed them in. Recently completed to not recently completed. (Your admin can disable this is he/she find necessary. By default it's enabled.)</p>
+                <p>The <span class="notice bold"><img class="nav-icon" src="../../icons/nav-icons/Links.svg"> Links</span> page contains all of the saved website URLs that have been captured from the Google Chrome Extension. These tasks can't be moved to other places or have a due date set to them. To capture a task from the extension, (Guessing that you already have the extension setup.) click the save link button below the link that's shown.</p>
+                <p>The <span class="notice bold"><img class="nav-icon" src="../../icons/nav-icons/Stats.svg"> Stats</span> page is the stats of your completed tasks. In this page you can view how many tasks you completed the current day by the hour, how many tasks you completed in the past 7 days, and how many tasks you complete each month.</p>
+                <p>The <span class="notice bold"><img class="nav-icon" src="../../icons/nav-icons/Add Folder.svg"> Add Folder</span> button will make a popup show under your list of folder and you can type the folder that you would like to add.</p>
+                <p>The <span class="notice bold"><i class="fas fas fa-sliders-h"></i> Settings</span> page has all of the controls for your account. In this page you can do a lot. This page is the main control hub of everything that pertains to your account.</p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThreeA">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeA" aria-expanded="false" aria-controls="collapseThreeA">
+                Diagnostics
+              </button>
+            </h2>
+            <div id="collapseThreeA" class="accordion-collapse collapse" aria-labelledby="headingThreeA" data-bs-parent="#accordiThreeAxample">
+              <div class="accordion-body">
+                <ul class="list-group-numbered">
+                  <p>If you're having issues with a new version (scripts not working properly, styles not looking correct), please uninstall the app, clear your cache on your browser and then follow the instructions to reinstall the app. If you continue to have these issues, submit a ticket.</p>
+                  <a href="../../bug.php" class="link" style="color: purple; text-decoration: none;">Submit a Ticket&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a><br>
+                  <a href="../pwa-install/index.html" class="link" style="color: purple; text-decoration: none;">Install our PWA&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFourA">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourA" aria-expanded="false" aria-controls="collapseFourA">
+                Mobile Apps & Extensions
+              </button>
+            </h2>
+            <div id="collapseFourA" class="accordion-collapse collapse" aria-labelledby="headingFourA" data-bs-parent="#accordiFourAxample">
+              <div class="accordion-body">
+                <p>Follow the guide below on how to install our app on your device. We use a PWA for our app so everything will always be up to date and easy to install.</p>
+                <p>We also use a PWA for the users who decide to self host. There isn't extra compiling that needs to be done if you want the app on your mobile phone. It's all built in and when you add it to your home screen it will point to your deployment.</p>
+                <a href="../pwa-install/index.html" class="link" style="color: purple; text-decoration: none;">Install our PWA&nbsp;<i class="fas fa-long-arrow-alt-right"></i></a>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFiveA">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiveA" aria-expanded="false" aria-controls="collapseFiveA">
+                Task Management
+              </button>
+            </h2>
+            <div id="collapseFiveA" class="accordion-collapse collapse" aria-labelledby="headingFiveA" data-bs-parent="#accordiFiveAxample">
+              <div class="accordion-body">
+                <h4 class="header">Adding tasks</h4>
+                <p>Adding tasks is simple. On the left hand navigation panel, click on one of sections or folders then click where you see the text 'Add a task', start typing, then click on enter. This will seamlessly add a task. You can add tasks for up to 31 days ahead of the current date.</p>
+
+                <br>
+
+                <h4 class="header">Completing task</h4>
+                <p>To mark a task as complete, click in the grey box with curved corners to mark it as complete. This will remove the task from your view.</p>
+
+                <br>
+
+                <h4 class="header">Subtasks</h4>
+                <p>If there are uncompleted subtasks in a parent task, the icon highlighted in red will be shown.</span></p>
+
+                <br>
+
+                <h4 class="header">Editing tasks</h4>
+                <p>To edit a task, click on the text of the task that you want to edit. Once you do that, an overlay will show and you will have the option to edit everything. <span class="notice">To edit content, click on where you want to edit and type.</span> Once you update the task/content to your desire, click on the save button. To save a subtask <span class="notice">(Also viewable from the same overlay)</span>, just click on the text and type. There is no save button for subtasks.</p>
+
+                <br>
+
+                <h4 class="header">Due dates</h4>
+                <p>When updating the due date for a task, type the new due date in the following format: <span class="notice">M-DD-YYYY (Mar-05-2021)</span> if you would like to add a task to the inbox, type <span class="notice">inbox</span> instead of the date.</p>
+                <p>If you would like to change the due date, you can drag and drop the task to different "date sections". To drag and drop click and hold on the text of the task, and drag it to the bottom of the list of tasks of the date that you would like to change it to. <span class="notice">You will know that the drag and drop has been iniciated with a slight color backgound change will happened behind the tasks.</span></p>
+
+                <br>
+
+                <h4 class="heade">Sharing tasks</h4>
+                <p>Follow the steps below to share a task with someone. <span class="notice">When you share a task with someone, it can't be edited by the person it was shared with.</span></p>
+                <p><span class="notice"><b>1.</b></span> Click on the text of the task that you would like to share.</p>
+                <p><span class="notice"><b>2.</b></span> Click Notes/Sharing to change the page.</p>
+                <p><span class="notice"><b>3.</b></span> Click on the Enable/Disable Share button based on what you're doing.</p>
+                <p><span class="notice"><b>4.</b></span> Copy the link below and send it to the people you would like to share it with. When you share a task, the task content is viewable, notes, duedate, and subtasks. If a task is completed it is still viewable.</p>
+
+                <br>
+
+                <h4 class="heade">Add notes to a task</h4>
+                <p>Follow the steps below to add notes to a task.</p>
+                <p><span class="notice"><b>1.</b></span> Click on the text of the task that you would like to add notes to.</p>
+                <p><span class="notice"><b>2.</b></span> Click Notes/Sharing to change the page.</p>
+                <p><span class="notice"><b>3.</b></span> Type your notes in the Notes section and click "Save Notes" to save the content.</p>
+
+                <br>
+
+                <h4 class="heade">Add a reminder to a task</h4>
+                <p>Follow the steps below to add a reminder to a task. <span class="notice">(Reminders can be enabled or disabled by your admin. Even if they are disabled you can set a value for this but you won't recieve a notification.)</span> When you first load the app, you will get an email for each task that has a reminder set for that day.</p>
+                <p><span class="notice"><b>1.</b></span> Click on the text of the task that you would like to set a reminder for.</p>
+                <p><span class="notice"><b>2.</b></span> Click Notes/Sharing to change the page.</p>
+                <p><span class="notice"><b>3.</b></span> Type in the date for the reminder in the following format: <span class="notice">M-DD-YYYY (Mar-05-2021)</span></p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <br><br>
+
+
+      <div class="content admin-content content-ctrl">
+        <h4>For Admins:</h4>
+        <div class="accordion" id="accordionExample">
+
+
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOneB">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOneB" aria-expanded="false" aria-controls="collapseOneB">
+                Initial Setup
+              </button>
+            </h2>
+            <div id="collapseOneB" class="accordion-collapse collapse initialSetup" aria-labelledby="headingOneB" data-bs-parent="#accordiOneBxample">
+              <div class="accordion-body">
+                <ul class="list-group-numbered">
+                  <li>Push all files to your webserver that you downloaded from GitHub</li>
+                  <li>Navigate to the following URL and finish the setup: https://yourdomain.com/setup.php</li>
+                  <li>When on that page, follow all of the instructions there. Once you click submit and get a success message come back to this page to continue.</li>
+                  <li>When you get a success notification, log in with the default admin account with the following credentials: <b>Username:</b> admin@example.com<br><b>Password:</b> iX6qAMXk</li>
+                  <li>When you log into the default admin account, it should redirect you to the Admin App Settings page. Go through that page and fine tune the settings of the app.</li>
+                  <li>Once all of the configurations are submitted, go to the Users page by clicking on Users from the action panel (Click on the hamburger menu button in the top left hand corner.)</li>
+                  <li>When you're on the users page, create a new account from the form on the top of the page with your email address and a new unique password.</li>
+                  <li>When the account is created, go into the account that you just created and promote that user to an admin.</li>
+                  <li>Go into the Admin account (Admin, Admin) and suspend that account. Once you suspend the account, logout from the action panel and log in with your new account.</li>
+                  <li>Finally, navigate to the Dashboard in the admin panel and click 'Purge setup files'. This will delete all setup files that users can use to mess up the install.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwoB">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwoB" aria-expanded="false" aria-controls="collapseTwoB">
+                Getting Into the Admin Panel
+              </button>
+            </h2>
+            <div id="collapseTwoB" class="accordion-collapse collapse" aria-labelledby="headingTwoB" data-bs-parent="#accordiTwoBxample">
+              <div class="accordion-body">
+                <p>To get to the admin panel, navigate to the <span class="notice bold"><i class="fas fas fa-sliders-h"></i> Settings</span> page and scroll all the way to the bottom. Next, click on <span class="notice">Admin Dashboard/Management</span>. Clicking this will open a new page.</p>
+                <p>When you first open the admin dashboard, you will see a bunch of sections with different stats and useful links to managing the deployment.</p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThreeB">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThreeB" aria-expanded="false" aria-controls="collapseThreeB">
+                User Management
+              </button>
+            </h2>
+            <div id="collapseThreeB" class="accordion-collapse collapse" aria-labelledby="headingThreeB" data-bs-parent="#accordiThreeBxample">
+              <div class="accordion-body">
+                <p>To manage all of the users who have signed up, in the <span class="notice">Actions</span> panel, click on <span class="notice">Users</span>. The user management page will load where you can select a user to manage.</p>
+
+                <br>
+
+                <p>To manage a certain user, look for their name and email and click on it. You will have some actions and features that you can view. From this panel, you can export all of their data (If enabled), set their preminum status, give them access to the admin panel, mark the user as active or suspend them, or verify them. Clicking the green buttons will put that feature/setting into effect and the red buttons will revoke that permission/settings. In this page you can also view the users full name, email, date the account was created, account id, their timezone, and their theme. If a user is suspeneded, they will not be able to log into their account, but it won't delete any of their data.</p>
+                
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFourB">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFourB" aria-expanded="false" aria-controls="collapseFourB">
+                Manually Adding Users
+              </button>
+            </h2>
+            <div id="collapseFourB" class="accordion-collapse collapse" aria-labelledby="headingFourB" data-bs-parent="#accordiFourBxample">
+              <div class="accordion-body">
+                <p>In the add user form, you can add a user. The default password for all users is <span class="notice">Tasks1234!</span> if you don't update it. When you add a user through this form, the whitelist feature will not take effect if you have it enabled and configured.</p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFiveB">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiveB" aria-expanded="false" aria-controls="collapseFiveB">
+                App Management
+              </button>
+            </h2>
+            <div id="collapseFiveB" class="accordion-collapse collapse" aria-labelledby="headingFiveB" data-bs-parent="#accordiFiveBxample">
+              <div class="accordion-body">
+                <p>To manage all of the app settings, in the <span class="notice">Actions</span> panel, click on <span class="notice">App Settings</span>. The app management page will load and you will see a large amount of settings that can be configured to fine tune the app.</p>
+                <p>To revert all of the settings back to their default, click on the dropdown and select "Clear defaults" then click "Revert to install defaults".</p>
+              </div>
+            </div>
+          </div>
+
+          
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSixB">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSixB" aria-expanded="false" aria-controls="collapseSixB">
+                Configure User Whitelist
+              </button>
+            </h2>
+            <div id="collapseSixB" class="accordion-collapse collapse" aria-labelledby="headingSixB" data-bs-parent="#accordiSixBxample">
+              <div class="accordion-body">
+                <p><span class="notice"><b>1.</b></span> Navigate to the App Settings page in the admin panel.</p>
+                <p><span class="notice"><b>2.</b></span> Enable the signup whitelist feature.</p>
+                <p><span class="notice"><b>3.</b></span> In the field below, set the root domains of the emails that you would like to allow. For example, to allow john@example.org to signup you should whitelist example.org. Seperate each domain with a comma.</p>
+                <p>This will not affect users who are already signed up.</p>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <br><br><br>
+
+    </div>  
+  </body>
+</html>
+<script>
+  $('.content-ctrl').css('display','none');
+
+  if(location.hash=='#home'){
+    $('.home-content').css('display','initial');
+  }
+
+  if(location.hash=='#generalUser'){
+    $('.general-user-content').css('display','initial');
+  }
+
+  if(location.hash=='#admins'){
+    $('.admin-content').css('display','initial');
+  }
+
+  if(location.hash=='#initialsetupAdmin'){
+    initialsetupAdmin();
+  }
+
+  function allContent(){
+    $('.general-user-content').css('display','initial');
+    $('.admin-content').css('display','initial');
+  }
+
+  function user(){
+    $('.general-user-content').css('display','initial');
+  }
+
+  function admin(){
+    $('.admin-content').css('display','initial');
+  }
+
+  function initialsetupAdmin(){
+    $('.admin-content').css('display','initial');
+    $('.initialSetup').addClass('show');
+  }
+</script>
