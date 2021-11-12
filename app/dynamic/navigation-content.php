@@ -100,7 +100,12 @@
 
     <!--Folder add button-->
     <button class="nav-btn-container folder-add-btn" onclick="folderaddopen()">
-      <span class="nav-text-bottom"><i class="fas fa-plus"></i>&nbsp;&nbsp;<span class="nav-text-bottom">Add Folder</span></span>
+      <span class="nav-text-bottom"><i class="fas fa-folder-plus"></i>&nbsp;&nbsp;<span class="nav-text-bottom">Add Folder</span></span>
+    </bottom> 
+
+    <!--Quick add button-->
+    <button class="nav-btn-container" onclick="quickAddOpen()">
+      <span class="nav-text-bottom"><i class="fas fa-plus"></i>&nbsp;&nbsp;<span class="nav-text-bottom">Quick Add</span></span>
     </bottom> 
 
     <!--Settings btn-->

@@ -31,10 +31,6 @@
                 <h2>Dark:</h2>
                 <img src="images/Dark.png" class="theme-icon" onclick="themedark()">
               </div>
-              <div class="column">
-                <h2>Black:</h2>
-                <img src="images/Black.png" class="theme-icon" onclick="themeblack()">
-              </div>
             </div>
             <?php }else{ ?>
             <p>Your admin does not allow chaning of themes.</p>

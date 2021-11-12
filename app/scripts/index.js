@@ -7,6 +7,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
 var devmode = 'true'; // set to true or false
 var offlinecheck = 'true'; // checks client to see if they are offline of online.
+var fadeeffects = 'true'; // fade effects between pages
 
 // Show the loader when in production.
 if(devmode=='false'){
@@ -15,14 +16,14 @@ if(devmode=='false'){
 
   // Shows all of the content and hides the loader after 1 second.
   setTimeout(() => { 
-    $('.loader').css('display','none');
+    $('.loader').fadeOut();
     $('.all-content').css('display','initial');
   }, 1500);
 }
 
 // Disables the load time for devs
 if(devmode=='true'){
-  $('.loader').css('display','none');
+  $('.loader').fadeOut();
   $('.all-content').css('display','initial');
 }
 
@@ -145,6 +146,16 @@ document.onkeydown = function(e) {
   // ESC
   if (e.which == 27) {
     $(`[id^=overlay-]`).css('display','none');
+
+    // Closes the calendar view.
+    $(`[id^=dp-obj-]`).css('display','none');
+    $(`[id^=csb-]`).css('display','initial');
+
+    // Closes the quick add container
+    quickAddClose();
+
+    // Clears the quick add form
+    $(`.quickadd-task-form`)[0].reset();
   }
 
   // ALT+1
@@ -185,6 +196,11 @@ document.onkeydown = function(e) {
   // ALT+9
   if (e.altKey && e.which == 57) {
     window.location.href = 'log.php';
+  }
+
+  // ALT+A
+  if (e.altKey && e.which == 65) {
+    quickAddOpen();
   }
 
   // Closes side nav on desktop
@@ -257,9 +273,6 @@ if(location.hash=='#links'){
 if(location.hash=='#planning'){
   planningactive();
 }
-if(location.hash=='#quickadd'){
-  quickaddactive();
-}
 if(location.hash=='#inbox'){
   inboxactive();
 }
@@ -288,31 +301,15 @@ function todayactive() {
   $('.app-page').css('display','none');
   $( ".nav-btn-container" ).removeClass('active').addClass('');
 
-  $('.insight-page').css('display','initial');
+
+  //$('.insight-page').css('display','initial');
   $( ".today-nav" ).removeClass('').addClass('active');
   $('.all-other-days').css('display','none');
-
-  count();
-  
-  if ($(window).width() < 830) {
-    setTimeout(() => { 
-      closenav();
-    }, 100);
+  if(fadeeffects=='true'){
+    $( ".insight-page" ).fadeIn("fast");
+  }else{
+    $('.insight-page').css('display','initial');
   }
-}
-
-// Makes the today view active
-function quickaddactive() {
-  // Header info
-  location.hash = 'quickadd';
-  document.title = `Quick Add: Tasks`;
-
-  // Changes the view
-  $('.app-page').css('display','none');
-  $( ".nav-btn-container" ).removeClass('active').addClass('');
-
-  $('.quickadd-page').css('display','initial');
-  $( ".quickadd-page" ).removeClass('').addClass('active');
 
   count();
   
@@ -333,7 +330,12 @@ function linksactive() {
   $('.nav-btn-container').removeClass('active').addClass('');
   
   // Changes the view
-  $('.links-page').css('display','initial');
+  //$('.links-page').css('display','initial');
+  if(fadeeffects=='true'){
+    $( ".links-page" ).fadeIn("fast");
+  }else{
+    $('.links-page').css('display','initial');
+  }
   $('.links-nav').removeClass('').addClass('active');
 
   count();
@@ -355,7 +357,12 @@ function statsactive() {
   $('.app-page').css('display','none');
   $( ".nav-btn-container" ).removeClass('active').addClass('');
 
-  $('.stats-page').css('display','initial');
+  //$('.stats-page').css('display','initial');
+  if(fadeeffects=='true'){
+    $( ".stats-page" ).fadeIn("fast");
+  }else{
+    $('.stats-page').css('display','initial');
+  }
   $( `.stats-nav` ).removeClass('').addClass('active');
   
   if ($(window).width() < 830) {
@@ -375,7 +382,12 @@ function planningactive() {
   $('.app-page').css('display','none');
   $( ".nav-btn-container" ).removeClass('active').addClass('');
 
-  $('.insight-page').css('display','initial');
+  //$('.insight-page').css('display','initial');
+  if(fadeeffects=='true'){
+    $( ".insight-page" ).fadeIn("fast");
+  }else{
+    $('.insight-page').css('display','initial');
+  }
   $( ".planning-nav" ).removeClass('').addClass('active');
   $('.all-other-days').css('display','initial');
 
@@ -398,7 +410,12 @@ function inboxactive() {
   $( ".nav-btn-container" ).removeClass('active').addClass('');
   
   // Changes the view
-  $('.inbox-page').css('display','initial');
+  if(fadeeffects=='true'){
+    $( ".inbox-page" ).fadeIn("fast");
+  }else{
+    $(`.inbox-page`).css('display','initial');
+  }
+  //$('.inbox-page').css('display','initial');
   $( ".inbox-nav" ).removeClass('').addClass('active');
 
   count();
@@ -430,7 +447,12 @@ $(document).on('click', '.folder-btn', function(){
   $('.app-page').css('display','none');
   $( ".nav-btn-container" ).removeClass('active').addClass('');
 
-  $(`#fdiv-${fid}`).css('display','initial');
+  if(fadeeffects=='true'){
+    $(`#fdiv-${fid}`).fadeIn("fast");
+  }else{
+    $(`#fdiv-${fid}`).css('display','initial');
+  }
+  //$(`#fdiv-${fid}`).css('display','initial');
   $( `#f-${fid}` ).removeClass('').addClass('active');
 
   count();
@@ -452,7 +474,12 @@ function alertsactive() {
   $('.app-page').css('display','none');
   $( ".nav-btn-container" ).removeClass('active').addClass('');
 
-  $('.alerts-page').css('display','initial');
+  if(fadeeffects=='true'){
+    $(`.alerts-page`).fadeIn("fast");
+  }else{
+    $('.alerts-page').css('display','initial');
+  }
+  //$('.alerts-page').css('display','initial');
   //$( `.alerts-nav` ).removeClass('').addClass('active');
   
   if ($(window).width() < 830) {
@@ -478,7 +505,12 @@ if(window.location.hash.includes('fid-')){
   $('.app-page').css('display','none');
   $( ".nav-btn-container" ).removeClass('active').addClass('');
 
-  $(`#fdiv-${fid}`).css('display','initial');
+  if(fadeeffects=='true'){
+    $(`#fdiv-${fid}`).fadeIn("fast");
+  }else{
+    $(`#fdiv-${fid}`).css('display','initial');
+  }
+  //$(`#fdiv-${fid}`).css('display','initial');
   $( `#f-${fid}` ).removeClass('').addClass('active');
 
   count();
@@ -500,7 +532,12 @@ function settingsactive() {
   $('.app-page').css('display','none');
   $( ".nav-btn-container" ).removeClass('active').addClass('');
 
-  $('.settings-page').css('display','initial');
+  if(fadeeffects=='true'){
+    $(`.settings-page`).fadeIn("fast");
+  }else{
+    $('.settings-page').css('display','initial');
+  }
+  //$('.settings-page').css('display','initial');
   $( `.settings-btn` ).removeClass('').addClass('active');
   
   if ($(window).width() < 830) {
@@ -771,6 +808,44 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 */
+// Opens the quick add
+function quickAddOpen(){
+  //$(`.quickAddContainer`).css('display','block');
+  $(`.quickAddContainer`).fadeIn(150);
+  $('#input-quickadd').focus();
+
+  // Formats the dates
+  var today = new Date();
+  var TodayDD = String(today.getDate()).padStart(2, '0');
+  var TodayMM = today.toLocaleString('default', { month: 'short' });
+  var TodayYYYY = today.getFullYear();
+  var todaydate = ATPTodayMM + '-' + ATPTodayDD + '-' + ATPTodayYYYY;
+
+  // Adds to the current page.
+  if(location.hash=='#inbox'){
+    $(`#input-quickadd-date`).val('inbox');
+  }
+  if(location.hash=='#today'||location.hash=='#planning'){
+    $(`#input-quickadd-date`).val(todaydate);
+  }
+  if(window.location.hash.includes('fid-')){
+    function getSecondPart(str) {
+      return str.split('-')[1];
+    }
+    // use the function:
+    var fid = getSecondPart(window.location.hash);
+
+    $(`#input-quickadd-date`).val();
+    $(`#input-quickadd-folder`).val(`${fid}`);
+  }
+}
+
+// Closes the quick add
+function quickAddClose(){
+  //$(`.quickAddContainer`).css('display','none');
+  $(`.quickAddContainer`).fadeOut(150);
+}
+
 // Opens the overlay
 $(document).on('click', '.task-right', function(){
   var overlayid = $(this).data('id');
@@ -1255,16 +1330,29 @@ $(document).on('click', 'div.folderlist .task-save-date', function(event){
   if(document.getElementById(`td-${tid}`).innerHTML==''){
     document.getElementById(`td-${tid}`).innerHTML=``;
   }
-            
-  // Sends everything to the add_task page for it to be added to the db
-  $.ajax({
-    url: `sync/sync.php?as=updatedate`,
-    method:"POST",
-    data:{
-      'tid': `${tid}`,
-      'date': `${datevar}`
-    }
-  })
+
+  if(datevar==''){
+    $.ajax({
+      url: `sync/sync.php?as=dpremovedate`,
+      method:"POST",
+      data:{
+        'id': `${tid}`
+      }
+    })
+    
+    document.getElementById(`td-${tid}`).innerHTML=``;
+  }else{    
+    // Sends everything to the add_task page for it to be added to the db
+    $.ajax({
+      url: `sync/sync.php?as=updatedate`,
+      method:"POST",
+      data:{
+        'tid': `${tid}`,
+        'date': `${datevar}`
+      }
+    })
+  }
+        
 
   count();
 
@@ -1465,6 +1553,190 @@ $(document).on('click', '.remove-date', function(event){
   count();
 });
 
+// Show the calendar view
+$(document).on('click', '.calendar-show-btn', function(){
+  var id = $(this).data('id');
+  $(`#dp-obj-${id}`).css('display','initial');
+  $(`#csb-${id}`).css('display','none');
+});
+
+// Hides the calendar view.
+$(document).on('click', '.calendar-hide-btn', function(){
+  $(`[id^=dp-obj-]`).css('display','none');
+  $(`[id^=csb-]`).css('display','initial');
+});
+
+// Everything for the task folder change dropdown in the task overlay.
+$(document).on('click', '.task-save-folder', function(event){
+  // Gets the task id
+  var id = $(this).data('id');
+
+  // Gets the selected value from the dropdown.
+  var selectedfolder = $(`#tf-${id}`).val();
+  
+  // Checks to see if the task is being moved to 'nofolder'
+  if(selectedfolder=='nofolder'){
+    // If the selected folder is nofolder
+    
+    // Gets the current date for the current task
+    var currentdate = $(`#date-${id}`).val();
+
+    if(currentdate==''){
+      // What to do if the date is blank
+      // If the task date is blank, it places it in the inbox
+
+      // Moves the task
+      $(`.task-${id}`).appendTo(`#inbox`);
+
+      // Clears the due date flag on the task
+      document.getElementById(`td-${id}`).innerHTML=``;
+
+      // Sends the request to the server
+      $.ajax({
+        url: `sync/sync.php?as=changefoldernormalsetinbox`,
+        type:'POST',
+        data: {
+          'id': `${id}`,
+          'newfolder': `${selectedfolder}`
+        },
+      })
+    }else{
+      // What to do if the date isnt blank
+      // Moves the task to the date that it is scheduled for
+
+      // Moves the task
+      $(`.task-${id}`).appendTo(`#${currentdate}`);
+
+      // Clears the due date flag on the task
+      document.getElementById(`td-${id}`).innerHTML=``;
+
+      // Sends the request to the server
+      $.ajax({
+        url: `sync/sync.php?as=changefoldernormalpresetdate`,
+        type:'POST',
+        data: {
+          'id': `${id}`,
+          'newfolder': `${selectedfolder}`
+        },
+      })
+    }
+  }else{
+    // If the selected folder isn't nofolder
+
+    // Moves the task
+    $(`.task-${id}`).appendTo(`#ftl-${selectedfolder}`);
+
+    var currentdatein = $(`#date-${id}`).val();
+
+    // Checks to see if the current date is inbox.
+    // If it is, it clears it.
+    if(currentdatein=='inbox'){
+      // If the task is in the inbox
+
+      // Sends the request to the server
+      $.ajax({
+        url: `sync/sync.php?as=changefoldernormalnoinbox`,
+        type:'POST',
+        data: {
+          'id': `${id}`,
+          'newfolder': `${selectedfolder}`
+        },
+      })
+    }else{
+      // If the task isn't in the inbox
+
+      // Sends the request to the server
+      $.ajax({
+        url: `sync/sync.php?as=changefoldernormal`,
+        type:'POST',
+        data: {
+          'id': `${id}`,
+          'newfolder': `${selectedfolder}`
+        },
+      })
+    }
+  }
+
+
+  // Closes the overlay
+  $("[id^=overlay-]").css('display','none');
+
+  // Recounts all of the numbers
+  count();
+
+  // Sends the request to the server
+  /*$.ajax({
+    url: `sync/sync.php?as=favorite`,
+    type:'POST',
+    data: {
+      'value': `false`,
+      'id': `${id}`
+    },
+  })*/
+});
+
+$(document).on('click', '.dp-day', function(){
+  var id = $(this).data('id');
+  var date = $(this).data('date');
+  var folderstat = $(this).data('folder');
+  console.log(folderstat);
+
+  // Updates the value field.
+  $(`#date-${id}`).val(`${date}`);
+
+  // Updates the the location and sql data
+
+  // Stops the form from refreshing the page
+  event.preventDefault();
+
+  // Only moves the task if it's not in a folder
+  if(folderstat==false){
+    $(`.task-${id}`).appendTo(`#${date}`);
+  }
+
+  if(folderstat==true){
+    var datevar = document.getElementById(`date-${id}`).value;
+    document.getElementById(`td-${id}`).innerHTML=`<span class="task-date">${date}</span>`;
+    if(document.getElementById(`td-${id}`).innerHTML==''){
+      document.getElementById(`td-${id}`).innerHTML=``;
+    }
+  }
+
+  $("[id^=overlay-]").css('display','none');
+  $(`[id^=dp-obj-]`).css('display','none');
+  $(`[id^=csb-]`).css('display','initial');
+        
+  if(date==''){
+    $.ajax({
+      url: `sync/sync.php?as=dpremovedate`,
+      method:"POST",
+      data:{
+        'id': `${id}`
+      }
+    })
+    
+    document.getElementById(`td-${id}`).innerHTML=``;
+  }else{
+    // Sends everything to the add_task page for it to be added to the db
+    $.ajax({
+      url: `sync/sync.php?as=updatedate`,
+      method:"POST",
+      data:{
+        'tid': `${id}`,
+        'date': `${date}`
+      }
+    })
+  }
+
+  count();
+
+  // For the alert
+  $('.alert-taskmove').fadeIn(100);
+  setTimeout(() => { 
+    $('.alert-taskmove').fadeOut(100);
+  }, 1500);
+});
+
 
 
 
@@ -1521,6 +1793,7 @@ $(document).on('submit', '.subtasks-form', function(event){
 // Handles adding of the tasks for the inbox and planning page
 $(document).on('submit', '.task-sub-form', function(event){
   var date = $(this).data('id');
+  var folderstatus = 'false';
 
   // Stops the form from refreshing the page
   event.preventDefault();
@@ -1543,6 +1816,69 @@ $(document).on('submit', '.task-sub-form', function(event){
 
   // Clears the form and counts the tasks
   $(`#form-${date}`)[0].reset();
+  count();
+});
+
+// Handles adding of the tasks from the quick add menu
+$(document).on('submit', '.quickadd-task-form', function(event){
+  var taskvar = $(`#input-quickadd`).val();
+  var date = $(`#input-quickadd-date`).val();
+  var folder = $(`#input-quickadd-folder`).val();
+
+  // Stops the form from refreshing the page
+  event.preventDefault();
+
+  // Gemerates a random taskid code
+  var taskid = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 150);
+
+  if(folder=='nofolder'){
+    var folderstatus = 'false';
+
+    // Adds everything to the div
+    $( `#${date}` ).append( `
+    <?php include('dynamic/task-list-add.php'); ?>
+    ` );
+            
+    // Sends everything to the add_task page for it to be added to the db
+    $.ajax({
+    url: `sync/sync.php?as=addtask`,
+    type:'POST',
+    data:$(this).serialize()+`&id=${taskid}`+`&day=${date}`
+    })
+  }else{
+    var folderstatus = 'true';
+    
+    // Adds everything to the div
+    $( `#ftl-${folder}` ).append( `
+    <?php include('dynamic/task-list-add.php'); ?>
+    ` );
+
+    if(date==''){
+      // Sends everything to the add_task page for it to be added to the db
+      $.ajax({
+        url: `sync/sync.php?as=addtask`,
+        type:'POST',
+        data:$(this).serialize()+`&id=${taskid}`+`&day=NULL`+`&folder=${folder}`
+      })
+    }else{
+      // Sends everything to the add_task page for it to be added to the db
+      $.ajax({
+        url: `sync/sync.php?as=addtask`,
+        type:'POST',
+        data:$(this).serialize()+`&id=${taskid}`+`&day=${date}`+`&folder=${folder}`
+      })
+    }
+            
+    
+
+  }
+
+  
+
+  // Clears the form and counts the tasks
+  $(`.quickadd-task-form`)[0].reset();
+
+  quickAddClose();
   count();
 });
 
@@ -1581,6 +1917,7 @@ $(document).on('submit', '.folder-add-form', function(event){
 // Code that handles when a user adds a task to a folder.
 $(document).on('submit', '.folderform', function(event){
   var fid = $(this).data('id');
+  var folderstatus = 'true';
 
   // Stops the form from refreshing the page
   event.preventDefault();
@@ -1590,7 +1927,7 @@ $(document).on('submit', '.folderform', function(event){
 
   // Adds everything to the div
   var taskvar = document.getElementById(`finput-${fid}`).value;
-  var date = '-';
+  var date = '';
   $( `#ftl-${fid}` ).append( `
     <?php include('dynamic/task-list-add.php'); ?>
   ` );
@@ -1664,8 +2001,7 @@ function themedark() {
   })
 }
 
-// Black theme
-function themeblack() {
+/*function themeblack() {
   $( ".theme-ctrl" ).removeClass('theme_light theme_dark theme_blacksolid').addClass('theme_black');
 
   $( ".lighttgl, .darktgl, .blacksolidtgl" ).removeClass('activetoggle').addClass('');
@@ -1680,7 +2016,6 @@ function themeblack() {
   })
 }
 
-// Black solid theme
 function theme_solid_black() {
   $( ".theme-ctrl" ).removeClass('theme_light theme_dark theme_black').addClass('theme_blacksolid');
 
@@ -1694,7 +2029,7 @@ function theme_solid_black() {
       'theme': `blacksolid`
     },
   })
-}
+}*/
 
 if(`${backgroundsyncen}`=='true'){
   var datasync = window.setInterval(function(){

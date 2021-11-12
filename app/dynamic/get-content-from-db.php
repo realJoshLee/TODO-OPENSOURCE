@@ -6,6 +6,12 @@ $foldersget->execute([
 ]);
 $folder = $foldersget->rowCount() ? $foldersget : [];
 
+$qafoldersget = $db->prepare("SELECT * FROM `tasks_folders` WHERE `account` = :account");
+$qafoldersget->execute([
+  'account' => $account
+]);
+$qafolder = $qafoldersget->rowCount() ? $qafoldersget : [];
+
 $pagefoldersget = $db->prepare("SELECT * FROM `tasks_folders` WHERE `account` = :account");
 $pagefoldersget->execute([
   'account' => $account

@@ -24,6 +24,20 @@ if(isset($_GET['as'])){
   ]);
 
   switch ($action) {
+    
+    // Updates a task
+    case "updatestatus":
+      $addQuery = $db->prepare("
+        UPDATE `tasks_control`
+        SET `updatestatus` = :updatestatus
+        WHERE `id` = :id
+      ");
+      
+      $addQuery->execute([
+        ':id' => '10',
+        ':updatestatus' => $_POST['updatestatus']
+      ]);
+      break;
 
     /*
     xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -302,6 +316,36 @@ if(isset($_GET['as'])){
         ':tid' => $_POST['id'],
         ':scheduledate' => $_POST['day']
       ]);
+
+      if(isset($_POST['folder'])){
+        $folderUpdateQ = $db->prepare("
+          UPDATE `tasks_tasks`
+          SET `folderid` = :folderid
+          WHERE `account` = :account
+          AND `tid` = :tid
+        ");
+        
+        $folderUpdateQ->execute([
+          ':account' => $account,
+          ':tid' => $_POST['id'],
+          ':folderid' => $_POST['folder']
+        ]);
+
+        if($_POST['day']=='NULL'){
+          $scdupdate = $db->prepare("
+            UPDATE `tasks_tasks`
+            SET `scheduledate` = :scheduledate
+            WHERE `account` = :account
+            AND `tid` = :tid
+          ");
+          
+          $scdupdate->execute([
+            ':account' => $account,
+            ':tid' => $_POST['id'],
+            ':scheduledate' => NULL
+          ]);
+        }
+      }
       
       $logQuery = $db->prepare("
         INSERT INTO tasks_log (account, content, date)
@@ -392,6 +436,151 @@ if(isset($_GET['as'])){
         VALUES (:account, :content, :date)
       ");
       $content = 'Added a task to folder (TID: '.$_POST['tid'].' - FID: '.$_POST['fid'].')';
+      $logQuery->execute([
+        ':account' => $account,
+        ':content' => $content,
+        ':date' => $logdate
+      ]);
+      break;
+
+    // Adds a subtask to a folder
+    case "changefoldernormal":      
+      $addQuery = $db->prepare("
+        UPDATE `tasks_tasks`
+        SET `folderid` = :folderid
+        WHERE `account` = :account
+        AND `tid` = :tid
+      ");
+
+      $addQuery->execute([
+        ':account' => $account,
+        ':tid' => $_POST['id'],
+        ':folderid' => $_POST['newfolder']
+      ]);
+      
+      $logQuery = $db->prepare("
+        INSERT INTO tasks_log (account, content, date)
+        VALUES (:account, :content, :date)
+      ");
+      $content = 'Change the folder of a task (TID: '.$_POST['id'].' - New FID: '.$_POST['newfolder'].')';
+      $logQuery->execute([
+        ':account' => $account,
+        ':content' => $content,
+        ':date' => $logdate
+      ]);
+      break;
+
+    // Adds a subtask to a folder
+    case "changefoldernormalnoinbox":      
+      $addQuery = $db->prepare("
+        UPDATE `tasks_tasks`
+        SET `folderid` = :folderid
+        WHERE `account` = :account
+        AND `tid` = :tid;
+        UPDATE `tasks_tasks`
+        SET `scheduledate` = :scheduledate
+        WHERE `account` = :account
+        AND `tid` = :tid;
+      ");
+
+      $addQuery->execute([
+        ':account' => $account,
+        ':tid' => $_POST['id'],
+        ':folderid' => $_POST['newfolder'],
+        ':scheduledate' => NULL
+      ]);
+      
+      $logQuery = $db->prepare("
+        INSERT INTO tasks_log (account, content, date)
+        VALUES (:account, :content, :date)
+      ");
+      $content = 'Change the folder of a task (And removed the current date as:inbox) (TID: '.$_POST['id'].' - New FID: '.$_POST['newfolder'].')';
+      $logQuery->execute([
+        ':account' => $account,
+        ':content' => $content,
+        ':date' => $logdate
+      ]);
+      break;
+
+    // Adds a subtask to a folder
+    case "changefoldernormalsetinbox":      
+      $addQuery = $db->prepare("
+        UPDATE `tasks_tasks`
+        SET `folderid` = :folderid
+        WHERE `account` = :account
+        AND `tid` = :tid;
+        UPDATE `tasks_tasks`
+        SET `scheduledate` = :scheduledate
+        WHERE `account` = :account
+        AND `tid` = :tid;
+      ");
+
+      $addQuery->execute([
+        ':account' => $account,
+        ':tid' => $_POST['id'],
+        ':folderid' => NULL,
+        ':scheduledate' => 'inbox'
+      ]);
+      
+      $logQuery = $db->prepare("
+        INSERT INTO tasks_log (account, content, date)
+        VALUES (:account, :content, :date)
+      ");
+      $content = 'Change the folder of a task (Set the date as:inbox) (TID: '.$_POST['id'].' - New FID: '.$_POST['newfolder'].')';
+      $logQuery->execute([
+        ':account' => $account,
+        ':content' => $content,
+        ':date' => $logdate
+      ]);
+      break;
+
+    // Adds a subtask to a folder
+    case "changefoldernormalpresetdate":      
+      $addQuery = $db->prepare("
+        UPDATE `tasks_tasks`
+        SET `folderid` = :folderid
+        WHERE `account` = :account
+        AND `tid` = :tid;
+      ");
+
+      $addQuery->execute([
+        ':account' => $account,
+        ':tid' => $_POST['id'],
+        ':folderid' => NULL
+      ]);
+      
+      $logQuery = $db->prepare("
+        INSERT INTO tasks_log (account, content, date)
+        VALUES (:account, :content, :date)
+      ");
+      $content = 'Change the folder of a task (Has a preset date) (TID: '.$_POST['id'].' - New FID: '.$_POST['newfolder'].')';
+      $logQuery->execute([
+        ':account' => $account,
+        ':content' => $content,
+        ':date' => $logdate
+      ]);
+      break;
+
+    // Adds a subtask to a folder
+    case "dpremovedate":      
+      $addQuery = $db->prepare("
+        UPDATE `tasks_tasks`
+        SET `scheduledate` = :scheduledate
+        WHERE `account` = :account
+        AND `tid` = :tid;
+      ");
+
+      $addQuery->execute([
+        ':account' => $account,
+        ':tid' => $_POST['id'],
+        ':scheduledate' => NULL
+      ]);
+      
+      $logQuery = $db->prepare("
+        INSERT INTO tasks_log (account, content, date)
+        VALUES (:account, :content, :date)
+      ");
+      $content = 'Removed the scheduled date. (TID: '.$_POST['id'].')';
       $logQuery->execute([
         ':account' => $account,
         ':content' => $content,

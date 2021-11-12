@@ -12,7 +12,14 @@ if (isset($_POST["submit"])) {
   \$encpassword = '".$_POST['5']."';
   \$enciv = '".$_POST['6']."';
   \$licenseemail = '".$_POST['7']."';
-  \$licensekey = '".$_POST['8']."';";
+  \$licensekey = '".$_POST['8']."';
+  \$ldap_baseDN = '".$_POST['10']."';
+  \$ldap_adminDN = '".$_POST['11']."';
+  \$ldap_adminPass = '".$_POST['12']."';
+  \$ldap_serverIP = '".$_POST['13']."';
+  \$ldap_domain = '".$_POST['15']."';
+  \$restrict_login = '".$_POST['14']."';
+  ";
   fwrite($fp, $code);
   fclose($fp);
 
@@ -25,10 +32,38 @@ dbpassword = ".$_POST['2']."
 encpassword = ".$_POST['5']."
 enciv = ".$_POST['6']."
 licenseemail = ".$_POST['7']."
-licensekey = ".$_POST['8']."";
+licensekey = ".$_POST['8']."
+ldap_baseDN = ".$_POST['10']."
+ldap_adminDN = ".$_POST['11']."
+ldap_adminPass = ".$_POST['12']."
+ldap_serverIP = ".$_POST['13']."
+ldap_domain = ".$_POST['15']."
+restrict_login = ".$_POST['14']."
+";
 
   fwrite($fp2, $code2);
   fclose($fp2);
+
+  // Creates the serial number doc
+  // Generates the serial number
+  $lengthCode = 15;
+  function getCode($lengthCode) {
+    $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $randomString = '';
+    for ($i = 0; $i < $lengthCode; $i++) {
+      $index = rand(0, strlen($characters) - 1);
+      $randomString .= $characters[$index];
+    }
+    return $randomString;
+  }
+  $serialnum = getCode($lengthCode).'-'.getCode($lengthCode);
+
+  $fp3=fopen('app/init/serial-number.php','w');
+  $code3 = "<?php
+\$serialnumber = '".$serialnum."';";
+
+  fwrite($fp3, $code3);
+  fclose($fp3);
 
   $createddbip = "".$_POST['3']."";
   $createddbname = $_POST['4'];
@@ -141,6 +176,22 @@ licensekey = ".$_POST['8']."";
       `time` datetime DEFAULT current_timestamp(),
       PRIMARY KEY (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    CREATE TABLE IF NOT EXISTS `tasks_control` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `updatestatus` varchar(64) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+  INSERT INTO `tasks_control` (`id`, `updatestatus`) VALUES
+      (10, 'up-to-date');
     
     
     
@@ -274,7 +325,11 @@ licensekey = ".$_POST['8']."";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" type="image/png" href="app/icons/favicon.png"/>
     <title>App Setup</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <script src="app/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="app/plugins/bootstrap/bootstrap.min.css">
+
+    <script src="app/plugins/jquery.min.js"></script>
   </head>
   <body onload="generateStrings()">
     <div class="container-sm" style="width: 600px;">
@@ -345,6 +400,57 @@ licensekey = ".$_POST['8']."";
         </select>
 
         <br><br><br>
+        
+        <h4>LDAP Auth (Optional)</h4>
+        <p>If you would like to allow users to login to this app with their domain managed account then configure these settings. If you decide to skip these now you can always configure the settings later in 'app/init/conf_file.php'.</p>
+        <p>When a user is logged in with their LDAP account they will not be able to change their email, name, pasword, or delete their account. If they want to change their password/name/email they will have to do it with services set in place outside of this app.</p>
+        <p>When enabling LDAP login, this will not stop people from creating an account through the normal method.</p>
+
+        <br>
+
+        <label for="10" class="form-label">BaseDN</label>
+        <div id="emailHelp" class="form-text">This is the base DN/OU that all of your user accounts are stored.<br>Example: OU=DomainUsers,DC=example,DC=local</div>
+        <input type="text" name="10" class="form-control" placeholder="OU=DomainUsers,DC=example,DC=local">
+
+        <br>
+
+        <label for="11" class="form-label">AdminDN</label>
+        <div id="emailHelp" class="form-text">This is the FULL DN of a domain admin account used to verify credentials. You can find this in the attribute editor on your domain controller.<br>Example: CN=TasksBind,OU=DomainUsers,DC=example,DC=local</div>
+        <input type="text" name="11" class="form-control" placeholder="CN=TasksBind,OU=DomainUsers,DC=example,DC=local">
+
+        <br>
+
+        <label for="12" class="form-label">Admin Password</label>
+        <div id="emailHelp" class="form-text">This is the password for your admin account specified above.</div>
+        <input type="text" name="12" class="form-control" placeholder="password">
+
+        <br>
+
+        <label for="13" class="form-label">LDAP Server IP</label>
+        <div id="emailHelp" class="form-text">This is the IP address or domain of your LDAP server.</div>
+        <input type="text" name="13" class="form-control" placeholder="10.0.1.54">
+
+        <br>
+
+        <label for="15" class="form-label">LDAP Domain Name</label>
+        <div id="emailHelp" class="form-text">Please specify the domain name of your LDAP forest.</div>
+        <input type="text" name="15" class="form-control" placeholder="example.local">
+
+        <br><br><br>
+
+        <h4>Login</h4>
+        <p>This section gives you the option to block the normal login page or to allow logins for both normal accounts and LDAP accounts.</p>
+
+        <br>
+
+        <label for="14" class="form-label">Restricted Logins</label>
+        <div id="emailHelp" class="form-text">Would you like to restrict logins to just LDAP accounts? Doing this will redirect all users from the login page to the LDAP login page. This can always be changed later in the 'app/init/conf_file.php' file. If you leave this option to 'Don't restrict logins.' then the normal login page will be able to be accessed along with the LDAP login page.</div>
+        <select class="form-control" name="14">
+          <option value="default" selected>Don't restrict logins.</option>
+          <option value="ldap">Restrict logins to just LDAP accounts.</option>
+        </select>
+
+        <br><br><br>
 
         <h4>Encryption Settings</h4>
         <p>A backup text file will be created on the web server with these credentials. The name will be named 'backup-enc.txt'. For safe keeping, please make sure that you document these credentials somewhere else on your computer. If you loose these and update the app, you will not be able to access any data.</p>
@@ -384,6 +490,13 @@ licensekey = ".$_POST['8']."";
 
         <br><br><br>
 
+        <h4>Notice</h4>
+        <p>Absolutely no extra support will be given other than what is found in the support docs. There will be no email support. We are not responsible for any data loss or data corruption. We are not responsible for warranties being voided by installing this software. We're not responsible for any data being leaked from a hack on your deployment. 
+        <br>By clicking 'Configure', you are agreeing to this notice.</p>
+        <input type="checkbox" value="Bike" required> <span>I agree to the following above.</span>
+
+        <br><br><br>
+
         <input type="submit" name="submit" class="btn btn-primary" value="Configure">
       </form>
 
@@ -414,4 +527,20 @@ function clearStrings(){
   document.getElementById("encpass").value = "";
   document.getElementById("enciv").value = "";
 }
+
+
+/*$(document).on('click', '.delete-account-button', function(event){
+  $.ajax({
+    url: `${keyserver}validate.php`,
+    method:"POST",
+    data:{
+      'as':`setup`,
+      'email':``,
+      'key':``,
+      'serial':``
+    },
+    success:function(data) {
+    }
+  });
+});*/
 </script>

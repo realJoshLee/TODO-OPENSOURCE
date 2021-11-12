@@ -3,6 +3,10 @@ require_once 'app/init/init-login.php';
 require_once 'landing/tracking.php';
 session_start();
 
+if($restrict_login=='ldap'){
+  header('Location: login-ldap.php');
+}
+
 // If the session is set, is redirects the user to the app
 if(isset($_SESSION["suite"])) {
   header('Location: app/index.php');
@@ -233,7 +237,7 @@ if (isset($_POST["login"])) {
 
             // Gets the cookie and encrypts it
             $token_cookie = base64_encode(openssl_encrypt($row["token"], $method, $key, OPENSSL_RAW_DATA, $iv));
-            setcookie('token',$token_cookie,time()+604800); // 86400 = 1 day 604800
+            setcookie('token',$token_cookie,time()+2678400); // 86400 = 1 day, 2678400 = 31 days
 
             // Regenerates the session code
             session_regenerate_id(true);
@@ -241,7 +245,7 @@ if (isset($_POST["login"])) {
             // Sends the user to the app
             header('Location: app/index.php');
         
-            // Makes log quert
+            // Makes log query
             $logQuery = $db->prepare("
               INSERT INTO tasks_log (account, content, loginip, logindevice, loginos, loginbrowser, date)
               VALUES (:account, :content, :loginip, :logindevice, :loginos, :loginbrowser, :date)
@@ -303,7 +307,7 @@ if (isset($_POST["login"])) {
     <link rel="shortcut icon" type="image/png" href="app/icons/favicon.png"/>
 
     <!--Scripts-->
-    <link href="app/fa/css/all.css" rel="stylesheet">
+    <link href="app/plugins/fa/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -432,6 +436,7 @@ if (isset($_POST["login"])) {
                       <br>
 
                       <div class="center">
+                        <a href="login-ldap.php" class="link">Login With an AD/LDAP Account</a><br><br>
                         <a href="magic-link.php?pg=send" class="link">Login with magic link</a><br><br>
                         <a href="recover-account.php" class="link">Recover Account</a><br><br>
                         <a href="privacy-terms.html" class="link">Privacy Policy and Terms of Service</a>

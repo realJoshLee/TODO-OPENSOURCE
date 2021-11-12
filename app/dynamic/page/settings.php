@@ -6,6 +6,11 @@
       }
     </style>
     <h2><span class="day">Settings</span></h2>
+    <?php if($recovery=='LDAP'): ?>
+      <div class="ldap-alert">
+        <p>This is an account on an LDAP server. Limited account functions available. Please contact your domain admin to change your password.</p>
+      </div>
+    <?php endif; ?>
 
     <!--Logout-->
     <div class="actions">
@@ -54,8 +59,6 @@
               <div class="theme-change">
                 <button onclick="themelight()" class="theme-control-btn lighttgl <?php if($theme=='light'){echo'activetoggle';} ?>">Light</button>
                 <button onclick="themedark()" class="theme-control-btn darktgl <?php if($theme=='dark'){echo'activetoggle';} ?>">Dark</button>
-                <button onclick="themeblack()" class="theme-control-btn blacktgl <?php if($theme=='black'){echo'activetoggle';} ?>">Black</button>
-                <button onclick="theme_solid_black()" class="theme-control-btn blacksolidtgl <?php if($theme=='blacksolid'){echo'activetoggle';} ?>">Solid</button>
               </div>
             </div>
             <br><br>
@@ -77,6 +80,7 @@
           <div class="dd-content-style">
             <br>
             
+            <?php if($recovery!=='LDAP'): ?>
             <p><b>Change Account Name</b></p>
             <form id="name-form" method="POST">
               <input type="text" name="firstname" required placeholder="First Name" class="form-control-settings form-control-settings-change" value="<?php echo $firstname; ?>">&nbsp;&nbsp;
@@ -85,9 +89,12 @@
             </form>
 
             <br><br>
+            <?php endif; ?>
 
             <p><b>Change Email</b></p>
             <p>Current Email: <?php echo $accountemail; ?></p>
+            
+            <?php if($recovery!=='LDAP'): ?>
             <form action="scripts/settings/change-email.php" method="POST">
               <input type="text" name="email" required placeholder="Set New Email" class="form-control-settings form-control-settings-change"><br>
               <input type="submit" required value="Change Email" class="form-control-submit save-btn-style">
@@ -102,6 +109,7 @@
               <input type="text" placeholder="Type NEW Password Here" name="passwordnew" class="form-control-settings form-control-settings-change"><br>
               <input type="submit" class="form-control-submit save-btn-style" value="Change Password">
             </form>
+            <?php endif; ?>
             
             <br><br>
           </div>
@@ -250,6 +258,7 @@
       </div>
     </div>
 
+    <?php if($recovery!=='LDAP'): ?>
     <!--Delete Account-->
     <div class="dropdown" id="dropdown-6">
       <div class="dd-controller">
@@ -281,6 +290,7 @@
         </div>
       </div>
     </div>
+    <?php endif; ?>
 
     <?php if($admin=='true'): ?>
     <!--Admin-->

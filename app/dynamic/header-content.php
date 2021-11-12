@@ -22,4 +22,4 @@
 <!--Scripts-->
 <script src="plugins/jquery.min.js"></script>
 <!--<script src="plugins/pulltorefresh.js/dist/pulltorefresh.js" type="text/javascript"></script>-->
-<link href="fa/css/all.css" rel="stylesheet">
+<link href="plugins/fa/css/all.css" rel="stylesheet">

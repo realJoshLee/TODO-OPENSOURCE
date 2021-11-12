@@ -2,7 +2,7 @@
   require_once 'app/init/init-login.php';
  //logout.php  
  session_start();  
- setcookie('token','',time()-604801);
+ setcookie('token','',time()-2678401);
  session_destroy();  
  //header("location: login.php");  
 ?>
@@ -22,7 +22,7 @@
     <link rel="shortcut icon" type="image/png" href="app/icons/favicon.png"/>
 
     <!--Scripts-->
-    <link href="app/fa/css/all.css" rel="stylesheet">
+    <link href="app/plugins/fa/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -87,6 +87,22 @@
                   <?php if($_GET['err']=='blockedip'){
                     echo '<h2 class="main-txt">IP is Blocked</h2>';
                     echo '<p>Your IP address has been blocked. Please contact your admin to resolve this issue.</p>';
+                    echo '<a href="mailto:'.$contactemailval.'" class="link">Contact your administrator.</p>';
+                  }
+                  ?>
+
+                  <!--Info shown with invalid token-->
+                  <?php if($_GET['err']=='ldappassreset'){
+                    echo '<h2 class="main-txt">LDAP Account</h2>';
+                    echo '<p>You\'re trying to reset a password of an LDAP account which isn\'t allowed. If you\'re an LDAP user please contact your domain admin to have your password reset, or you can do so with password reset utilities set in place.</p>';
+                    echo '<a href="mailto:'.$contactemailval.'" class="link">Contact your administrator.</p>';
+                  }
+                  ?>
+
+                  <!--Info shown with invalid token-->
+                  <?php if($_GET['err']=='ldapnotconfigured'){
+                    echo '<h2 class="main-txt">LDAP Error</h2>';
+                    echo '<p>The admin of this deployment has not configured this app to utilize LDAP authentation. If you think this is an issue, please contact your domain admin.</p>';
                     echo '<a href="mailto:'.$contactemailval.'" class="link">Contact your administrator.</p>';
                   }
                   ?>

@@ -43,7 +43,7 @@ $usrinfo = $infoget->rowCount() ? $infoget : [];
     <script src="../app/plugins/jquery.min.js"></script>
     <script src="../app/plugins/bootstrap/bootstrap.bundle.min.js"></script>
     <link href="../app/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
-    <link href="../app/fa/css/all.css" rel="stylesheet">
+    <link href="../app/plugins/fa/css/all.css" rel="stylesheet">
 
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -75,6 +75,10 @@ $usrinfo = $infoget->rowCount() ? $infoget : [];
                 <?php if($item['preminum']=='true'):?>
                 <span class="badge bg-primary text-light">PREMINUM</span>
                 <?php endif; ?>
+
+                <?php if($item['recovery']=='LDAP'):?>
+                <span class="badge bg-success text-light">LDAP</span>
+                <?php endif; ?>
               </span>
             </h4>
             <div class="float-end">
@@ -84,6 +88,12 @@ $usrinfo = $infoget->rowCount() ? $infoget : [];
             <div class="float-end">
               <?php echo $item['created']; ?>
             </div><br>
+            
+            <?php if($item['recovery']=='LDAP'):?>
+              <div class="alert alert-warning" role="alert">
+                <span>This is an LDAP account. Limited management settings available.</span>
+              </div>
+            <?php endif; ?>
             
             <?php if($item['verified']=='false'):?>
               <div class="alert alert-warning" role="alert">
@@ -131,7 +141,9 @@ $usrinfo = $infoget->rowCount() ? $infoget : [];
         
         <div class="container">
           <div class="container-inner">
+          
             <h4>Status:</h4>
+            <?php if($item['recovery']!=='LDAP'): ?>
             Preminum:
             <?php if($item['preminum']=='true'): ?>
             <span class="badge bg-success">TRUE</span>
@@ -144,6 +156,7 @@ $usrinfo = $infoget->rowCount() ? $infoget : [];
             <button type="button" class="btn btn-danger btn-small" onclick="window.location.href='users/preminum-remove.php?id=<?php echo $item['id'];?>&username=<?php echo $item['username']; ?>'">Remove Preminum</button>
             
             <br><br>
+            <?php endif; ?>
 
             Admin:
             <?php if($item['admin']=='true'): ?>
@@ -156,6 +169,12 @@ $usrinfo = $infoget->rowCount() ? $infoget : [];
             <button type="button" class="btn btn-success btn-small" onclick="window.location.href='users/admin-add.php?id=<?php echo $item['id'];?>&username=<?php echo $item['username']; ?>'">Apply Admin</button>
             <button type="button" class="btn btn-danger btn-small" onclick="window.location.href='users/admin-remove.php?id=<?php echo $item['id'];?>&username=<?php echo $item['username']; ?>'">Remove Admin</button>
 
+            <?php if($item['recovery']=='LDAP'): ?>
+              <br><br>
+              <p>If you would like to suspend a user from accessing this app, please disable their account in Active Directory.</p>
+            <?php endif; ?>
+
+            <?php if($item['recovery']!=='LDAP'): ?>
             <br><br>
 
             Status:
@@ -168,7 +187,9 @@ $usrinfo = $infoget->rowCount() ? $infoget : [];
             <br>
             <button type="button" class="btn btn-success btn-small" onclick="window.location.href='users/user-active.php?id=<?php echo $item['id'];?>&username=<?php echo $item['username']; ?>'">Apply Active</button>
             <button type="button" class="btn btn-danger btn-small" onclick="window.location.href='users/user-suspend.php?id=<?php echo $item['id'];?>&username=<?php echo $item['username']; ?>'">Suspend</button>
+            <?php endif; ?>
 
+            <?php if($item['recovery']!=='LDAP'): ?>
             <br><br>
 
             Verified: 
@@ -181,6 +202,7 @@ $usrinfo = $infoget->rowCount() ? $infoget : [];
             <br>
             <button type="button" class="btn btn-success btn-small" onclick="window.location.href='users/user-verify.php?id=<?php echo $item['id'];?>&username=<?php echo $item['username']; ?>'">Verify</button>
             <button type="button" class="btn btn-danger btn-small" onclick="window.location.href='users/user-unverify.php?id=<?php echo $item['id'];?>&username=<?php echo $item['username']; ?>'">Unverify</button>
+            <?php endif; ?>
           </div>
         </div>
 

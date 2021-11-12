@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" type="image/png" href="../icons/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/rdi8jbs.css">
+
+    <!--<script src="../plugins/bootstrap/bootstrap.bundle.min.js"></script>
+    <link href="../plugins/bootstrap/bootstrap.min.css" rel="stylesheet">-->
+
+    <title>Tasks - Change Log</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container-inner">
+        <div class="toplogo">
+          <a href="../index.php">
+            <img src="../icons/check.v3.svg" alt="" class="logo">
+            <style>
+              img.logo {
+                height: 40px;
+                width: auto;
+              }
+            </style>
+          </a>
+        </div>
+        <br>
+        <div class="main">
+          <h2>v2 - Changes</h2>
+          <a href="../change-log.html" class="link">Go Home</a><br>
+        </div>
+
+        <div class="update">
+          <h3>10.23.2021</h3>  
+          <ul>
+            <li>Moved the delete and remove from folder button to the Notes/Sharing tab in the task overlay.</li>
+            <li>Fixed the sharing link to be unique to each install instead of being static.</li>
+            <li>Fixed the spacing of the tast content and date field in the overlay.</li>
+            <li>Made the spacing more condenced in the task overlay.</li>
+            <li>Updated time it takes for a token to expire from 7 days to 31 days.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>10.16.2021</h3>  
+          <ul>
+            <li>Updated the licensing scrip to check in with the main server differently.</li>
+            <li>Updated where the update notification shows up on the admin panel.</li>
+          </ul>
+        </div>
+        
+        <div class="update">
+          <h3>10.15.2021</h3>  
+          <ul>
+            <li>Blocked web access to the backup-enc.txt page.</li>
+            <li>Updated the style of the change log pages. Making everything less clutters on making different versions changes be on seperate pages rather than all on one page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>10.14.2021</h3>  
+          <ul>
+            <li>Expanded licensing scrip.</li>
+            <li>Expanded updating methods.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>10.13.2021</h3>  
+          <ul>
+            <li>Added a licensing script (Still a free open source app) this is used for validation and possible auto updating).</li>
+            <li>Updated the self host registration form to support the new licensing feature.</li>
+            <li>Updated key gen forms.</li>
+            <li>Updated the admin panel to have the ability to view licensing information.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>10.4.2021</h3>  
+          <ul>
+            <li>Fixed the SignUp button the home page.</li>
+            <li>Updated the setup.php file to accommodate for the new archived feature.</li>
+            <li>Added the ability to archive user accounts.</li>
+            <li>Made it so that all of the admin actions add a record to the log page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>10.3.2021</h3>  
+          <ul>
+            <li>Made the app more secure. Made it so that no personal data is sent within the URL that can be viewed from public firewall logs.</li>
+            <li>Revamped the users list on the admin panel.</li>
+            <li>Revamped the user details page on the admin panel.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB22" class="link">TB-22</a></li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>10.2.2021</h3>  
+          <ul>
+            <li>Updated information that's submitted into the log database table.</li>
+            <li>Added a page to the admin panel for admins to view the log.</li>
+            <li>Added a page in the admin panel for admins to view a filtered log.</li>
+            <li>Fixed wrong export links in the admin panel.</li>
+          </ul>
+        </div>
+
+        
+
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  html, body {
+    font-family: 'Montserrat', Arial;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .update {
+    margin-bottom: 50px;
+  }
+
+  div.container {
+    padding-left: 550px;
+    padding-right: 550px;
+  }
+
+  .red {
+    color: red;
+  }
+
+  a.link {
+    color: #006fff; 
+    text-decoration: none;
+  }
+
+@media screen and (max-width: 1659px) {
+  div.container {
+    padding-left: 450px;
+    padding-right: 450px;
+  }
+}
+
+@media screen and (max-width: 1559px) {
+  div.container {
+    padding-left: 350px;
+    padding-right: 350px;
+  }
+}
+
+  @media screen and (max-width: 1323px) {
+    div.container {
+      padding-left: 250px;
+      padding-right: 250px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    div.container {
+      padding-left: 150px;
+      padding-right: 150px;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    div.container {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    div.container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+</style>

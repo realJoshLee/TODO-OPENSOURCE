@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+$currentverapp = 'v2.1';
+include('serial-number.php');
+
 include('conf_file.php');
 $db = new PDO('mysql:dbname='.$dbname.';host='.$dbip.'', ''.$dbusername.'', ''.$dbpassword.'');
 $connect = mysqli_connect("".$dbip."", "".$dbusername."", "".$dbpassword."", "".$dbname."");

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="shortcut icon" type="image/png" href="../icons/favicon.png"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/rdi8jbs.css">
+
+    <!--<script src="../plugins/bootstrap/bootstrap.bundle.min.js"></script>
+    <link href="../plugins/bootstrap/bootstrap.min.css" rel="stylesheet">-->
+
+    <title>Tasks - Change Log</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="container-inner">
+        <div class="toplogo">
+          <a href="../index.php">
+            <img src="../icons/check.v3.svg" alt="" class="logo">
+            <style>
+              img.logo {
+                height: 40px;
+                width: auto;
+              }
+            </style>
+          </a>
+        </div>
+        <br>
+        <div class="main">
+          <h2>v3 - Changes</h2>
+          <a href="../change-log.html" class="link">Go Home</a><br>
+        </div>
+
+        <div class="update">
+          <h3>11.11.2021</h3>  
+          <ul>
+            <li>Added text processing for days of the week and dates that are within curly brackets '{', '}'.</li>
+            <li>Found Bug <a href="bug-log.html#TB24" class="link">TB-24</a></li>
+            <li>Removed the old quick add page.</li>
+            <li>Added animations to the quick add menu.</li>
+            <li>Added a button to the side nav to open the quick add menu.</li>
+            <li>Added the ability for the quick add to add tasks into the inbox.</li>
+            <li>Made it so that the quick add menu will add the task to whatever page you're on. (Can be changed.) By default if your in the inbox tab ad open the quick add, it will prefill everything to add the task to the inbox. If you're in the today page, it will prefill everything to add the task to the today view.</li>
+            <li>Squashed Bug <a href="bug-log.html#TB24" class="link">TB-24</a></li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>11.10.2021</h3>  
+          <ul>
+            <li>Made it so that the calendar date picker closes/hides when you close out of the overlay or change the date.</li>
+            <li>Made the wider bottom buttons on the date picker taller on smaller screens.</li>
+            <li>Implemented a quick add task feature. ALT+A to access.</li>
+            <li>Updated the documentation.</li>
+            <li>Started to work on ATP (Active Text Processing script for the quick add menu and other task menus).</li>
+            <li>Rolled out first implementation of ATP. (Only recognises 'tmr', 'tomorrow', 'today'. Looking to expand keywords and functions).</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>11.09.2021</h3>  
+          <ul>
+            <li>Started to implement the new date picker design.</li>
+            <li>Removed some of the repetitive themes.</li>
+            <li>Added an outline to the date input field.</li>
+            <li>Updated the CSS for themes.</li>
+            <li>Added transition effects to the loader.</li>
+            <li>Moved the FontAwesome folder to the plugins.</li>
+            <li>Added logging to the LDAP login page.</li>
+            <li>Removed one of the remove date buttons in the task overlay.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>11.08.2021</h3>  
+          <ul>
+            <li>Started planning out ideas for a better date picker design.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>11.07.2021</h3>  
+          <ul>
+            <li>Squashed Bug <a href="bug-log.html#TB23" class="link">TB-23</a></li>
+            <li>Finished implementing the ability to move tasks to and from folders.</li>
+            <li>Made it so that if you move a task out from a folder and it has a due date, that it clears the tag. (It will keep the due date, just clears the due tag that is only seen in the folders).</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>11.06.2021</h3>  
+          <ul>
+            <li>Started working on implementing the ability to move tasks to folders.</li>
+            <li>Found Bug <a href="bug-log.html#TB23" class="link">TB-23</a></li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>11.05.2021</h3>  
+          <ul>
+            <li>Fixed an issue with some settings not showing for accounts that aren't authenticated with LDAP.</li>
+            <li>Updated the color style of the stats page.</li>
+            <li>Added page changing animations.</li>
+            <li>Added the ability for the page change animations to be disabled for the whole app in the JavaScript. (Hopeing to add this for a unique user setting).</li>
+            <li>Removed the half opacity of the stat blocks on the stats page.</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>11.03.2021</h3>  
+          <ul>
+            <li>Added an alert banner in the settings page to let the user know their account is an LDAP account (If their account is authenticated via LDAP).</li>
+            <li>Updated the settings page and removed some settings for LDAP users (Delete account, change name, change password, change email, recovery).</li>
+          </ul>
+        </div>
+
+        <div class="update">
+          <h3>11.02.2021</h3>  
+          <ul>
+            <li>Added the ability to use Active Direcotry accounts to login. (For organization deployments).</li>
+            <li>Updated the setup.php document to support LDAP configurations.</li>
+            <li>Updated the recovery page to not allow password resets for LDAP accounts.</li>
+            <li>Added more errors to the error page to support LDAP.</li>
+            <li>Updated the admin page to support LDAP settings.</li>
+            <li>Added a notice and agreement to the setup page.</li>
+          </ul>
+        </div>
+
+        
+
+      </div>
+    </div>
+  </body>
+</html>
+<style>
+  html, body {
+    font-family: 'Montserrat', Arial;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .update {
+    margin-bottom: 50px;
+  }
+
+  div.container {
+    padding-left: 550px;
+    padding-right: 550px;
+  }
+
+  .red {
+    color: red;
+  }
+
+  a.link {
+    color: #006fff; 
+    text-decoration: none;
+  }
+
+@media screen and (max-width: 1659px) {
+  div.container {
+    padding-left: 450px;
+    padding-right: 450px;
+  }
+}
+
+@media screen and (max-width: 1559px) {
+  div.container {
+    padding-left: 350px;
+    padding-right: 350px;
+  }
+}
+
+  @media screen and (max-width: 1323px) {
+    div.container {
+      padding-left: 250px;
+      padding-right: 250px;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    div.container {
+      padding-left: 150px;
+      padding-right: 150px;
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    div.container {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    div.container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+</style>

@@ -8,6 +8,16 @@ Deny from all
   Deny from all
 </Files>
 
+<Files "backup-enc.txt">  
+  Order Allow,Deny
+  Deny from all
+</Files>
+
+<Files "serial-number.txt">  
+  Order Allow,Deny
+  Deny from all
+</Files>
+
 #<Files "*.sql">  
 #  Order Allow,Deny
 #  Deny from all

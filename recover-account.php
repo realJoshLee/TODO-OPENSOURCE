@@ -9,37 +9,44 @@
     $recovery = $_POST['recovery'];
     $newpassword = $_POST['newpassword'];
 
-    // Checks to see if the email and the recovery code match
-    $itemslist = $db->prepare("SELECT * FROM passwordlogin WHERE username = :username");
+    // Makes sure that this isn't an LDAP account.
+    if(!$recovery=="LDAP"){
+      // Checks to see if the email and the recovery code match
+      $itemslist = $db->prepare("SELECT * FROM passwordlogin WHERE username = :username");
 
-    $itemslist->execute([
-      'username' => $_POST['email']
-      ]);
-
-    $items = $itemslist->rowCount() ? $itemslist : [];
-
-    foreach($items as $item){
-      if($item['recovery']==$_POST['recovery']){
-        $newpassword = mysqli_real_escape_string($connect, $_POST["newpassword"]);
-        $newpassword = password_hash($newpassword, PASSWORD_DEFAULT);
-        
-        $doneQuery = $db->prepare("
-          UPDATE passwordlogin SET password = :newpassword
-          WHERE username = :account
-          AND recovery = :recovery
-        ");
-
-        $doneQuery->execute([
-          'newpassword' => $newpassword,
-          'account' => $_POST['email'],
-          'recovery' => $_POST['recovery']
+      $itemslist->execute([
+        'username' => $_POST['email']
         ]);
 
-        echo '<script>alert("Account Recovered")</script>';
-      }else{
-        echo '<script>alert("Account Recovery Failed.")</script>';
+      $items = $itemslist->rowCount() ? $itemslist : [];
+
+      foreach($items as $item){
+        if($item['recovery']==$_POST['recovery']){
+          $newpassword = mysqli_real_escape_string($connect, $_POST["newpassword"]);
+          $newpassword = password_hash($newpassword, PASSWORD_DEFAULT);
+          
+          $doneQuery = $db->prepare("
+            UPDATE passwordlogin SET password = :newpassword
+            WHERE username = :account
+            AND recovery = :recovery
+          ");
+
+          $doneQuery->execute([
+            'newpassword' => $newpassword,
+            'account' => $_POST['email'],
+            'recovery' => $_POST['recovery']
+          ]);
+
+          echo '<script>alert("Account Recovered")</script>';
+        }else{
+          echo '<script>alert("Account Recovery Failed.")</script>';
+        }
       }
+    }else{
+      // What to do if the recovery code is LDAP
+      header('Location: logout.php?err=ldappassreset');
     }
+
   }
 ?>
 <!DOCTYPE html>
@@ -58,7 +65,7 @@
     <link rel="shortcut icon" type="image/png" href="app/icons/favicon.png"/>
 
     <!--Scripts-->
-    <link href="app/fa/css/all.css" rel="stylesheet">
+    <link href="app/plugins/fa/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">

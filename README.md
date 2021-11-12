@@ -2,6 +2,10 @@
 ## _A minimal and useful task manager that you control._
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
+## Notice
+Absolutely no extra support will be given other than what is found in the support docs. There will be no email support. We are not responsible for any data loss or data corruption. We are not responsible for warranties being voided by installing this software. We're not responsible for any data being leaked from a hack on your deployment. 
+By downloading, you are agreeing to this notice.
+
 ## Updating
 All of the users data is pulled from a MariaDB SQL server so updating code to a newer release is as simple as it can be. When a new relase comes along, download the code from the repo and place it on your web server.
 

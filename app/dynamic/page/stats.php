@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <div class="stat-card card-opacity-half">
+        <div class="stat-card">
           <div class="outer">
             <p>Completed Yesterday</p>
 
@@ -25,7 +25,7 @@
           </div>
         </div>
 
-        <div class="stat-card card-opacity-half">
+        <div class="stat-card">
           <div class="outer">
             <p>Completed This Month</p>
 
@@ -53,10 +53,10 @@
             label: 'Completed Tasks by Month',
             data: [<?php echo $Jan; ?>, <?php echo $Feb; ?>, <?php echo $Mar; ?>, <?php echo $Apr; ?>, <?php echo $May; ?>, <?php echo $June; ?>, <?php echo $July; ?>, <?php echo $Aug; ?>, <?php echo $Sept; ?>, <?php echo $Oct; ?>, <?php echo $Nov; ?>, <?php echo $Dec; ?>],
             backgroundColor: [
-              'rgba(54, 162, 235, 0.2)'
+              'rgba(84, 96, 254, 0.5)'
             ],
             borderColor: [
-              'rgba(54, 162, 235, 1)'
+              'rgba(66, 77, 228, 1)'
             ],
             borderWidth: 1
           }]

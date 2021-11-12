@@ -193,7 +193,7 @@ if (isset($_POST["login"])) {
     <link rel="shortcut icon" type="image/png" href="app/icons/favicon.png"/>
 
     <!--Scripts-->
-    <link href="app/fa/css/all.css" rel="stylesheet">
+    <link href="app/plugins/fa/css/all.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">

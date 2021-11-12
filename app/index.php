@@ -56,7 +56,7 @@
       }
     </script>
   </head>
-  <body onload="count(); notificationSend(); fetchKeyStatus();" id="body" class="theme-ctrl theme_<?php echo $theme; ?>">
+  <body onload="count(); notificationSend();" id="body" class="theme-ctrl theme_<?php echo $theme; ?>">
     <div class="loader">
       <div class="loader-content">
         <img src="icons/check.svg" alt="" class="loader-image"><br><br><br><br>
@@ -160,6 +160,9 @@
           </div>
         </div>
 
+        <!--Quick Add Container-->
+        <?php include('dynamic/elements/quick-add.php'); ?>
+
         <!--Settings-->
         <div class="settings-page default-hide app-page" id="settings-page">
           <?php include('dynamic/page/settings.php'); ?>
@@ -178,11 +181,6 @@
         <!--Stats Page-->
         <div class="stats-page default-hide app-page" id="stats-page">
           <?php include('dynamic/page/stats.php'); ?>
-        </div>
-
-        <!--Quick Add-->
-        <div class="quickadd-page default-hide app-page" id="quickadd-page">
-          <?php include('dynamic/page/quick-add.php'); ?>
         </div>
 
         <!--Alerts Page-->
@@ -229,16 +227,11 @@ var reminderemailen = '<?php echo $reminderemailen; ?>';
 var usrreminderen = '<?php echo $userreminderen; ?>';
 var backgroundsyncen = '<?php echo $backgroundsync; ?>';
 var taskct = '<?php echo $taskct; ?>';
-
-var licensecheck = 'false';
-// Please leave the keyserver value blank. This may be updated in the future.
-var keyserver = 'https://example.com/licensing/validate.php';
-var licenseemail = '<?php echo $licenseemail; ?>';
-var licensekey = '<?php echo $licensekey; ?>';
+var currentver = '<?php echo $currentverapp; ?>';
 
 <?php 
 include('scripts/index.js'); 
-include('scripts/licensing.js'); 
+include('scripts/atp.js'); 
+//include('scripts/licensing.js'); 
 ?>
 </script>
-<!--<script type="text/javascript" src="scripts/index.js"></script>-->

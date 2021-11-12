@@ -3,8 +3,12 @@
   require 'all.php';
 
   if(!isset($_GET['p'])){
-    header('Location: ?p=rollout');
+    header('Location: ?p=main');
   }
+
+  $updatecheck = "SELECT * FROM `tasks_control` WHERE updatestatus = 'update-available'";
+  $conup = $conn->query($updatecheck);
+  $updatestat = mysqli_num_rows($conup);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +24,7 @@
 
     <!--Scripts-->
     <script src="../app/plugins/jquery.min.js"></script>
-    <link href="../app/fa/css/all.css" rel="stylesheet">
+    <link href="../app/plugins/fa/css/all.css" rel="stylesheet">
 
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
@@ -50,11 +54,13 @@
       <a href="?p=rollout"><span style="padding-right:6px;"><i class="fas fa-hammer"></i></span>Rollout</a>
       <a href="?p=users"><span style="padding-right:5px;"><i class="fas fa-users"></i></span>Users</a>
       <a href="?p=archival"><span style="padding-right:5px;"><i class="fas fa-users"></i></span>Archival</a>
+      <a href="?p=updates"><span style="padding-right: 8px;"><i class="fas fa-wrench"></i></span>Updates</a>
 
       <br>
 
       <p><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Licensing</b></p>
       <a href="?p=licensingoverview"><span style="padding-right:9px;"><i class="fas fa-key"></i></span>Licensing Overview</a>
+      <a href="?p=appinfo"><span style="padding-right:9px;"><i class="fas fa-key"></i></span>App Info</a>
 
       <br>
 
@@ -70,6 +76,60 @@
       <!--Nav btn-->
       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 
+      <!--App info-->
+      <?php if ($_GET['p']=='appinfo'): ?>
+
+        <br><br>
+        
+        <script src="../app/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+        <link href="../app/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+        <div class="main-content settings-content">
+          <h2>App Info</h2>
+          <p style="color:red;">Please make sure that you write down this information, expecially your encryption information and licensing information.</p>
+          <p>If your conf_file.php file gets currupted, paste this into that file. When pasting, just remove the space between the '<' and '?' as it will then format as the correct code.</p>
+          <pre><code>
+          < ?php
+          $dbip = <?php echo $dbip; ?> <br>
+          $dbname = <?php echo $dbname; ?> <br>
+          $dbusername = <?php echo $dbusername; ?> <br>
+          $dbpassword = <?php echo $dbpassword; ?> <br>
+          $encpassword = <?php echo $encpassword; ?> <br>
+          $enciv = <?php echo $enciv; ?> <br>
+          $licenseemail = <?php echo $licenseemail; ?> <br>
+          $licensekey = <?php echo $licensekey; ?> <br>
+          $ldap_baseDN = <?php echo $ldap_baseDN; ?> <br>
+          $ldap_adminDN = <?php echo $ldap_adminDN; ?> <br>
+          $ldap_adminPass = <?php echo $ldap_adminPass; ?> <br>
+          $ldap_serverIP = <?php echo $ldap_serverIP; ?> <br>
+          $ldap_domain = <?php echo $ldap_domain; ?> <br>
+          $restrict_login = <?php echo $restrict_login; ?>
+          </code></pre>
+        </div>
+      <?php endif; ?>
+
+      <!--Updates-->
+      <?php if ($_GET['p']=='updates'): ?>
+
+        <br><br>
+        
+        <script src="../app/plugins/bootstrap/bootstrap.bundle.min.js"></script>
+        <link href="../app/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+        <div class="main-content settings-content">
+          <h2>Updates</h2>
+          <?php if($updatestat=='1'): ?>
+          <div class="alert alert-success" role="alert">
+            There is an update available!
+          </div>
+          <?php endif; ?>
+          <p>To update the server, please download all of the files from the github and then go through the setup.php file again. Or if you would like to avoid going through the setup.php file and re-entering in all of your information, you can copy the conf_file.php file in the following directory: app/init/conf_file.php and then replace it when you finish copying all of the files.</p>
+          <p>The conf_file.php is what contains all of your credentials for the database server, encryption keys, and license keys.</p>
+          <p style="color:red;">Before you update plaese make sure that you have your encryption keys and setup information written down as without the encryption keys, nothing can be recovered. You can view that information on the <a href="?p=appinfo">App Info</a> page.</p>
+          
+        </div>
+      <?php endif; ?>
+
       <!--Main-->
       <?php if ($_GET['p']=='main'): ?>
         <br><br>
@@ -77,6 +137,17 @@
         <div class="main-content">
 
           <h2>Main</h2>
+
+          <?php if($updatestat=='1'): ?>
+            <!--Actions-->
+            <div class="section" style="background:#d1e7dd;border:1px solid #c5e1d4;">
+              <h2>Update!</h2>
+              <p>There is an update available. Please go to the update page to learn more.</p>
+              <a href="?p=updates"><i class="fas fa-wrench"></i>&nbsp;Updating</a><br><br>
+            </div>
+
+            <br><br>
+          <?php endif; ?>
 
           <div class="row">
             <div class="column">
@@ -194,7 +265,6 @@
 
 
             <div class="column">
-
 
               <!--Actions-->
               <div class="section">
