@@ -164,6 +164,14 @@
                 </div>
             </section>
 
+            
+            
+            
+            
+            
+            
+            
+            
             <section class="features section text-center">
                 <div class="container">
                     <div class="features-inner section-inner has-bottom-divider">
@@ -281,6 +289,14 @@
             </section>
         </main>
 
+        
+        
+        
+        
+        
+        
+        
+        
         <footer class="site-footer text-light">
             <div class="container">
                 <div class="site-footer-inner">
@@ -310,7 +326,6 @@
             </div>
         </footer>
     </div>
-
     <script src="landing/dist/js/main.min.js"></script>
 </body>
 </html>
