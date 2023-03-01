@@ -4,6 +4,7 @@ session_start();
 $currentverapp = 'v2.1';
 include('serial-number.php');
 
+// Pulls config file with information on decription and information with connecting to the DB
 include('conf_file.php');
 $db = new PDO('mysql:dbname='.$dbname.';host='.$dbip.'', ''.$dbusername.'', ''.$dbpassword.'');
 $connect = mysqli_connect("".$dbip."", "".$dbusername."", "".$dbpassword."", "".$dbname."");
@@ -15,7 +16,7 @@ $method = 'aes-256-cbc';
 $key = substr(hash('sha256', $password, true), 0, 32);
 $iv = $enciv;
 
-// Gets the configuration settings from the database
+// Gets the configuration settings from the database for how the server will act
 $configget = $db->prepare("SELECT * FROM `tasks_config` WHERE content = :content");
 $configget->execute([
   'content' => 'main_settings'
