@@ -7,7 +7,7 @@ Absolutely no extra support will be given other than what is found in the suppor
 By downloading, you are agreeing to this notice.
 
 ## Updating
-All of the users data is pulled from a MariaDB SQL server so updating code to a newer release is as simple as it can be. When a new relase comes along, download the code from the repo and place it on your web server. After you place the new version on your web server, setup the init.php file to point and login to your database to pull existing tasks.
+All of the users data is pulled from a MariaDB SQL server so updating code to a newer release is as simple as it can be. When a new relase comes along, download the code from the repo and place it on your web server. After you place the new version on your web server, setup the config file in the init folder to point and login to your database to pull existing tasks.
 
 ## Features
 - Open source, so you can self host this on your server and have control over your data.
@@ -19,7 +19,7 @@ All of the users data is pulled from a MariaDB SQL server so updating code to a 
 ## Setup
 1. Push all files to your webserver.
 2. Navigate to the following URL and finish the setup: https://yourdomain.com/setup.php
-(For updating, please make sure that you update the init.php file to point to your database server.)
+(For updating, please make sure that you update or save the config file in the init to point to your database server.)
 
 ## License
 This form isn't required but it's nice to see the quanity of who self hosts our app and to have emails incase of we need to notify our users. This data is not sold or rented to other companies.
