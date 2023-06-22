@@ -1,5 +1,5 @@
 <?php
-// Dates
+// Different combination of dates
 $year = date('Y', strtotime('+0 day'));
 $month = date('M', strtotime('+0 day'));
 $today = date('M-d-Y', strtotime('-0 day'));
@@ -11,12 +11,12 @@ $fivedate = date('M-d-Y', strtotime('-5 day'));
 $sixdate = date('M-d-Y', strtotime('-6 day'));
 $sevendate = date('M-d-Y', strtotime('-7 day'));
 
-// Total tasks
+// Gets the user's total tasks
 $dbtotal = "SELECT * FROM `tasks_tasks` WHERE completed = 'true' AND account = '$account'";
 $connStatustotal = $conn->query($dbtotal);
 $totalcount = mysqli_num_rows($connStatustotal);
 
-// Goal complete counts
+// Goal complete counts for daily and weekly
 $todaycount = "SELECT * FROM `tasks_tasks` WHERE dateshowcomplete = '$today' AND account = '$account'";
 $todaystats = $conn->query($todaycount);
 $totday = mysqli_num_rows($todaystats);
