@@ -20,16 +20,6 @@ if(isset($_SESSION["suite"])) {
 
 
 
-
-
-
-
-
-
-
-
-
-
 // This is for the login cookie
 if(isset($_COOKIE['token'])){
   // Decrypts the token/cookie
@@ -48,16 +38,6 @@ if(isset($_COOKIE['token'])){
     header('Location: app/index.php#planning');
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -191,16 +171,6 @@ if (isset($_POST["register"])) {
 
   }
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
