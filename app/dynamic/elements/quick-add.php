@@ -2,7 +2,7 @@
   <div class="overlay-padding-top">
     <div class="quickAddContainer-Inner">
 
-      <!--Task input-->
+      <!--Task input container start-->
       <form class="quickadd-task-form">
         <input type="text" name="task" placeholder="Add a task" class="form-control" id="input-quickadd">
 
@@ -25,6 +25,7 @@
 
         <input type="submit" value="Add task" class="form-control-quick-add">
       </form>
+      <!--Task input container end-->
 
 
     </div>
